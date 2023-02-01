@@ -21,9 +21,9 @@ namespace LuminiaAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IEnumerable<Item> GetAllItems()
+        public IEnumerable<Item> GetAllItems(string? name = "")
         {
-            return _luminiaContext.Items.Select(x => x);
+            return _luminiaContext.Items.Where(x => x.Name!.Contains(name!));
         }
 
 
