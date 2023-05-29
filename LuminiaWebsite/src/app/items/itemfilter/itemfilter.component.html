@@ -1,0 +1,15 @@
+<div>
+  <input matInput placeholder="Filter by name" [(ngModel)]="filterName">
+</div>
+
+<div>
+  <mat-checkbox [(ngModel)]="showRing">Ring</mat-checkbox>
+  <mat-checkbox [(ngModel)]="showPotion">Potion</mat-checkbox>
+</div>
+<div>
+  <mat-slide-toggle [(ngModel)]="showNormalItems">Normal Items</mat-slide-toggle>
+  <mat-slide-toggle [(ngModel)]="showMagicItems">Magic Items</mat-slide-toggle>
+</div>
+<div>
+  <button mat-raised-button color="primary" (click)="setItemFilter()">Search</button>
+</div>

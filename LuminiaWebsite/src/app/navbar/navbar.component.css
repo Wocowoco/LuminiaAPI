@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background-color: #cfd2cd;
+}
+
+.navTitle
+{
+  display: flex;
+  justify-content: center;
+  transition: background-color 0.2s ease-in;
+}
+  .navTitle:hover{
+    background-color: #bdbbb0;
+  }
+
+.navbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Titan One";
+  font-size: 25px;
+}
+  .navbutton a {
+    padding: 15px 15px 15px 15px;
+    color:#353535;
+    text-decoration: none;
+  }
+
+  .navbutton:hover,
+  .navbutton a:hover{
+    transition: background-color 0.2s ease-in;
+    background-color: #bdbbb0;
+    color:#5A5152;
+  }
+
+.navElements{
+  margin: 0px;
+  flex: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.luminiaImg{
+  width: 130px;
+  padding: 1px 15px 0px;
+}
+
+.active{
+  background-color: #908C7A ;
+}
+  .active a{
+    color:#2C2B25;
+  }
