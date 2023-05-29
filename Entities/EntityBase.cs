@@ -8,9 +8,7 @@ namespace LuminiaAPI.Entities
         [Key]
         public int ObjectId { get; set; }
 
-        [Required]
         public string? CreationUser { get; set; }
-        [Required]
         public DateTime CreationDate { get; set; }
 
         public string? UpdateUser { get; set; }
