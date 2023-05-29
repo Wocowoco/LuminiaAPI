@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "luminiafirebase": {
+      "hosting": {
+        "LuminiaWebsite": [
+          "luminiafirebase"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "luminiafirebase"
+  }
+}

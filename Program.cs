@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<ILuminiaContext, LuminiaContext>();
-builder.Services.AddDbContext<LuminiaContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("LuminiaDb")!));
+builder.Services.AddDbContext<LuminiaContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("LuminiaDbOnline")!));
 
 // Add automapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -24,6 +24,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html");
 
 app.UseCors(x => x.AllowAnyOrigin()
                   .AllowAnyMethod()

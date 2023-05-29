@@ -8,7 +8,8 @@ namespace LuminiaAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ItemsController : ControllerBase
+    public class ItemsController 
+        : ControllerBase
     {
         private readonly ILuminiaContext _luminiaContext;
         private readonly IMapper _mapper;

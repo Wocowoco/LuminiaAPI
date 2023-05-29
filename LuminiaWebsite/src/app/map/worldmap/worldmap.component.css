@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+
+.map-container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.map-frame {
+  height: 100%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  background: #000000;
+}
+
+.drawer{
+  border-left-width: 0px;
+  width: 350px;
+  background-color: #fbfbf2;
+}
+
+.toggle{
+  margin: 2px;
+  margin-bottom: 3px;
+  background-color: #bdbbb0;
+  display: flex;
+  height: 25px;
+  border-radius: 10px;
+  border: 1px solid #2C2B25;
+}
+
+.toggleAllLayersButton{
+  display: flex;
+  font-size: 20px;
+  margin: 5px;
+  flex-grow: 4;
+  justify-content: center;
+  user-select: none;
+}
+
+.subtoggle{
+  width: 150px;
+}
+
+.toggleAllLayers{
+  font-family: "Titan One";
+  font-weight: 100;
+  color: #353535;
+  background-color: #bdbbb0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+  .toggle:hover{
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .toggleAllLayersButton:hover{
+    color: #5A5152;
+    cursor: pointer;
+  }
+
+
+.icon{
+  padding-left: 5px;
+  padding-top: 5px;
+  height: 15px;
+  width: 15px;
+  user-select: none;
+}
+
+.iconText{
+  padding-left: 4px;
+  padding-top: 3px;
+  user-select: none;
+}
+
+.layerParentGroup{
+  margin-bottom: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.layerChildGroup{
+  margin-left: 25px;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.sidepanel-button{
+  z-index: 5000;
+}

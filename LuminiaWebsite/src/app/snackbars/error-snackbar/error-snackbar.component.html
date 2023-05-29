@@ -1,0 +1,10 @@
+<div class="errorSnackbarDiv">
+  <div class="errorSnackbarText" matSnackBarLabel>
+    {{data}}
+  </div>
+  <div matSnackBarActions>
+    <button class="errorSnackbarButton" mat-button matSnackBarAction (click)="snackBarRef.dismissWithAction()">
+      <mat-icon area-label="x" fontIcon="close"></mat-icon>
+    </button>
+  </div>
+</div>
