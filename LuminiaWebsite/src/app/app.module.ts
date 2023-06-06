@@ -9,8 +9,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomepageModule } from './homepage/homepage.module';
 import { ItemsModule } from './items/items.module';
 import { HttpClientModule } from '@angular/common/http';
+import { PantheonPageComponent } from './pantheon/pantheon-page/pantheon-page.component';
+import { MatCardModule } from '@angular/material/card';
+import { PantheonModule } from './pantheon/pantheon.module';
 
-const routes: Routes = []
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ const routes: Routes = []
     ItemsModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    PantheonModule
   ],
   providers: [
   ],
