@@ -10,35 +10,47 @@ body{
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.error-snackbar {
-  background: #F44336;
-  color: white;
-  padding-right: 5px !important;
+hr{
+  border: none;
+  width: 75%;
+  border-radius: 3px;
+  border-top: 5px solid #BDBBB0;;
 }
 
-.filterIcon{
-  padding-top: 12px;
-  height: 12px;
-  display: block;
-}
-
+/*------------------------//
+//     HEADINGS           //
+//------------------------*/
 .mat-typography h1 {
   font-family: "Titan One";
-  color: #2C2B25;
   font-weight: normal;
-  font-size: 32px;
+  font-size: 36px;
 }
 
 .mat-typography h2 {
   font-family: "Titan One";
-  color: #2C2B25;
   font-weight: normal;
-  font-size: 26px;
+  font-size: 32px;
 }
 
+.mat-typography h3 {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 28px;
+}
+
+.mat-typography h4 {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 20px;
+}
+
+/*------------------------//
+//     SUB-HEADERS        //
+//------------------------*/
 .sub-title-down,
 .sub-title-up{
   background-color: #BDBBB0;
+  color: #2C2B25;
   padding-top: 25px;
   height: 60px;
   text-align: center;
@@ -61,6 +73,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .divider-up{
     clip-path: polygon(0 45%, 100% 0, 100% 55%, 0% 100%);
   }
+
+/*------------------------//
+//       WORLDMAP         //
+//------------------------*/
+.error-snackbar {
+  background: #F44336;
+  color: white;
+  padding-right: 5px !important;
+}
+
+.filterIcon{
+  padding-top: 12px;
+  height: 12px;
+  display: block;
+}
 
 
 

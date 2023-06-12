@@ -5,30 +5,66 @@
 
   <div class="pantheon-summary">
     <mat-card class="pantheon-card white-pantheon-summary">
-      <mat-card-header><h2>White Pantheon</h2></mat-card-header>
+      <mat-card-header class="pantheon-card-header">White Pantheon</mat-card-header>
       <mat-card-content class="pantheon-card-content">
-        <button mat-stroked-button class="white-pantheon">Cara</button>
-        <button mat-stroked-button class="white-pantheon">Fen'La</button>
-        <button mat-stroked-button class="white-pantheon">Kaz</button>
-        <button mat-stroked-button class="white-pantheon">Yuvic</button>
+        <button mat-stroked-button class="white-pantheon" (click)="navigate('Cara')">
+          Cara
+          <img src="../../../assets/images/pantheon/cara-icon.png">
+        </button>
+        <button mat-stroked-button class="white-pantheon" (click)="navigate('Fen\'La')">
+          Fen'La
+          <img src="../../../assets/images/pantheon/fenla-icon.png">
+        </button>
+        <button mat-stroked-button class="white-pantheon" (click)="navigate('Kaz')">
+          Kaz
+          <img src="../../../assets/images/pantheon/kaz-icon.png">
+        </button>
+        <button mat-stroked-button class="white-pantheon" (click)="navigate('Yuvic')">
+          Yuvic
+          <img src="../../../assets/images/pantheon/yuvic-icon.png">
+        </button>
       </mat-card-content>
     </mat-card>
     <mat-card class="pantheon-card grey-pantheon-summary">
-      <mat-card-header><h2>Grey Pantheon</h2></mat-card-header>
+      <mat-card-header class="pantheon-card-header">Grey Pantheon</mat-card-header>
       <mat-card-content class="pantheon-card-content">
-        <button mat-stroked-button class="grey-pantheon">Amata</button>
-        <button mat-stroked-button class="grey-pantheon">Atama</button>
-        <button mat-stroked-button class="grey-pantheon">Mirna</button>
-        <button mat-stroked-button class="grey-pantheon">Taoides</button>
+        <button mat-stroked-button class="grey-pantheon" (click)="navigate('Amata')">
+          Amata
+          <img src="../../../assets/images/pantheon/amata-icon.png">
+        </button>
+        <button mat-stroked-button class="grey-pantheon" (click)="navigate('Atama')">
+          Atama
+          <img src="../../../assets/images/pantheon/atama-icon.png">
+        </button>
+        <button mat-stroked-button class="grey-pantheon" (click)="navigate('Mirna')">
+          Mirna
+          <img src="../../../assets/images/pantheon/mirna-icon.png">
+        </button>
+        <button mat-stroked-button class="grey-pantheon" (click)="navigate('Taoides')">
+          Taoides
+          <img src="../../../assets/images/pantheon/taoides-icon.png">
+        </button>
       </mat-card-content>
     </mat-card>
     <mat-card class="pantheon-card black-pantheon-summary">
-      <mat-card-header><h2>Black Pantheon</h2></mat-card-header>
+      <mat-card-header class="pantheon-card-header">Black Pantheon</mat-card-header>
       <mat-card-content class="pantheon-card-content">
-        <button mat-stroked-button class="black-pantheon">Krigon</button>
-        <button mat-stroked-button class="black-pantheon">Lokaine</button>
-        <button mat-stroked-button class="black-pantheon">Vak'Nor</button>
-        <button mat-stroked-button class="black-pantheon">Vex</button>
+        <button mat-stroked-button class="black-pantheon" (click)="navigate('Krigon')">
+          Krigon
+          <img src="../../../assets/images/pantheon/krigon-icon.png">
+        </button>
+        <button mat-stroked-button class="black-pantheon" (click)="navigate('Lokaine')">
+          Lokaine
+          <img src="../../../assets/images/pantheon/lokaine-icon.png">
+        </button>
+        <button mat-stroked-button class="black-pantheon" (click)="navigate('Vak\'Nor')">
+          Vak'Nor
+          <img src="../../../assets/images/pantheon/vaknor-icon.png">
+        </button>
+        <button mat-stroked-button class="black-pantheon" (click)="navigate('Vex')">
+          Vex
+          <img src="../../../assets/images/pantheon/vex-icon.png">
+        </button>
       </mat-card-content>
     </mat-card>
   </div>
@@ -40,16 +76,9 @@
     </div>
   </section>
   <div class="white-pantheon">
-    <div class="pantheon-display">
-      <img src="../../../assets/images/pantheon/fenla-avatar.png" class="big">
-      <mat-card class="big"></mat-card>
-      <img src="../../../assets/images/pantheon/fenla-icon.png">
-    </div>
-    <section class="divider-up"></section>
-    <div class="pantheon-display">
-      <img src="../../../assets/images/pantheon/fenla-icon.png">
-      <mat-card class="big"></mat-card>
-      <img src="../../../assets/images/pantheon/fenla-avatar.png" class="big2">
+    <div *ngFor="let info of whitePantheonInfo; let i = index; let last = last">
+      <ng-container [ngTemplateOutlet]="deityInfo"
+        [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
     </div>
   </div>
 
@@ -59,13 +88,72 @@
       <h2>Grey Pantheon</h2>
     </div>
   </section>
-  <div class="grey-pantheon">Grey pantheon</div>
+  <div class="grey-pantheon">
+    <div *ngFor="let info of greyPantheonInfo; let i = index; let last = last">
+      <ng-container [ngTemplateOutlet]="deityInfo"
+        [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
+    </div>
+  </div>
 
-   <!--BLACK PANTHEON-->
+  <!--BLACK PANTHEON-->
   <section class="grey-to-black">
     <div class="sub-title-down">
       <h2>Black Pantheon</h2>
     </div>
   </section>
-  <div class="black-pantheon">Black pantheon</div>
+  <div class="black-pantheon">
+    <div *ngFor="let info of blackPantheonInfo; let i = index; let last = last">
+      <ng-container [ngTemplateOutlet]="deityInfo"
+        [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
+    </div>
+  </div>
 </div>
+
+<ng-template #deityInfo let-info="info" let-i="index" , let-last="last">
+  <section [id]="info.name"></section>
+  <div class="deity-display" [ngClass]="{ 'deity-display-inverted': i % 2 == 1 }">
+    <div class="deity-infobox deity-display-column">
+      <div class="deity-header">
+        <h3>{{ info.name }}</h3>
+        <img src="{{ info.iconUrl }}" />
+      </div>
+      <span>{{ info.pronoun }} of {{ info.domains }}</span>
+      <div class="deity-info-grid">
+        <div class="deity-info-column" *ngIf="info.titles.length != 0">
+          <div class="deity-info-column-data">
+            <h4>Title(s)</h4>
+            <ul>
+              <li *ngFor="let title of info.titles">
+                {{ title }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="deity-info-column">
+          <div class="deity-info-column-data">
+            <h4>Gender</h4>
+            <span>{{ info.gender }}</span>
+          </div>
+          <hr />
+          <div class="deity-info-column-data">
+            <h4>Race</h4>
+            <span>{{ info.race }}</span>
+          </div>
+          <hr />
+          <div class="deity-info-column-data">
+            <h4>Alignment</h4>
+            <span>{{ info.alignment }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="deity-display-column">
+      <img src="{{ info.avatarUrl }}" [ngClass]="{ 'flip-horizontal': i % 2 == 1 }" />
+    </div>
+  </div>
+  <section [ngClass]="{
+      'divider-up': !last && i % 2 == 0,
+      'divider-down': !last && i % 2 == 1
+    }"></section>
+</ng-template>

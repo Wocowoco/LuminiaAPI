@@ -10,7 +10,7 @@ import { MarkerDto } from './dtos/markerdto.interface';
 })
 export class LuminiaApiService {
 
-  LuminiaApiURL : string = "http://luminia.be/api/"
+  LuminiaApiURL : string = "https://luminia.be/api/"
 
   constructor(private http: HttpClient) { }
 
