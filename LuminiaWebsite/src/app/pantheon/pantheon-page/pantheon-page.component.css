@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+
+/* ------ */
+/*  DIVS  */
+/* ------ */
+
+.pantheon-page{
+  width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.pantheon-header{
+  padding-top: 35px;
+  color: #2C2B25;
+  padding-bottom: 35px;
+  clip-path: polygon(0 0, 100% 0%, 100% 80%, 0% 100%);
+  background-color: #BDBBB0;
+  text-align: center;
+}
+
+.pantheon-summary{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  padding-top: 45px;
+  padding-bottom: 45px;
+  clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+}
+  .pantheon-summary img{
+    margin-left: 5px;
+    width: 25px;
+    height: 25px;
+  }
+
+.mat-card-header {
+  display: block;
+  text-align: center;
+}
+
+.pantheon-card {
+  width: 26%;
+  min-width: 260px;
+  margin: 5px 15px 5px 15px;
+}
+
+.pantheon-card-header {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 30px;
+  margin-bottom: 15px;
+  line-height: normal;
+}
+
+.pantheon-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.mat-stroked-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3px;
+}
+
+.white-pantheon{
+  background-color: #F8F8F2;
+  color: #2C2B25;
+}
+
+.white-pantheon-summary{
+  background-color: #FAFAF6;
+  color: #2C2B25;
+}
+
+.grey-pantheon{
+  background-color: #DFE2DF;
+  color: #2C2B25;
+}
+
+.grey-pantheon-summary{
+  background-color: #EAECEA;
+  color: #2C2B25;
+}
+
+.black-pantheon{
+  background-color: #525252;
+  color: #FBFBF2;
+}
+
+.black-pantheon-summary,
+.black-pantheon-summary h2{
+  background-color: #666666;
+  color: #FBFBF2;
+}
+
+.standard-to-white{
+  background: linear-gradient(180deg, rgba(251,251,242,1) 50%, rgba(248,248,242,1) 50%);
+}
+.white-to-gray{
+  background: linear-gradient(180deg, rgba(248,248,242,1) 50%, rgba(223,226,223,1) 50%);
+}
+.grey-to-black{
+  background: linear-gradient(180deg, rgba(223,226,223,1) 50%, rgba(82,82,82,1) 50%);
+}
+
+.deity-display{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-x: hidden;
+  max-width: 1250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+  .deity-display-inverted{
+    flex-direction: row-reverse;
+  }
+
+.deity-display-column{
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.deity-infobox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 350px;
+}
+ .deity-infobox > span{
+  margin-bottom: 25px;
+  font-size: 17px;
+ }
+
+.deity-header{
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Titan One";
+  font-weight: normal;
+  line-height: normal;
+  margin-bottom: 5px;
+}
+  .deity-header h3{
+    margin-bottom: 0px;
+  }
+  .deity-header img{
+    margin-left: 15px;
+    width: 75px;
+    height: 75px;
+  }
+
+.deity-info-grid{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
+
+.deity-info-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.deity-info-column-data{
+  display: flex;
+  align-items: center;
+  text-align: left;
+  justify-content: center;
+}
+  .deity-info-column-data h4,
+  .deity-info-column-data ul{
+    margin: 0px;
+  }
+
+  .deity-info-column-data ul{
+    padding-left: 30px;
+  }
+
+  .deity-info-column-data span{
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+
+.flip-horizontal{
+  transform: scaleX(-1);
+}

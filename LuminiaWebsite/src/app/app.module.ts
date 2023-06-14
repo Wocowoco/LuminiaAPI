@@ -5,12 +5,10 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MapModule } from './map/map.module';
-import { RouterModule, Routes } from '@angular/router';
 import { HomepageModule } from './homepage/homepage.module';
 import { ItemsModule } from './items/items.module';
 import { HttpClientModule } from '@angular/common/http';
-
-const routes: Routes = []
+import { PantheonModule } from './pantheon/pantheon.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +24,7 @@ const routes: Routes = []
     ItemsModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    PantheonModule
   ],
   providers: [
   ],
