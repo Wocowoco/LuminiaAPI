@@ -4,6 +4,11 @@
      <!--Drawer content goes here-->
     <mat-drawer class="drawer" #sidePanel mode="side" position="end" id="sidePanel">
 
+      <!-- Close toggle for small screens -->
+      <div *ngIf="isMobileView">
+        <button mat-stroked-button class="close-drawer-button" (click)="closeDrawer()">Close filters <i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+
       <div class="toggleAllLayers">
         <div class="toggleAllLayersButton" (click)="toggleAllLayers(true)">
           <p unselectable="on">Show All</p>
