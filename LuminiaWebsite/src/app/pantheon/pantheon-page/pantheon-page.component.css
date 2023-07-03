@@ -118,9 +118,12 @@
   flex-wrap: wrap;
   justify-content: center;
   overflow-x: hidden;
-  max-width: 1250px;
+  max-width: 1350px;
   margin-left: auto;
   margin-right: auto;
+
+  background-repeat: no-repeat;
+  background-position: center;
 }
   .deity-display-inverted{
     flex-direction: row-reverse;

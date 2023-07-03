@@ -3,6 +3,7 @@ import { IDeityInfo } from "../deity-info.interface";
 export class KazDeityInfo implements IDeityInfo{
   avatarUrl = "../../../assets/images/pantheon/kaz-avatar.png";
   iconUrl = "../../../assets/images/pantheon/kaz-icon.png";
+  backgroundUrl = "../../../assets/images/decorations/pantheon-kaz.png";
   name = "Kaz";
   pronoun = "God";
   domains = "Wealth, Trade, Protection, Healing";

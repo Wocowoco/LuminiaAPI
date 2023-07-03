@@ -3,6 +3,7 @@ import { IDeityInfo } from "../deity-info.interface";
 export class CaraDeityInfo implements IDeityInfo{
   avatarUrl = "../../../assets/images/pantheon/cara-avatar.png";
   iconUrl = "../../../assets/images/pantheon/cara-icon.png";
+  backgroundUrl = "../../../assets/images/decorations/pantheon-cara.png";
   name = "Cara";
   pronoun = "Goddess";
   domains = "Light, Justice, Warmth, Radiance";

@@ -111,7 +111,7 @@
 
 <ng-template #deityInfo let-info="info" let-i="index" , let-last="last">
   <section [id]="info.name"></section>
-  <div class="deity-display" [ngClass]="{ 'deity-display-inverted': i % 2 == 1 }">
+  <div class="deity-display" [ngClass]="{ 'deity-display-inverted': i % 2 == 1}" [style.backgroundImage]="'url(' + info.backgroundUrl + ')'">
     <div class="deity-infobox deity-display-column">
       <div class="deity-header">
         <h3>{{ info.name }}</h3>

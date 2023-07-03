@@ -3,6 +3,7 @@ import { IDeityInfo } from "../deity-info.interface";
 export class VexDeityInfo implements IDeityInfo{
   avatarUrl = "../../../assets/images/pantheon/vex-avatar.png";
   iconUrl = "../../../assets/images/pantheon/vex-icon.png";
+  backgroundUrl = "../../../assets/images/decorations/pantheon-vex.png";
   name = "Vex";
   pronoun = "Goddess";
   domains = "Death, Necromancy, Darkness";
