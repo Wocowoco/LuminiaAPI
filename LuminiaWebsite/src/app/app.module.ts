@@ -9,6 +9,7 @@ import { HomepageModule } from './homepage/homepage.module';
 import { ItemsModule } from './items/items.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PantheonModule } from './pantheon/pantheon.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PantheonModule } from './pantheon/pantheon.module';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MapModule,

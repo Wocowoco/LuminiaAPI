@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav} from '@angular/material/sidenav';
 import * as L from 'leaflet';
 import 'leaflet-easybutton';
@@ -31,18 +31,24 @@ import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-s
 })
 
 export class WorldmapComponent implements AfterViewInit, OnInit{
-
+  @ViewChild('sidePanel') sidenav: MatSidenav | null = null;
   public layerStates = new Map<IAmMapLayer,boolean>();
   private map : any;
-
+  public isMobileView : boolean = false;
   public allLayers? : IAmMapLayer[] = [];
 
   private dragMarker : any;
 
-  @ViewChild('sidePanel') sidenav: MatSidenav | null = null;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any)
+  {
+    this.isMobileView = window.innerWidth < 550;
+  }
 
   constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) {
-   }
+   this.onResize(null);
+  }
 
   async ngAfterViewInit(): Promise<void> {
     this.initMap();
@@ -139,6 +145,8 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       this.sidenav!.toggle();
     }).addTo(this.map).setPosition('topright');
 
+
+
     //Draggable marker
     var blankIcon = L.icon({
       iconUrl: "assets/images/worldmap/icon/blank.png",
@@ -160,5 +168,10 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     this.allLayers?.forEach(layer => {
       layer.setActive(isActive);
     });
+  }
+
+  public closeDrawer()
+  {
+    this.sidenav!.close();
   }
 }

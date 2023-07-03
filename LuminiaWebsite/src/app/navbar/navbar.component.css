@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 
-.navbar {
+.navbar{
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -55,3 +55,57 @@
   .active a{
     color:#2C2B25;
   }
+
+
+/* MOBILE */
+.hamburger-button{
+  margin-top: 8px;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 10px;;
+}
+
+.mobile-menu{
+  display: none;
+  position: absolute;
+  top: 55px;
+  right: 25px;
+}
+  .mobile-menu.open{
+    display: flex;
+  }
+
+.mobile-menu-button{
+  display:flex;
+  width: 200px;
+  height: 45px;
+  border-radius: 10px;
+  border: 2px solid #353535;
+  background-color: #BDBBB0;
+  margin-top: 5px;
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 6px #000);
+
+}
+  .mobile-menu-button a{
+    font-size: 22px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Titan One";
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    color:#353535;
+    text-decoration: none;
+  }
+  .mobile-menu-button.active{
+    background-color:#908C7A;
+  }
+
+.navElements.mobile{
+  flex-direction: column;
+  align-content: flex-end;
+  flex-wrap: wrap;
+}

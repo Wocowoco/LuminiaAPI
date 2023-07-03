@@ -21,6 +21,7 @@ const childRoutes: Routes = [
     MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
+    MatButtonModule,
     RouterModule.forChild(childRoutes),
   ],
   exports:[
