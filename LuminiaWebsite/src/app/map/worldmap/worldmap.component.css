@@ -20,6 +20,11 @@
   border-left-width: 0px;
   width: 350px;
   background-color: #fbfbf2;
+  background-image: url(../../../assets/images/decorations/worldmap-filtermenu.png);
+  background-size: 150px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 98%;
 }
   @media(max-width: 550px) {
     .drawer{
