@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
+import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
 export class LokaineLayer extends MapLayerBase implements IAmMapLayer
 {
@@ -9,19 +9,18 @@ export class LokaineLayer extends MapLayerBase implements IAmMapLayer
   public name = "Lokaine";
   public mapLayer = MapLayerEnum.LokaineAltar;
 
-  constructor(map : L.Map, luminiaApiService: LuminiaApiService, layersToControl?: IAmMapLayer[]) {
-    super(map, luminiaApiService, layersToControl);
+  constructor(map : L.Map) {
+    super(map);
   }
 
   //Icons
-  private lokaine = L.icon({
+  private icon = L.icon({
     iconUrl: this.worldmapImagePath + "icon/lokaine.png",
     iconSize: [15,15],
     iconAnchor: [7.5, 7.5]
   });
 
-  public override async getMarkers() : Promise<void>
-  {
-    await super.getMarkers(this.mapLayer, this.lokaine);
+  public override addMarker(markerDto: MarkerDto): void {
+    super.addMarker(markerDto, this.icon);
   }
 }

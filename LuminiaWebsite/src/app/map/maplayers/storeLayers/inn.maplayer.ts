@@ -1,13 +1,14 @@
-import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
+import { MapLayerBase, IAmMapLayer } from "../maplayer.interface";
+import * as L from "leaflet";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class KrigonLayer extends MapLayerBase implements IAmMapLayer
+export class InnLayer extends MapLayerBase implements IAmMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/krigon.png";
-  public name = "Krigon";
-  public mapLayer = MapLayerEnum.KrigonAltar;
+
+  public imageUrl = this.worldmapImagePath + "icon/inn.png";
+  public name = "Inns";
+  public mapLayer = MapLayerEnum.Inn;
 
   constructor(map : L.Map) {
     super(map);
@@ -15,7 +16,7 @@ export class KrigonLayer extends MapLayerBase implements IAmMapLayer
 
   //Icons
   private icon = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/krigon.png",
+    iconUrl: this.worldmapImagePath + "icon/inn.png",
     iconSize: [15,15],
     iconAnchor: [7.5, 7.5]
   });

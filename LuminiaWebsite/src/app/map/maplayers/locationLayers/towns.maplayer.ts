@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
+import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
 export class TownsLayer extends MapLayerBase implements IAmMapLayer
 {
@@ -10,8 +10,8 @@ export class TownsLayer extends MapLayerBase implements IAmMapLayer
   public mapLayer = MapLayerEnum.Town;
   override zIndex = 1000;
 
-  constructor(map: L.Map, luminiaApiService: LuminiaApiService){
-    super(map, luminiaApiService);
+  constructor(map: L.Map){
+    super(map);
     this.amount = this.markers.length;
   }
 
@@ -48,8 +48,7 @@ export class TownsLayer extends MapLayerBase implements IAmMapLayer
     L.marker([-34.597042, -65.412598], {icon: this.icon_zalias}).addTo(this.layer).setZIndexOffset(this.zIndex),
   ]
 
-  public override async getMarkers() : Promise<void>
-  {
+  public override addMarker(markerDto: MarkerDto): void {
     //
   }
 }

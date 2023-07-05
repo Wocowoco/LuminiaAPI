@@ -1,7 +1,7 @@
 import * as L from "leaflet";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
-import { firstValueFrom } from 'rxjs';
+import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
 
 export interface IAmMapLayer
@@ -15,14 +15,13 @@ export interface IAmMapLayer
   getBackgroundColor() : void;
   toggleActive() : void;
   setActive(isActive: boolean) : void;
-  getMarkers(): Promise<void>;
+  addMarker(markerDto : MarkerDto) : void
 }
 
 export class MapLayerBase
 {
   public readonly worldmapImagePath: string = "assets/images/worldmap/";
   public amount: number = 0;
-  private luminiaApiService : LuminiaApiService;
   private map: L.Map;
   public layer: L.LayerGroup = new L.LayerGroup();
   public isActive: boolean = true;
@@ -30,10 +29,9 @@ export class MapLayerBase
   public childLayers?: IAmMapLayer[];
   protected zIndex: number =  0;
 
-  constructor(map: L.Map, luminiaApiService: LuminiaApiService, layersToControl?: IAmMapLayer[]){
+  constructor(map: L.Map, childLayers?: IAmMapLayer[]){
     this.map = map;
-    this.luminiaApiService = luminiaApiService;
-    this.childLayers = layersToControl;
+    this.childLayers = childLayers;
     this.setActive(this.isActive);
   }
 
@@ -51,28 +49,19 @@ export class MapLayerBase
     return color;
   }
 
-  public async getMarkers(mapLayer: MapLayerEnum, icon: L.Icon): Promise<void> {
-    //Get all of this layer's markers
-    try{
-      const markers$ = this.luminiaApiService.getAllMarkersByLayer(mapLayer);
-      let markerDtos = await firstValueFrom(markers$);
+  public addMarker(markerDto : MarkerDto, icon: L.Icon) : void
+  {
+    let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: icon});
 
-      markerDtos.forEach(marker => {
-        let newMarker = new L.Marker([marker.posY, marker.posX], {icon: icon});
-
-        //Check if marker has popup or not
-        if (marker.popupText) {
-          newMarker.bindPopup(marker.popupText);
-        }
-
-        newMarker.addTo(this.layer);
-        this.markers.push(newMarker);
-      });
-      this.amount = this.markers.length;
-
-    } catch(e) {
-      throw("Connection error");
+    //Check if marker has popup or not
+    if (markerDto.popupText) {
+      newMarker.bindPopup(markerDto.popupText);
     }
+
+    newMarker.addTo(this.layer);
+    this.markers.push(newMarker);
+
+    this.amount = this.markers.length;
   }
 
   public toggleActive(): void {

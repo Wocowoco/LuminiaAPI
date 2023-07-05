@@ -1,7 +1,7 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "./maplayer.interface";
+import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
+import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
 export class LocationsLayer extends MapLayerBase implements IAmMapLayer
 {
@@ -9,8 +9,8 @@ export class LocationsLayer extends MapLayerBase implements IAmMapLayer
   public name = "Locations";
   public mapLayer = MapLayerEnum.None;
 
-  constructor(map : L.Map, luminiaApiService: LuminiaApiService, childLayers?: IAmMapLayer[]) {
-    super(map, luminiaApiService, childLayers);
+  constructor(map : L.Map, childLayers?: IAmMapLayer[]) {
+    super(map, childLayers);
     if(childLayers != null)
     {
       childLayers.forEach(childLayer => {
@@ -19,8 +19,7 @@ export class LocationsLayer extends MapLayerBase implements IAmMapLayer
     }
   }
 
-  public override async getMarkers() : Promise<void>
-  {
+  public override addMarker(markerDto: MarkerDto): void {
     //
   }
 }

@@ -2,6 +2,7 @@ import * as L from "leaflet";
 import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
+import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
 export class RegionsLayer extends MapLayerBase implements IAmMapLayer
 {
@@ -9,8 +10,8 @@ export class RegionsLayer extends MapLayerBase implements IAmMapLayer
   public name: string = "Regions";
   public mapLayer = MapLayerEnum.Region;
 
-  constructor(map: L.Map, luminiaApiService: LuminiaApiService){
-    super(map, luminiaApiService);
+  constructor(map: L.Map){
+    super(map);
     this.amount = this.markers.length;
   }
 
@@ -55,8 +56,7 @@ export class RegionsLayer extends MapLayerBase implements IAmMapLayer
     L.marker([-49.482401, -90.966797],{icon: this.myrill}).addTo(this.layer),
   ]
 
-  public override async getMarkers() : Promise<void>
-  {
+  public override addMarker(markerDto: MarkerDto): void {
     //
   }
 }

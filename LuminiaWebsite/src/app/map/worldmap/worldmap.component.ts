@@ -4,11 +4,11 @@ import * as L from 'leaflet';
 import 'leaflet-easybutton';
 import { TownsLayer } from '../maplayers/locationLayers/towns.maplayer';
 import { IAmMapLayer } from '../maplayers/maplayer.interface';
-import { AltarsLayer } from '../maplayers/altars.maplayer';
+import { AltarsLayer } from '../maplayers/layerGroups/altars.maplayer';
 import { MirnaLayer } from '../maplayers/altarLayers/mirna.maplayer';
 import { VexLayer } from '../maplayers/altarLayers/vex.maplayer';
 import { FenlaLayer } from '../maplayers/altarLayers/fenla.maplayer';
-import { LocationsLayer } from '../maplayers/locations.maplayers';
+import { LocationsLayer } from '../maplayers/layerGroups/locations.maplayers';
 import { RegionsLayer } from '../maplayers/locationLayers/regions.maplayer';
 import { AmataLayer } from '../maplayers/altarLayers/amata.maplayer';
 import { AtamaLayer } from '../maplayers/altarLayers/atama.maplayer';
@@ -22,6 +22,13 @@ import { YuvicLayer } from '../maplayers/altarLayers/yuvic.maplayer';
 import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-snackbar.component';
+import { InnLayer } from '../maplayers/storeLayers/inn.maplayer';
+import { StoresLayer } from '../maplayers/layerGroups/stores.maplayer';
+import { AlchemistLayer } from '../maplayers/storeLayers/alchemists.maplayer';
+import { ArcheryLayer } from '../maplayers/storeLayers/archery.maplayer';
+import { GeneralStoreLayer } from '../maplayers/storeLayers/general-store.maplayers';
+import { BlacksmithLayer } from '../maplayers/storeLayers/blacksmith.maplayer';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -35,7 +42,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   public layerStates = new Map<IAmMapLayer,boolean>();
   private map : any;
   public isMobileView : boolean = false;
-  public allLayers? : IAmMapLayer[] = [];
+  public allLayers : IAmMapLayer[] = [];
 
   private dragMarker : any;
 
@@ -52,60 +59,43 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   async ngAfterViewInit(): Promise<void> {
     this.initMap();
-    await this.defineLayers();
+    await this.initLayers();
   }
 
   ngOnInit(): void {
   }
 
-  private async defineLayers(): Promise<void> {
-
-    //LocationLayers
-    let locationLayers: IAmMapLayer[] = [
-      new RegionsLayer(this.map, this.luminiaApiService),
-      new TownsLayer(this.map, this.luminiaApiService)
-    ];
-    this.allLayers?.push(new LocationsLayer(this.map, this.luminiaApiService, locationLayers));
+  private async initLayers(): Promise<void>
+  {
+    this.setLocationsGroup();
+    this.setAltarsGroup();
+    this.setStoresGroup();
 
     try {
-      //AltarLayers
-      let altarLayers: IAmMapLayer[] = [
-        new AmataLayer(this.map, this.luminiaApiService),
-        new AtamaLayer(this.map, this.luminiaApiService),
-        new CaraLayer(this.map, this.luminiaApiService),
-        new FenlaLayer(this.map, this.luminiaApiService),
-        new KazLayer(this.map, this.luminiaApiService),
-        new KrigonLayer(this.map, this.luminiaApiService),
-        new LokaineLayer(this.map, this.luminiaApiService),
-        new MirnaLayer(this.map, this.luminiaApiService),
-        new TaoidesLayer(this.map, this.luminiaApiService),
-        new VaknorLayer(this.map, this.luminiaApiService),
-        new VexLayer(this.map, this.luminiaApiService),
-        new YuvicLayer(this.map, this.luminiaApiService),
-      ];
+      const allMarkers$ = this.luminiaApiService.getAllMarkers();
+      let allMarkerDtos = await firstValueFrom(allMarkers$);
 
-      for (const layer of altarLayers) {
-        await layer.getMarkers();
-      }
-
-      this.allLayers?.push(new AltarsLayer(this.map, this.luminiaApiService, altarLayers));
+      console.log(this.allLayers);
+      allMarkerDtos.forEach(marker => {
+        for(const groupLayer of this.allLayers) {
+          const foundLayer = groupLayer.childLayers?.find((layer) => layer.mapLayer === marker.mapLayerId);
+          if (foundLayer) {
+            groupLayer.amount++;
+            foundLayer.addMarker(marker);
+            return;
+          }
+        }
+      });
     } catch {
       this.snackBar.openFromComponent(ErrorSnackbarComponent, {
         panelClass: 'error-snackbar',
-        data: "Altar markers could not be loaded.",
+        data: "Markers could not be loaded.",
         duration: 10000
       });
     }
   }
 
   private initMap(): void{
-
-    /*
-    this.map = L.map('map', {crs: L.CRS.Simple}).setView([3.56,1.30]).setZoom(2).setMaxZoom(8).setMinZoom(2);
-    var bounds = L.latLngBounds([-50,-50], [50, 50]);
-    var image = L.imageOverlay('assets/rsworldmap.png', bounds).addTo(this.map).setBounds([0,0], [50,50]);
-    */
-
     //Create the map
     this.map = L.map('map', {attributionControl: false}).setView([17.957832, 7.097168],6);
 
@@ -117,29 +107,6 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       maxZoom: 8,
       maxNativeZoom:6,
     }).addTo(this.map);
-
-    /*
-    //Sidepanel toggle button
-    var customControl = L.Control.extend({
-      options: {
-        position: 'topright'
-      },
-      onAdd: function()
-      {
-        var button = L.DomUtil.create('input');
-        button.id = "toggleSidePanelButton";
-        button.type = "button";
-        button.value = "Toggle Sidepanel";
-        button.className = "worldmap-sidepanel-button leaflet-bar";
-
-        return button;
-      }
-    })
-
-    this.map.addControl(new customControl);
-    var sidePanelButton = document.getElementById("toggleSidePanelButton");
-    sidePanelButton!.onclick = () => this.sidenav!.toggle();
-    */
 
     L.easyButton('<i class="fa-solid fa-bars fa-lg filterIcon"></i>', () => {
       this.sidenav!.toggle();
@@ -174,4 +141,48 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   {
     this.sidenav!.close();
   }
+
+  private setLocationsGroup()
+  {
+    let locationLayers: IAmMapLayer[] = [
+      new RegionsLayer(this.map),
+      new TownsLayer(this.map)
+    ];
+
+    this.allLayers?.push(new LocationsLayer(this.map, locationLayers));
+  }
+
+  private setAltarsGroup()
+  {
+    let altarLayers: IAmMapLayer[] = [
+      new AmataLayer(this.map),
+      new AtamaLayer(this.map),
+      new CaraLayer(this.map),
+      new FenlaLayer(this.map),
+      new KazLayer(this.map),
+      new KrigonLayer(this.map),
+      new LokaineLayer(this.map),
+      new MirnaLayer(this.map),
+      new TaoidesLayer(this.map),
+      new VaknorLayer(this.map),
+      new VexLayer(this.map),
+      new YuvicLayer(this.map),
+    ];
+
+    this.allLayers?.push(new AltarsLayer(this.map, altarLayers));
+  }
+
+  private setStoresGroup()
+  {
+    let storeLayers: IAmMapLayer[] = [
+      new AlchemistLayer(this.map),
+      new ArcheryLayer(this.map),
+      new BlacksmithLayer(this.map),
+      new GeneralStoreLayer(this.map),
+      new InnLayer(this.map),
+    ];
+
+    this.allLayers?.push(new StoresLayer(this.map, storeLayers));
+  }
 }
+

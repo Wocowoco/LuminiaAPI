@@ -21,6 +21,22 @@ namespace LuminiaAPI.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAllMarkers()
+        {
+            var markers = _luminiaContext.Marker;
+            if (markers == null)
+            {
+                return NotFound();
+            }
+
+            var markerDtos = markers.Select(x => _mapper.Map<MarkerDto>(x));
+
+            return Ok(markerDtos);
+        }
+
         [HttpGet("{mapLayerId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

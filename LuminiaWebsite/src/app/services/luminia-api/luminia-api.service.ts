@@ -10,7 +10,7 @@ import { MarkerDto } from './dtos/markerdto.interface';
 })
 export class LuminiaApiService {
 
-  LuminiaApiURL : string = "https://luminia.be/api/"
+  LuminiaApiURL : string = "https://localhost:7276/api/"
 
   constructor(private http: HttpClient) { }
 
@@ -20,5 +20,9 @@ export class LuminiaApiService {
 
   getAllMarkersByLayer(layerFilter: MapLayerEnum) : Observable<MarkerDto[]> {
     return this.http.get<MarkerDto[]>(this.LuminiaApiURL + "markers/" + layerFilter);
+  }
+
+  getAllMarkers() : Observable<MarkerDto[]> {
+    return this.http.get<MarkerDto[]>(this.LuminiaApiURL + "markers");
   }
 }

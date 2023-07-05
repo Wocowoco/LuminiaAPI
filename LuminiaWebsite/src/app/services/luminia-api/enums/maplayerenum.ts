@@ -14,5 +14,10 @@ export enum MapLayerEnum
   VexAltar = 11,
   YuvicAltar = 12,
   Region = 13,
-  Town = 14
+  Town = 14,
+  Inn = 15,
+  Alchemist = 16,
+  Archery = 17,
+  Blacksmith = 18,
+  GeneralStore = 19,
 }
