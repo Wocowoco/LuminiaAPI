@@ -3,7 +3,7 @@ import { MatSidenav} from '@angular/material/sidenav';
 import * as L from 'leaflet';
 import 'leaflet-easybutton';
 import { TownsLayer } from '../maplayers/locationLayers/towns.maplayer';
-import { IAmMapLayer } from '../maplayers/maplayer.interface';
+import { IAmChildMapLayer, IAmGroupMapLayer, IAmMapLayer } from '../maplayers/maplayer.interface';
 import { AltarsLayer } from '../maplayers/layerGroups/altars.maplayer';
 import { MirnaLayer } from '../maplayers/altarLayers/mirna.maplayer';
 import { VexLayer } from '../maplayers/altarLayers/vex.maplayer';
@@ -42,7 +42,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   public layerStates = new Map<IAmMapLayer,boolean>();
   private map : any;
   public isMobileView : boolean = false;
-  public allLayers : IAmMapLayer[] = [];
+  public allLayers : IAmGroupMapLayer[] = [];
 
   private dragMarker : any;
 
@@ -144,7 +144,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   private setLocationsGroup()
   {
-    let locationLayers: IAmMapLayer[] = [
+    let locationLayers: IAmChildMapLayer[] = [
       new RegionsLayer(this.map),
       new TownsLayer(this.map)
     ];
@@ -154,7 +154,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   private setAltarsGroup()
   {
-    let altarLayers: IAmMapLayer[] = [
+    let altarLayers: IAmChildMapLayer[] = [
       new AmataLayer(this.map),
       new AtamaLayer(this.map),
       new CaraLayer(this.map),
@@ -174,7 +174,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   private setStoresGroup()
   {
-    let storeLayers: IAmMapLayer[] = [
+    let storeLayers: IAmChildMapLayer[] = [
       new AlchemistLayer(this.map),
       new ArcheryLayer(this.map),
       new BlacksmithLayer(this.map),

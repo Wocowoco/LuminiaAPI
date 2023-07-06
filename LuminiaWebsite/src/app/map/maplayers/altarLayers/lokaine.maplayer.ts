@@ -1,11 +1,11 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { ChildMapLayerBase, IAmChildMapLayer, IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class LokaineLayer extends MapLayerBase implements IAmMapLayer
+export class LokaineLayer extends ChildMapLayerBase implements IAmChildMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/lokaine.png";
+  public iconUrl = this.worldmapImagePath + "icon/lokaine.png";
   public name = "Lokaine";
   public mapLayer = MapLayerEnum.LokaineAltar;
 
@@ -13,9 +13,8 @@ export class LokaineLayer extends MapLayerBase implements IAmMapLayer
     super(map);
   }
 
-  //Icons
   private icon = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/lokaine.png",
+    iconUrl: this.iconUrl,
     iconSize: [15,15],
     iconAnchor: [7.5, 7.5]
   });

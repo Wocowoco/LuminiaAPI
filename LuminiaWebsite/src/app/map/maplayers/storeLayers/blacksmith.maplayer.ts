@@ -1,13 +1,12 @@
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { MapLayerBase, IAmMapLayer } from "../maplayer.interface";
+import { MapLayerBase, IAmMapLayer, ChildMapLayerBase, IAmChildMapLayer } from "../maplayer.interface";
 
 import * as L from "leaflet";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class BlacksmithLayer extends MapLayerBase implements IAmMapLayer
+export class BlacksmithLayer extends ChildMapLayerBase implements IAmChildMapLayer
 {
-
-  public imageUrl = this.worldmapImagePath + "icon/blacksmith.png";
+  public iconUrl = this.worldmapImagePath + "icon/blacksmith.png";
   public name = "Blacksmith";
   public mapLayer = MapLayerEnum.Blacksmith;
 
@@ -15,9 +14,8 @@ export class BlacksmithLayer extends MapLayerBase implements IAmMapLayer
     super(map);
   }
 
-  //Icons
   private icon = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/blacksmith.png",
+    iconUrl: this.iconUrl,
     iconSize: [15,15],
     iconAnchor: [7.5, 7.5]
   });

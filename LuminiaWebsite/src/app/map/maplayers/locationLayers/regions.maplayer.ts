@@ -1,12 +1,12 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { ChildMapLayerBase, IAmChildMapLayer, IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class RegionsLayer extends MapLayerBase implements IAmMapLayer
+export class RegionsLayer extends ChildMapLayerBase implements IAmChildMapLayer
 {
-  public imageUrl: string = this.worldmapImagePath + "icon/region.png";
+  public iconUrl: string = this.worldmapImagePath + "icon/region.png";
   public name: string = "Regions";
   public mapLayer = MapLayerEnum.Region;
 

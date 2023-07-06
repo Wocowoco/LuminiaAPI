@@ -1,11 +1,11 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { ChildMapLayerBase, IAmChildMapLayer, IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class VexLayer extends MapLayerBase implements IAmMapLayer
+export class VexLayer extends ChildMapLayerBase implements IAmChildMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/vex.png";
+  public iconUrl = this.worldmapImagePath + "icon/vex.png";
   public name = "Vex";
   public mapLayer = MapLayerEnum.VexAltar;
 
@@ -13,9 +13,8 @@ export class VexLayer extends MapLayerBase implements IAmMapLayer
     super(map);
   }
 
-  //Icons
   private icon = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/vex.png",
+    iconUrl: this.iconUrl,
     iconSize: [15,15],
     iconAnchor: [7.5, 7.5]
   });

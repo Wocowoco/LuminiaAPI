@@ -1,11 +1,11 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { ChildMapLayerBase, IAmChildMapLayer, IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class TownsLayer extends MapLayerBase implements IAmMapLayer
+export class TownsLayer extends ChildMapLayerBase implements IAmChildMapLayer
 {
-  public imageUrl: string = this.worldmapImagePath + "icon/town.png";
+  public iconUrl: string = this.worldmapImagePath + "icon/town.png";
   public name: string = "Towns";
   public mapLayer = MapLayerEnum.Town;
   override zIndex = 1000;

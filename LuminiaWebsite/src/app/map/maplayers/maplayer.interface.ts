@@ -9,29 +9,34 @@ export interface IAmMapLayer
   isActive : boolean;
   amount: number;
   name: string;
-  mapLayer: MapLayerEnum;
-  imageUrl: string;
-  childLayers?: IAmMapLayer[];
+  iconUrl: string;
   getBackgroundColor() : void;
   toggleActive() : void;
   setActive(isActive: boolean) : void;
-  addMarker(markerDto : MarkerDto) : void
 }
 
-export class MapLayerBase
+export interface IAmChildMapLayer extends IAmMapLayer
+{
+  addMarker(markerDto : MarkerDto) : void
+  mapLayer: MapLayerEnum;
+}
+
+export interface IAmGroupMapLayer extends IAmMapLayer
+{
+  childLayers: IAmChildMapLayer[];
+}
+
+export abstract class MapLayerBase
 {
   public readonly worldmapImagePath: string = "assets/images/worldmap/";
   public amount: number = 0;
   private map: L.Map;
   public layer: L.LayerGroup = new L.LayerGroup();
   public isActive: boolean = true;
-  protected markers: L.Marker[] = [];
-  public childLayers?: IAmMapLayer[];
   protected zIndex: number =  0;
 
-  constructor(map: L.Map, childLayers?: IAmMapLayer[]){
+  constructor(map: L.Map){
     this.map = map;
-    this.childLayers = childLayers;
     this.setActive(this.isActive);
   }
 
@@ -49,6 +54,26 @@ export class MapLayerBase
     return color;
   }
 
+  protected setMapState(isActive: boolean) : void{
+    if(this.isActive)
+    {
+      this.layer.addTo(this.map);
+    }
+    else
+    {
+      this.layer.removeFrom(this.map);
+    }
+  }
+
+  public setActive (isActive: boolean) : void
+  {
+    //Needs to be overridden
+  }
+}
+
+export abstract class ChildMapLayerBase extends MapLayerBase{
+  protected markers: L.Marker[] = [];
+
   public addMarker(markerDto : MarkerDto, icon: L.Icon) : void
   {
     let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: icon});
@@ -64,19 +89,35 @@ export class MapLayerBase
     this.amount = this.markers.length;
   }
 
+  public override setActive (isActive: boolean) : void{
+    this.isActive = isActive;
+    this.setMapState(this.isActive);
+  }
+
   public toggleActive(): void {
     this.isActive = !this.isActive;
     this.setMapState(this.isActive);
-
-    //Toggle all the children as well
-    if(this.childLayers != null){
-      this.childLayers.forEach(childLayer => {
-        childLayer.setActive(this.isActive);
-      });
-    }
   }
 
-  public setActive (isActive: boolean) : void{
+}
+
+export abstract class GroupMapLayerBase extends MapLayerBase
+{
+  public childLayers : IAmChildMapLayer[] = [];
+
+  constructor(map: L.Map, childLayers: IAmChildMapLayer[]){
+    super(map);
+    this.childLayers = childLayers;
+    if(childLayers != null)
+    {
+      childLayers.forEach(childLayer => {
+        this.amount += childLayer.amount;
+      });
+    }
+    this.setActive(this.isActive);
+  }
+
+  public override setActive (isActive: boolean) : void{
     this.isActive = isActive;
     this.setMapState(this.isActive);
 
@@ -88,14 +129,15 @@ export class MapLayerBase
     }
   }
 
-  private setMapState(isActive: boolean) : void{
-    if(this.isActive)
-    {
-      this.layer.addTo(this.map);
-    }
-    else
-    {
-      this.layer.removeFrom(this.map);
+  public toggleActive(): void {
+    this.isActive = !this.isActive;
+    this.setMapState(this.isActive);
+
+    //Toggle all the children as well
+    if(this.childLayers != null){
+      this.childLayers.forEach(childLayer => {
+        childLayer.setActive(this.isActive);
+      });
     }
   }
 }

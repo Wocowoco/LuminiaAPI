@@ -1,11 +1,11 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { ChildMapLayerBase, IAmChildMapLayer, IAmMapLayer, MapLayerBase } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class KazLayer extends MapLayerBase implements IAmMapLayer
+export class KazLayer extends ChildMapLayerBase implements IAmChildMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/kaz.png";
+  public iconUrl = this.worldmapImagePath + "icon/kaz.png";
   public name = "Kaz";
   public mapLayer = MapLayerEnum.KazAltar;
 
@@ -13,9 +13,8 @@ export class KazLayer extends MapLayerBase implements IAmMapLayer
     super(map);
   }
 
-  //Icons
   private icon = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/kaz.png",
+    iconUrl: this.iconUrl,
     iconSize: [15,15],
     iconAnchor: [7.5, 7.5]
   });

@@ -1,12 +1,11 @@
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { MapLayerBase, IAmMapLayer } from "../maplayer.interface";
+import { MapLayerBase, IAmMapLayer, IAmChildMapLayer, ChildMapLayerBase } from "../maplayer.interface";
 import * as L from "leaflet";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class InnLayer extends MapLayerBase implements IAmMapLayer
+export class InnLayer extends ChildMapLayerBase implements IAmChildMapLayer
 {
-
-  public imageUrl = this.worldmapImagePath + "icon/inn.png";
+  public iconUrl = this.worldmapImagePath + "icon/inn.png";
   public name = "Inns";
   public mapLayer = MapLayerEnum.Inn;
 
@@ -14,9 +13,8 @@ export class InnLayer extends MapLayerBase implements IAmMapLayer
     super(map);
   }
 
-  //Icons
   private icon = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/inn.png",
+    iconUrl: this.iconUrl,
     iconSize: [15,15],
     iconAnchor: [7.5, 7.5]
   });
