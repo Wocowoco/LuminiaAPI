@@ -112,6 +112,7 @@ export abstract class GroupMapLayerBase extends MapLayerBase
 //ChildLayers
 export abstract class ChildMapLayerBase extends MapLayerBase{
   protected markers: L.Marker[] = [];
+
   public override setActive (isActive: boolean) : void{
     this.isActive = isActive;
     this.setMapState(this.isActive);
@@ -122,31 +123,34 @@ export abstract class ChildMapLayerBase extends MapLayerBase{
     this.setMapState(this.isActive);
   }
 
-}
-
-export abstract class MultipleIconsMapLayer extends ChildMapLayerBase
-{
-  public addMarker(markerDto : MarkerDto) : void
+  public addMarker(markerDto : MarkerDto, icon: L.Icon) : void
   {
-    /*
-    let icon = L.icon({
-      iconUrl: this.iconUrl,
-      iconSize: [markerDto.width, markerDto.height],
-      iconAnchor: [7.5, 7.5]
-    });
-
     let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: icon});
 
     //Check if marker has popup or not
-    if (markerDto.popupText) {
-      newMarker.bindPopup(markerDto.popupText);
+    if (markerDto.titleText) {
+      newMarker.bindPopup(markerDto.titleText);
     }
 
+    newMarker.setZIndexOffset(this.zIndex);
     newMarker.addTo(this.layer);
     this.markers.push(newMarker);
 
     this.amount = this.markers.length;
-    */
+  }
+}
+
+export abstract class MultipleIconsMapLayer extends ChildMapLayerBase
+{
+  public override addMarker(markerDto : MarkerDto) : void
+  {
+    let icon = L.icon({
+      iconUrl: MultipleIconsMapLayer.worldmapImagePath + markerDto.imageUrl,
+      iconSize: [markerDto.width, markerDto.height],
+      iconAnchor: [markerDto.width/2, markerDto.height/2]
+    });
+
+    super.addMarker(markerDto, icon);
   }
 }
 
@@ -164,19 +168,7 @@ export abstract class SingleIconMapLayer extends ChildMapLayerBase
     });
   }
 
-  public addMarker(markerDto : MarkerDto) : void
-  {
-
-    let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: this.icon});
-
-    //Check if marker has popup or not
-    if (markerDto.popupText) {
-      newMarker.bindPopup(markerDto.popupText);
-    }
-
-    newMarker.addTo(this.layer);
-    this.markers.push(newMarker);
-
-    this.amount = this.markers.length;
+  public override addMarker(markerDto: MarkerDto): void {
+    super.addMarker(markerDto, this.icon);
   }
 }
