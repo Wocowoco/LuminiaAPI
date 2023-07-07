@@ -12,7 +12,7 @@ namespace LuminiaAPI.Entities
         public decimal PosY { get; set; }
         public MapLayer MapLayerId { get; set; }
         [MaxLength(500)]
-        public string? PopupText { get; set; }
+        public string? TitleText { get; set; }
         [MaxLength(500)]
         public string? AdminText { get; set; }
     }

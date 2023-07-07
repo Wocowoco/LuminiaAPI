@@ -1,20 +1,23 @@
 import * as L from "leaflet";
-import { ChildMapLayerBase, IAmChildMapLayer, IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { IAmChildMapLayer, MultipleIconsMapLayer } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class TownsLayer extends ChildMapLayerBase implements IAmChildMapLayer
+export class TownsLayer extends MultipleIconsMapLayer implements IAmChildMapLayer
 {
-  public iconUrl: string = this.worldmapImagePath + "icon/town.png";
+  public iconUrl;
   public name: string = "Towns";
   public mapLayer = MapLayerEnum.Town;
   override zIndex = 1000;
 
   constructor(map: L.Map){
+
     super(map);
     this.amount = this.markers.length;
+    this.iconUrl = TownsLayer.worldmapImagePath + "icon/town.png";
   }
 
+  /*
   //Icons
   private icon_mizude = L.icon({
     iconUrl: this.worldmapImagePath + "text/mizude.png",
@@ -47,9 +50,6 @@ export class TownsLayer extends ChildMapLayerBase implements IAmChildMapLayer
     L.marker([-3.140516, -75.168457],{icon: this.icon_dandilly}).addTo(this.layer).setZIndexOffset(this.zIndex),
     L.marker([-34.597042, -65.412598], {icon: this.icon_zalias}).addTo(this.layer).setZIndexOffset(this.zIndex),
   ]
-
-  public override addMarker(markerDto: MarkerDto): void {
-    //
-  }
+  */
 }
 

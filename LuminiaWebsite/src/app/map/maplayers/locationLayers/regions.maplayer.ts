@@ -1,20 +1,20 @@
 import * as L from "leaflet";
-import { ChildMapLayerBase, IAmChildMapLayer, IAmMapLayer, MapLayerBase } from "../maplayer.interface";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
+import { IAmChildMapLayer, MultipleIconsMapLayer } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
-export class RegionsLayer extends ChildMapLayerBase implements IAmChildMapLayer
+export class RegionsLayer extends MultipleIconsMapLayer implements IAmChildMapLayer
 {
-  public iconUrl: string = this.worldmapImagePath + "icon/region.png";
+  public iconUrl;
   public name: string = "Regions";
   public mapLayer = MapLayerEnum.Region;
 
   constructor(map: L.Map){
     super(map);
     this.amount = this.markers.length;
+    this.iconUrl = RegionsLayer.worldmapImagePath + "icon/region.png";
   }
 
+  /*
   //Icons
   private alodia = L.icon({
     iconUrl: this.worldmapImagePath + "text/alodia.png",
@@ -59,5 +59,6 @@ export class RegionsLayer extends ChildMapLayerBase implements IAmChildMapLayer
   public override addMarker(markerDto: MarkerDto): void {
     //
   }
+  */
 }
 

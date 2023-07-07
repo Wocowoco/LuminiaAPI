@@ -28,7 +28,7 @@ export interface IAmGroupMapLayer extends IAmMapLayer
 
 export abstract class MapLayerBase
 {
-  public readonly worldmapImagePath: string = "assets/images/worldmap/";
+  public static readonly worldmapImagePath: string = "assets/images/worldmap/";
   public amount: number = 0;
   private map: L.Map;
   public layer: L.LayerGroup = new L.LayerGroup();
@@ -65,40 +65,7 @@ export abstract class MapLayerBase
     }
   }
 
-  public setActive (isActive: boolean) : void
-  {
-    //Needs to be overridden
-  }
-}
-
-export abstract class ChildMapLayerBase extends MapLayerBase{
-  protected markers: L.Marker[] = [];
-
-  public addMarker(markerDto : MarkerDto, icon: L.Icon) : void
-  {
-    let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: icon});
-
-    //Check if marker has popup or not
-    if (markerDto.popupText) {
-      newMarker.bindPopup(markerDto.popupText);
-    }
-
-    newMarker.addTo(this.layer);
-    this.markers.push(newMarker);
-
-    this.amount = this.markers.length;
-  }
-
-  public override setActive (isActive: boolean) : void{
-    this.isActive = isActive;
-    this.setMapState(this.isActive);
-  }
-
-  public toggleActive(): void {
-    this.isActive = !this.isActive;
-    this.setMapState(this.isActive);
-  }
-
+  protected abstract setActive (isActive: boolean) : void
 }
 
 export abstract class GroupMapLayerBase extends MapLayerBase
@@ -142,3 +109,74 @@ export abstract class GroupMapLayerBase extends MapLayerBase
   }
 }
 
+//ChildLayers
+export abstract class ChildMapLayerBase extends MapLayerBase{
+  protected markers: L.Marker[] = [];
+  public override setActive (isActive: boolean) : void{
+    this.isActive = isActive;
+    this.setMapState(this.isActive);
+  }
+
+  public toggleActive(): void {
+    this.isActive = !this.isActive;
+    this.setMapState(this.isActive);
+  }
+
+}
+
+export abstract class MultipleIconsMapLayer extends ChildMapLayerBase
+{
+  public addMarker(markerDto : MarkerDto) : void
+  {
+    /*
+    let icon = L.icon({
+      iconUrl: this.iconUrl,
+      iconSize: [markerDto.width, markerDto.height],
+      iconAnchor: [7.5, 7.5]
+    });
+
+    let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: icon});
+
+    //Check if marker has popup or not
+    if (markerDto.popupText) {
+      newMarker.bindPopup(markerDto.popupText);
+    }
+
+    newMarker.addTo(this.layer);
+    this.markers.push(newMarker);
+
+    this.amount = this.markers.length;
+    */
+  }
+}
+
+export abstract class SingleIconMapLayer extends ChildMapLayerBase
+{
+  private icon : L.Icon;
+
+  constructor(map : L.Map, iconUrl: string) {
+    super(map);
+
+    this.icon = L.icon({
+      iconUrl: iconUrl,
+      iconSize: [15,15],
+      iconAnchor: [7.5, 7.5]
+    });
+  }
+
+  public addMarker(markerDto : MarkerDto) : void
+  {
+
+    let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: this.icon});
+
+    //Check if marker has popup or not
+    if (markerDto.popupText) {
+      newMarker.bindPopup(markerDto.popupText);
+    }
+
+    newMarker.addTo(this.layer);
+    this.markers.push(newMarker);
+
+    this.amount = this.markers.length;
+  }
+}
