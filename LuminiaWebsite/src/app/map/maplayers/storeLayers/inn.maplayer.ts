@@ -12,5 +12,6 @@ export class InnLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = InnLayer.worldmapImagePath + "icon/inn.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Inn";
   }
 }

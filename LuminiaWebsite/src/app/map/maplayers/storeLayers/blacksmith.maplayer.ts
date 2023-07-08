@@ -12,5 +12,6 @@ export class BlacksmithLayer extends SingleIconMapLayer implements IAmChildMapLa
     const iconUrl = BlacksmithLayer.worldmapImagePath + "icon/blacksmith.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Blacksmith";
   }
 }

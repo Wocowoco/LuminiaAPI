@@ -12,5 +12,6 @@ export class GeneralStoreLayer extends SingleIconMapLayer implements IAmChildMap
     const iconUrl = GeneralStoreLayer.worldmapImagePath + "icon/generalstore.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "General Store";
   }
 }

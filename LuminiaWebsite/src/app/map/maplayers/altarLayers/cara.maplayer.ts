@@ -12,5 +12,6 @@ export class CaraLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = CaraLayer.worldmapImagePath + "icon/cara.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Cara Altar";
   }
 }

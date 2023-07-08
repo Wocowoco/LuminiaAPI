@@ -12,6 +12,7 @@ export class FenlaLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = FenlaLayer.worldmapImagePath + "icon/fenla.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Fen'La Altar";
   }
 }
 

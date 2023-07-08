@@ -12,5 +12,6 @@ export class ArcheryLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = ArcheryLayer.worldmapImagePath + "icon/archery.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Archery Store";
   }
 }

@@ -12,5 +12,6 @@ export class AlchemistLayer extends SingleIconMapLayer implements IAmChildMapLay
     const iconUrl = AlchemistLayer.worldmapImagePath + "icon/potion.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Alchemist";
   }
 }

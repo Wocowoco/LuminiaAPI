@@ -12,5 +12,6 @@ export class LokaineLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = LokaineLayer.worldmapImagePath + "icon/lokaine.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Lokaine Altar";
   }
 }

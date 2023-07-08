@@ -12,5 +12,6 @@ export class VexLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = VexLayer.worldmapImagePath + "icon/vex.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Vex Altar";
   }
 }

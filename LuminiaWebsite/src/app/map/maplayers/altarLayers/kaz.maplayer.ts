@@ -12,5 +12,6 @@ export class KazLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = KazLayer.worldmapImagePath + "icon/kaz.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Kaz Altar";
   }
 }

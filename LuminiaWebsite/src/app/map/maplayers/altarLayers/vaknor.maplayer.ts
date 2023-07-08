@@ -12,5 +12,6 @@ export class VaknorLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = VaknorLayer.worldmapImagePath + "icon/vaknor.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Vak'Nor Altar";
   }
 }

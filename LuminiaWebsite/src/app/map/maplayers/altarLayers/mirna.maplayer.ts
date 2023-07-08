@@ -13,5 +13,6 @@ export class MirnaLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = MirnaLayer.worldmapImagePath + "icon/mirna.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Mirna Altar";
   }
 }

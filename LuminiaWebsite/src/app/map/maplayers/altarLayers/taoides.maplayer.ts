@@ -12,5 +12,6 @@ export class TaoidesLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = TaoidesLayer.worldmapImagePath + "icon/taoides.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Taoides Altar";
   }
 }

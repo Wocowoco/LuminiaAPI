@@ -1,6 +1,5 @@
 import * as L from "leaflet";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
 import { MarkerDto } from "src/app/services/luminia-api/dtos/markerdto.interface";
 
 
@@ -112,6 +111,7 @@ export abstract class GroupMapLayerBase extends MapLayerBase
 //ChildLayers
 export abstract class ChildMapLayerBase extends MapLayerBase{
   protected markers: L.Marker[] = [];
+  protected defaultTooltip: string = "";
 
   public override setActive (isActive: boolean) : void{
     this.isActive = isActive;
@@ -125,11 +125,29 @@ export abstract class ChildMapLayerBase extends MapLayerBase{
 
   public addMarker(markerDto : MarkerDto, icon: L.Icon) : void
   {
+    let popupHtmlTitle = `
+    <h4>${markerDto.titleText ?? this.defaultTooltip}</h4>
+    `;
+    let popupHtmlFull = popupHtmlTitle + `
+    <hr class="hr-dark">
+    <p>${markerDto.descriptionText}</p>
+    `;
+
     let newMarker = new L.Marker([markerDto.posY, markerDto.posX], {icon: icon});
 
-    //Check if marker has popup or not
-    if (markerDto.titleText) {
-      newMarker.bindPopup(markerDto.titleText);
+    //Check if marker has a tooltip or not
+    if (markerDto.titleText || !(this.defaultTooltip.length === 0)) {
+      newMarker.bindTooltip((markerDto.titleText ?? this.defaultTooltip), {direction: "right", offset:[7.5, 0], opacity: 1});
+
+      //Create popup for the icon
+      if(!markerDto.descriptionText || markerDto.descriptionText.length === 0)
+      {
+        newMarker.bindPopup(popupHtmlTitle);
+      }
+      else{
+        newMarker.bindPopup(popupHtmlFull);
+      }
+
     }
 
     newMarker.setZIndexOffset(this.zIndex);
@@ -147,7 +165,8 @@ export abstract class MultipleIconsMapLayer extends ChildMapLayerBase
     let icon = L.icon({
       iconUrl: MultipleIconsMapLayer.worldmapImagePath + markerDto.imageUrl,
       iconSize: [markerDto.width, markerDto.height],
-      iconAnchor: [markerDto.width/2, markerDto.height/2]
+      iconAnchor: [markerDto.width/2, markerDto.height/2],
+      className: 'leaflet-no-pointer'
     });
 
     super.addMarker(markerDto, icon);

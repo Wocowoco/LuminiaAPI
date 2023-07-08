@@ -12,5 +12,6 @@ export class YuvicLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = YuvicLayer.worldmapImagePath + "icon/yuvic.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Yuvic Altar";
   }
 }

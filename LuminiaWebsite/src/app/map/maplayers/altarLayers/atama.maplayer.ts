@@ -12,5 +12,6 @@ export class AtamaLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = AtamaLayer.worldmapImagePath + "icon/atama.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Atama Altar";
   }
 }

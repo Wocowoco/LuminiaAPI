@@ -12,5 +12,6 @@ export class KrigonLayer extends SingleIconMapLayer implements IAmChildMapLayer
     const iconUrl = KrigonLayer.worldmapImagePath + "icon/krigon.png";
     super(map, iconUrl);
     this.iconUrl = iconUrl;
+    this.defaultTooltip = "Krigon Altar";
   }
 }
