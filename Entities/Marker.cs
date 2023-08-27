@@ -21,5 +21,6 @@ namespace LuminiaAPI.Entities
         public int? Height { get; set; }
         [MaxLength(100)]
         public string? ImageUrl { get; set; }
+        public bool IsVisible { get; set; }
     }
 }

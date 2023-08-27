@@ -26,7 +26,7 @@ namespace LuminiaAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllMarkers()
         {
-            var markers = _luminiaContext.Marker;
+            var markers = _luminiaContext.Marker.Where(x => x.IsVisible == true);
             if (markers == null)
             {
                 return NotFound();
@@ -42,7 +42,7 @@ namespace LuminiaAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetMarkersByLayer(MapLayer mapLayerId)
         {
-            var markers = _luminiaContext.Marker.Where(x => x.MapLayerId == mapLayerId);
+            var markers = _luminiaContext.Marker.Where(x => x.MapLayerId == mapLayerId && x.IsVisible == true);
             if (markers == null)
             {
                 return NotFound();

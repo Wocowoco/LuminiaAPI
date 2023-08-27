@@ -20,4 +20,6 @@ export enum MapLayerEnum
   Archery = 17,
   Blacksmith = 18,
   GeneralStore = 19,
+  Stable = 20,
+  Fishmonger = 21,
 }

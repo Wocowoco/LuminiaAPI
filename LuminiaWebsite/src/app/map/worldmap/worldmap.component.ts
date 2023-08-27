@@ -29,6 +29,8 @@ import { ArcheryLayer } from '../maplayers/storeLayers/archery.maplayer';
 import { GeneralStoreLayer } from '../maplayers/storeLayers/general-store.maplayers';
 import { BlacksmithLayer } from '../maplayers/storeLayers/blacksmith.maplayer';
 import { firstValueFrom } from 'rxjs';
+import { StableLayer } from '../maplayers/storeLayers/stable.maplayer';
+import { FishmongerLayer } from '../maplayers/storeLayers/fishmonger.maplayer';
 
 
 @Component({
@@ -180,6 +182,8 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       new BlacksmithLayer(this.map),
       new GeneralStoreLayer(this.map),
       new InnLayer(this.map),
+      new StableLayer(this.map),
+      new FishmongerLayer(this.map)
     ];
 
     this.allLayers?.push(new StoresLayer(this.map, storeLayers));
