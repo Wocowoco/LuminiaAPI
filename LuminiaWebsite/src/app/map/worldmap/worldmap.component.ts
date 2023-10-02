@@ -31,6 +31,10 @@ import { BlacksmithLayer } from '../maplayers/storeLayers/blacksmith.maplayer';
 import { firstValueFrom } from 'rxjs';
 import { StableLayer } from '../maplayers/storeLayers/stable.maplayer';
 import { FishmongerLayer } from '../maplayers/storeLayers/fishmonger.maplayer';
+import { DungeonsLayer } from '../maplayers/poiLayers/dungeons.maplayer';
+import { PointsOfInterestLayer } from '../maplayers/layerGroups/pois.maplayer';
+import { CavesLayer } from '../maplayers/poiLayers/caves.maplayer';
+import { GeonymsLayer } from '../maplayers/locationLayers/geonyms.maplayer';
 
 
 @Component({
@@ -42,12 +46,11 @@ import { FishmongerLayer } from '../maplayers/storeLayers/fishmonger.maplayer';
 export class WorldmapComponent implements AfterViewInit, OnInit{
   @ViewChild('sidePanel') sidenav: MatSidenav | null = null;
   public layerStates = new Map<IAmMapLayer,boolean>();
-  private map : any;
+  private map! : L.Map;
   public isMobileView : boolean = false;
   public allLayers : IAmGroupMapLayer[] = [];
 
   private dragMarker : any;
-
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -56,7 +59,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   }
 
   constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) {
-   this.onResize(null);
+    this.onResize(null);
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -70,8 +73,9 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   private async initLayers(): Promise<void>
   {
     this.setLocationsGroup();
-    this.setAltarsGroup();
+    this.setPoisGroup();
     this.setStoresGroup();
+    this.setAltarsGroup();
 
     try {
       const allMarkers$ = this.luminiaApiService.getAllMarkers();
@@ -102,7 +106,6 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     this.map = L.map('map', {attributionControl: false}).setView([17.957832, 7.097168],6);
 
     //Create the tile layer
-
     L.tileLayer('assets/map/{z}/{x}/{y}.png', {
       noWrap: true,
       minZoom: 0,
@@ -113,8 +116,6 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     L.easyButton('<i class="fa-solid fa-bars fa-lg filterIcon"></i>', () => {
       this.sidenav!.toggle();
     }).addTo(this.map).setPosition('topright');
-
-
 
     //Draggable marker
     var blankIcon = L.icon({
@@ -129,7 +130,35 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     }).addTo(this.map);
     this.dragMarker.bindPopup('LatLng Marker');
     this.dragMarker.on('dragend', () => {
-      this.dragMarker.getPopup().setContent(this.dragMarker.getLatLng().toString()).openOn(this.map);
+      let latlng : L.LatLng = this.dragMarker.getLatLng();
+      let markerText = "X= " + latlng.lng.toFixed(6) + ", Y= " + latlng.lat.toFixed(6);
+      this.dragMarker.getPopup().setContent(markerText).openOn(this.map);
+    });
+
+    //Remove some layers based on zoom
+    this.map.on('zoomend', () => {
+      if (this.map!.getZoom() < 5.5)
+      {
+        this.allLayers.forEach(groupLayer => {
+          groupLayer.childLayers.forEach(childLayer => {
+            if(childLayer.isHiddenWhenZoomedOut)
+            {
+              childLayer.setOpacity(0);
+            }
+          });
+        });
+      }
+      else
+      {
+        this.allLayers.forEach(groupLayer => {
+          groupLayer.childLayers.forEach(childLayer => {
+            if(childLayer.isHiddenWhenZoomedOut)
+            {
+              childLayer.setOpacity(1);
+            }
+          });
+        });
+      }
     });
   }
 
@@ -154,6 +183,16 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     this.allLayers?.push(new LocationsLayer(this.map, locationLayers));
   }
 
+  private setPoisGroup()
+  {
+    let poisLayers: IAmChildMapLayer[] = [
+      new DungeonsLayer(this.map),
+      new CavesLayer(this.map),
+      new GeonymsLayer(this.map),
+    ];
+
+    this.allLayers?.push(new PointsOfInterestLayer(this.map, poisLayers));
+  }
   private setAltarsGroup()
   {
     let altarLayers: IAmChildMapLayer[] = [

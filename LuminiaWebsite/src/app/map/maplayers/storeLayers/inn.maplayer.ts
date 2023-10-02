@@ -5,7 +5,7 @@ import * as L from "leaflet";
 export class InnLayer extends SingleIconMapLayer implements IAmChildMapLayer
 {
   public iconUrl;
-  public name = "Inns";
+  public name = "Inn";
   public mapLayer = MapLayerEnum.Inn;
 
   constructor(map : L.Map) {

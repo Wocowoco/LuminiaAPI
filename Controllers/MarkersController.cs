@@ -26,7 +26,12 @@ namespace LuminiaAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllMarkers()
         {
+
+#if DEBUG
+            var markers = _luminiaContext.Marker;
+#else
             var markers = _luminiaContext.Marker.Where(x => x.IsVisible == true);
+#endif
             if (markers == null)
             {
                 return NotFound();

@@ -4,15 +4,24 @@ import { Observable } from 'rxjs';
 import { Item } from './dtos/item.interface';
 import { MapLayerEnum } from './enums/maplayerenum';
 import { MarkerDto } from './dtos/markerdto.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LuminiaApiService {
 
-  LuminiaApiURL : string = "https://localhost:7276/api/"
+  LuminiaApiURL : string = "";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    if (environment.production) {
+      this.LuminiaApiURL = "https://luminia.be/api/"
+    }
+    else
+    {
+      this.LuminiaApiURL = "https://localhost:7276/api/"
+    }
+  }
 
   getAllItems(nameFilter: string = "") : Observable<Item[]> {
     return this.http.get<Item[]>(this.LuminiaApiURL + "items" + nameFilter);

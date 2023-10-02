@@ -5,7 +5,7 @@ import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 export class TownsLayer extends MultipleIconsMapLayer implements IAmChildMapLayer
 {
   public iconUrl;
-  public name: string = "Towns";
+  public name: string = "Town";
   public mapLayer = MapLayerEnum.Town;
   override zIndex = 1000;
 

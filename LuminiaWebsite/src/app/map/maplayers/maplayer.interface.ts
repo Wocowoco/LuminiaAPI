@@ -12,10 +12,12 @@ export interface IAmMapLayer
   getBackgroundColor() : void;
   toggleActive() : void;
   setActive(isActive: boolean) : void;
+  isHiddenWhenZoomedOut : boolean;
 }
 
 export interface IAmChildMapLayer extends IAmMapLayer
 {
+  setOpacity(opacity: number) : void
   addMarker(markerDto : MarkerDto) : void
   mapLayer: MapLayerEnum;
 }
@@ -32,7 +34,10 @@ export abstract class MapLayerBase
   private map: L.Map;
   public layer: L.LayerGroup = new L.LayerGroup();
   public isActive: boolean = true;
+  public isHiddenWhenZoomedOut = false;
   protected zIndex: number =  0;
+
+  protected abstract setActive(isActive: boolean) : void
 
   constructor(map: L.Map){
     this.map = map;
@@ -63,8 +68,6 @@ export abstract class MapLayerBase
       this.layer.removeFrom(this.map);
     }
   }
-
-  protected abstract setActive (isActive: boolean) : void
 }
 
 export abstract class GroupMapLayerBase extends MapLayerBase
@@ -113,7 +116,7 @@ export abstract class ChildMapLayerBase extends MapLayerBase{
   protected markers: L.Marker[] = [];
   protected defaultTooltip: string = "";
 
-  public override setActive (isActive: boolean) : void{
+  public override setActive(isActive: boolean) : void{
     this.isActive = isActive;
     this.setMapState(this.isActive);
   }
@@ -121,6 +124,12 @@ export abstract class ChildMapLayerBase extends MapLayerBase{
   public toggleActive(): void {
     this.isActive = !this.isActive;
     this.setMapState(this.isActive);
+  }
+
+  public setOpacity(opacity: number) : void{
+    this.markers.forEach(marker => {
+      marker.setOpacity(opacity);
+    });
   }
 
   public addMarker(markerDto : MarkerDto, icon: L.Icon) : void

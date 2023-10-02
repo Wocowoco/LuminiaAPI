@@ -22,4 +22,7 @@ export enum MapLayerEnum
   GeneralStore = 19,
   Stable = 20,
   Fishmonger = 21,
+  Dungeon = 22,
+  Cave = 23,
+  Geonym = 24,
 }
