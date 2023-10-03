@@ -135,9 +135,9 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       this.dragMarker.getPopup().setContent(markerText).openOn(this.map);
     });
 
-    //Remove some layers based on zoom
+    //Change opacity of layers based on zoom
     this.map.on('zoomend', () => {
-      if (this.map!.getZoom() < 5.5)
+      if (this.map!.getZoom() < 5)
       {
         this.allLayers.forEach(groupLayer => {
           groupLayer.childLayers.forEach(childLayer => {
@@ -177,7 +177,8 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   {
     let locationLayers: IAmChildMapLayer[] = [
       new RegionsLayer(this.map),
-      new TownsLayer(this.map)
+      new TownsLayer(this.map),
+      new GeonymsLayer(this.map),
     ];
 
     this.allLayers?.push(new LocationsLayer(this.map, locationLayers));
@@ -188,11 +189,11 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     let poisLayers: IAmChildMapLayer[] = [
       new DungeonsLayer(this.map),
       new CavesLayer(this.map),
-      new GeonymsLayer(this.map),
     ];
 
     this.allLayers?.push(new PointsOfInterestLayer(this.map, poisLayers));
   }
+
   private setAltarsGroup()
   {
     let altarLayers: IAmChildMapLayer[] = [
