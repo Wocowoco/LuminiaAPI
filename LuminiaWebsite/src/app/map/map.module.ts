@@ -8,7 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 const childRoutes: Routes = [
-  {path:"map", component: WorldmapComponent}
+  {path:"map", component: WorldmapComponent},
+  {path:"map/:dmMode", component: WorldmapComponent}
 ]
 
 @NgModule({

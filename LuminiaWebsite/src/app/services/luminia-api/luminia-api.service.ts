@@ -31,7 +31,14 @@ export class LuminiaApiService {
     return this.http.get<MarkerDto[]>(this.LuminiaApiURL + "markers/" + layerFilter);
   }
 
-  getAllMarkers() : Observable<MarkerDto[]> {
-    return this.http.get<MarkerDto[]>(this.LuminiaApiURL + "markers");
+  getAllMarkers(showAll: boolean = false) : Observable<MarkerDto[]> {
+    if (showAll)
+    {
+      return this.http.get<MarkerDto[]>(this.LuminiaApiURL + "markers?showAll=true");
+    }
+    else
+    {
+      return this.http.get<MarkerDto[]>(this.LuminiaApiURL + "markers");
+    }
   }
 }

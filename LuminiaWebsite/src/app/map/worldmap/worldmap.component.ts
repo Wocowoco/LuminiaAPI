@@ -35,6 +35,7 @@ import { DungeonsLayer } from '../maplayers/poiLayers/dungeons.maplayer';
 import { PointsOfInterestLayer } from '../maplayers/layerGroups/pois.maplayer';
 import { CavesLayer } from '../maplayers/poiLayers/caves.maplayer';
 import { GeonymsLayer } from '../maplayers/locationLayers/geonyms.maplayer';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   public allLayers : IAmGroupMapLayer[] = [];
 
   private dragMarker : any;
+  private dmMode : boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -58,7 +60,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     this.isMobileView = window.innerWidth < 550;
   }
 
-  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) {
+  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
     this.onResize(null);
   }
 
@@ -68,6 +70,12 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if (params['dmMode'] == "1308")
+      {
+        this.dmMode = true;
+      };
+    });
   }
 
   private async initLayers(): Promise<void>
@@ -78,10 +86,9 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     this.setAltarsGroup();
 
     try {
-      const allMarkers$ = this.luminiaApiService.getAllMarkers();
+      const allMarkers$ = this.luminiaApiService.getAllMarkers(this.dmMode);
       let allMarkerDtos = await firstValueFrom(allMarkers$);
 
-      console.log(this.allLayers);
       allMarkerDtos.forEach(marker => {
         for(const groupLayer of this.allLayers) {
           const foundLayer = groupLayer.childLayers?.find((layer) => layer.mapLayer === marker.mapLayerId);
@@ -105,8 +112,9 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     //Create the map
     this.map = L.map('map', {attributionControl: false}).setView([17.957832, 7.097168],6);
 
+    const mapUrl : string = this.dmMode ? 'mapDM' : 'map';
     //Create the tile layer
-    L.tileLayer('assets/map/{z}/{x}/{y}.png', {
+    L.tileLayer('assets/'+ mapUrl +'/{z}/{x}/{y}.png', {
       noWrap: true,
       minZoom: 0,
       maxZoom: 8,
