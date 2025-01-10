@@ -14,9 +14,12 @@ hr{
   border: none;
   width: 75%;
   border-radius: 3px;
-  border-top: 5px solid #BDBBB0;;
+  border-top: 5px solid #BDBBB0;
 }
 
+.hr-dark{
+  border-top: 5px solid #5A5152;
+}
 /*------------------------//
 //     HEADINGS           //
 //------------------------*/
@@ -87,6 +90,27 @@ hr{
   padding-top: 12px;
   height: 12px;
   display: block;
+}
+
+.leaflet-popup-tip {
+  background-color: #BDBBB0;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-tooltip {
+  border-color: #BDBBB0;
+  background-color: #BDBBB0;
+  color: #2C2B25;
+  border-radius: 3px;
+}
+
+.leaflet-tooltip::before,
+.leaflet-tooltip::after {
+  border-right-color: #BDBBB0;
+}
+
+.leaflet-no-pointer {
+  cursor: grab;
 }
 
 

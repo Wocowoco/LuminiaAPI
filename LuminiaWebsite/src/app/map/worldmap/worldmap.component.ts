@@ -3,12 +3,12 @@ import { MatSidenav} from '@angular/material/sidenav';
 import * as L from 'leaflet';
 import 'leaflet-easybutton';
 import { TownsLayer } from '../maplayers/locationLayers/towns.maplayer';
-import { IAmMapLayer } from '../maplayers/maplayer.interface';
-import { AltarsLayer } from '../maplayers/altars.maplayer';
+import { IAmChildMapLayer, IAmGroupMapLayer, IAmMapLayer } from '../maplayers/maplayer.interface';
+import { AltarsLayer } from '../maplayers/layerGroups/altars.maplayer';
 import { MirnaLayer } from '../maplayers/altarLayers/mirna.maplayer';
 import { VexLayer } from '../maplayers/altarLayers/vex.maplayer';
 import { FenlaLayer } from '../maplayers/altarLayers/fenla.maplayer';
-import { LocationsLayer } from '../maplayers/locations.maplayers';
+import { LocationsLayer } from '../maplayers/layerGroups/locations.maplayers';
 import { RegionsLayer } from '../maplayers/locationLayers/regions.maplayer';
 import { AmataLayer } from '../maplayers/altarLayers/amata.maplayer';
 import { AtamaLayer } from '../maplayers/altarLayers/atama.maplayer';
@@ -22,6 +22,20 @@ import { YuvicLayer } from '../maplayers/altarLayers/yuvic.maplayer';
 import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-snackbar.component';
+import { InnLayer } from '../maplayers/storeLayers/inn.maplayer';
+import { StoresLayer } from '../maplayers/layerGroups/stores.maplayer';
+import { AlchemistLayer } from '../maplayers/storeLayers/alchemists.maplayer';
+import { ArcheryLayer } from '../maplayers/storeLayers/archery.maplayer';
+import { GeneralStoreLayer } from '../maplayers/storeLayers/general-store.maplayers';
+import { BlacksmithLayer } from '../maplayers/storeLayers/blacksmith.maplayer';
+import { firstValueFrom } from 'rxjs';
+import { StableLayer } from '../maplayers/storeLayers/stable.maplayer';
+import { FishmongerLayer } from '../maplayers/storeLayers/fishmonger.maplayer';
+import { DungeonsLayer } from '../maplayers/poiLayers/dungeons.maplayer';
+import { PointsOfInterestLayer } from '../maplayers/layerGroups/pois.maplayer';
+import { CavesLayer } from '../maplayers/poiLayers/caves.maplayer';
+import { GeonymsLayer } from '../maplayers/locationLayers/geonyms.maplayer';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -33,12 +47,12 @@ import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-s
 export class WorldmapComponent implements AfterViewInit, OnInit{
   @ViewChild('sidePanel') sidenav: MatSidenav | null = null;
   public layerStates = new Map<IAmMapLayer,boolean>();
-  private map : any;
+  private map! : L.Map;
   public isMobileView : boolean = false;
-  public allLayers? : IAmMapLayer[] = [];
+  public allLayers : IAmGroupMapLayer[] = [];
 
   private dragMarker : any;
-
+  private dmMode : boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -46,106 +60,70 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     this.isMobileView = window.innerWidth < 550;
   }
 
-  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) {
-   this.onResize(null);
+  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar, private route: ActivatedRoute) {
+    this.onResize(null);
   }
 
   async ngAfterViewInit(): Promise<void> {
     this.initMap();
-    await this.defineLayers();
+    await this.initLayers();
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if (params['dmMode'] == "1308")
+      {
+        this.dmMode = true;
+      };
+    });
   }
 
-  private async defineLayers(): Promise<void> {
-
-    //LocationLayers
-    let locationLayers: IAmMapLayer[] = [
-      new RegionsLayer(this.map, this.luminiaApiService),
-      new TownsLayer(this.map, this.luminiaApiService)
-    ];
-    this.allLayers?.push(new LocationsLayer(this.map, this.luminiaApiService, locationLayers));
+  private async initLayers(): Promise<void>
+  {
+    this.setLocationsGroup();
+    this.setPoisGroup();
+    this.setStoresGroup();
+    this.setAltarsGroup();
 
     try {
-      //AltarLayers
-      let altarLayers: IAmMapLayer[] = [
-        new AmataLayer(this.map, this.luminiaApiService),
-        new AtamaLayer(this.map, this.luminiaApiService),
-        new CaraLayer(this.map, this.luminiaApiService),
-        new FenlaLayer(this.map, this.luminiaApiService),
-        new KazLayer(this.map, this.luminiaApiService),
-        new KrigonLayer(this.map, this.luminiaApiService),
-        new LokaineLayer(this.map, this.luminiaApiService),
-        new MirnaLayer(this.map, this.luminiaApiService),
-        new TaoidesLayer(this.map, this.luminiaApiService),
-        new VaknorLayer(this.map, this.luminiaApiService),
-        new VexLayer(this.map, this.luminiaApiService),
-        new YuvicLayer(this.map, this.luminiaApiService),
-      ];
+      const allMarkers$ = this.luminiaApiService.getAllMarkers(this.dmMode);
+      let allMarkerDtos = await firstValueFrom(allMarkers$);
 
-      for (const layer of altarLayers) {
-        await layer.getMarkers();
-      }
-
-      this.allLayers?.push(new AltarsLayer(this.map, this.luminiaApiService, altarLayers));
+      allMarkerDtos.forEach(marker => {
+        for(const groupLayer of this.allLayers) {
+          const foundLayer = groupLayer.childLayers?.find((layer) => layer.mapLayer === marker.mapLayerId);
+          if (foundLayer) {
+            groupLayer.amount++;
+            foundLayer.addMarker(marker);
+            return;
+          }
+        }
+      });
     } catch {
       this.snackBar.openFromComponent(ErrorSnackbarComponent, {
         panelClass: 'error-snackbar',
-        data: "Altar markers could not be loaded.",
+        data: "Markers could not be loaded.",
         duration: 10000
       });
     }
   }
 
   private initMap(): void{
-
-    /*
-    this.map = L.map('map', {crs: L.CRS.Simple}).setView([3.56,1.30]).setZoom(2).setMaxZoom(8).setMinZoom(2);
-    var bounds = L.latLngBounds([-50,-50], [50, 50]);
-    var image = L.imageOverlay('assets/rsworldmap.png', bounds).addTo(this.map).setBounds([0,0], [50,50]);
-    */
-
     //Create the map
     this.map = L.map('map', {attributionControl: false}).setView([17.957832, 7.097168],6);
 
+    const mapUrl : string = this.dmMode ? 'mapDM' : 'map';
     //Create the tile layer
-
-    L.tileLayer('assets/map/{z}/{x}/{y}.png', {
+    L.tileLayer('assets/'+ mapUrl +'/{z}/{x}/{y}.png', {
       noWrap: true,
       minZoom: 0,
       maxZoom: 8,
       maxNativeZoom:6,
     }).addTo(this.map);
 
-    /*
-    //Sidepanel toggle button
-    var customControl = L.Control.extend({
-      options: {
-        position: 'topright'
-      },
-      onAdd: function()
-      {
-        var button = L.DomUtil.create('input');
-        button.id = "toggleSidePanelButton";
-        button.type = "button";
-        button.value = "Toggle Sidepanel";
-        button.className = "worldmap-sidepanel-button leaflet-bar";
-
-        return button;
-      }
-    })
-
-    this.map.addControl(new customControl);
-    var sidePanelButton = document.getElementById("toggleSidePanelButton");
-    sidePanelButton!.onclick = () => this.sidenav!.toggle();
-    */
-
     L.easyButton('<i class="fa-solid fa-bars fa-lg filterIcon"></i>', () => {
       this.sidenav!.toggle();
     }).addTo(this.map).setPosition('topright');
-
-
 
     //Draggable marker
     var blankIcon = L.icon({
@@ -160,7 +138,35 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     }).addTo(this.map);
     this.dragMarker.bindPopup('LatLng Marker');
     this.dragMarker.on('dragend', () => {
-      this.dragMarker.getPopup().setContent(this.dragMarker.getLatLng().toString()).openOn(this.map);
+      let latlng : L.LatLng = this.dragMarker.getLatLng();
+      let markerText = "X= " + latlng.lng.toFixed(6) + ", Y= " + latlng.lat.toFixed(6);
+      this.dragMarker.getPopup().setContent(markerText).openOn(this.map);
+    });
+
+    //Change opacity of layers based on zoom
+    this.map.on('zoomend', () => {
+      if (this.map!.getZoom() < 5)
+      {
+        this.allLayers.forEach(groupLayer => {
+          groupLayer.childLayers.forEach(childLayer => {
+            if(childLayer.isHiddenWhenZoomedOut)
+            {
+              childLayer.setOpacity(0);
+            }
+          });
+        });
+      }
+      else
+      {
+        this.allLayers.forEach(groupLayer => {
+          groupLayer.childLayers.forEach(childLayer => {
+            if(childLayer.isHiddenWhenZoomedOut)
+            {
+              childLayer.setOpacity(1);
+            }
+          });
+        });
+      }
     });
   }
 
@@ -174,4 +180,61 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   {
     this.sidenav!.close();
   }
+
+  private setLocationsGroup()
+  {
+    let locationLayers: IAmChildMapLayer[] = [
+      new RegionsLayer(this.map),
+      new TownsLayer(this.map),
+      new GeonymsLayer(this.map),
+    ];
+
+    this.allLayers?.push(new LocationsLayer(this.map, locationLayers));
+  }
+
+  private setPoisGroup()
+  {
+    let poisLayers: IAmChildMapLayer[] = [
+      new DungeonsLayer(this.map),
+      new CavesLayer(this.map),
+    ];
+
+    this.allLayers?.push(new PointsOfInterestLayer(this.map, poisLayers));
+  }
+
+  private setAltarsGroup()
+  {
+    let altarLayers: IAmChildMapLayer[] = [
+      new AmataLayer(this.map),
+      new AtamaLayer(this.map),
+      new CaraLayer(this.map),
+      new FenlaLayer(this.map),
+      new KazLayer(this.map),
+      new KrigonLayer(this.map),
+      new LokaineLayer(this.map),
+      new MirnaLayer(this.map),
+      new TaoidesLayer(this.map),
+      new VaknorLayer(this.map),
+      new VexLayer(this.map),
+      new YuvicLayer(this.map),
+    ];
+
+    this.allLayers?.push(new AltarsLayer(this.map, altarLayers));
+  }
+
+  private setStoresGroup()
+  {
+    let storeLayers: IAmChildMapLayer[] = [
+      new AlchemistLayer(this.map),
+      new ArcheryLayer(this.map),
+      new BlacksmithLayer(this.map),
+      new GeneralStoreLayer(this.map),
+      new InnLayer(this.map),
+      new StableLayer(this.map),
+      new FishmongerLayer(this.map)
+    ];
+
+    this.allLayers?.push(new StoresLayer(this.map, storeLayers));
+  }
 }
+

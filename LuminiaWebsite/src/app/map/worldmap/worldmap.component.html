@@ -21,13 +21,13 @@
       <!-- Generate all layer toggles-->
       <div *ngFor="let layer of allLayers" class="layerParentGroup">
         <div (click)="layer.toggleActive()" class="toggle" [style.background-color]="layer.getBackgroundColor()">
-          <img class="icon" src="{{layer.imageUrl}}">
+          <img class="icon" src="{{layer.iconUrl}}">
           <p class="iconText">{{layer?.name}} ({{layer?.amount}})</p>
         </div>
 
         <div class="layerChildGroup">
           <div (click)="childLayer.toggleActive()" class="toggle subtoggle" *ngFor="let childLayer of layer.childLayers" [style.background-color]="childLayer.getBackgroundColor()">
-            <img class="icon" src="{{childLayer.imageUrl}}">
+            <img class="icon" src="{{childLayer.iconUrl}}">
             <p class="iconText">{{childLayer?.name}} ({{childLayer?.amount}})</p>
           </div>
         </div>

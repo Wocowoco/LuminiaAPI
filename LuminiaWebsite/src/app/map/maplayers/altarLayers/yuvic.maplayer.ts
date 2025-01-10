@@ -1,27 +1,17 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { IAmChildMapLayer,  SingleIconMapLayer } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
 
-export class YuvicLayer extends MapLayerBase implements IAmMapLayer
+export class YuvicLayer extends SingleIconMapLayer implements IAmChildMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/yuvic.png";
+  public iconUrl;
   public name = "Yuvic";
   public mapLayer =  MapLayerEnum.YuvicAltar;
 
-  constructor(map : L.Map, luminiaApiService: LuminiaApiService, layersToControl?: IAmMapLayer[]) {
-    super(map, luminiaApiService, layersToControl);
-  }
-
-  //Icons
-  private yuvic = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/yuvic.png",
-    iconSize: [15,15],
-    iconAnchor: [7.5, 7.5]
-  });
-
-  public override async getMarkers() : Promise<void>
-  {
-    await super.getMarkers(this.mapLayer, this.yuvic);
+  constructor(map : L.Map) {
+    const iconUrl = YuvicLayer.worldmapImagePath + "icon/yuvic.png";
+    super(map, iconUrl);
+    this.iconUrl = iconUrl;
+    this.defaultTooltip = "Yuvic Altar";
   }
 }

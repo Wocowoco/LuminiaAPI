@@ -1,28 +1,18 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
+import { IAmChildMapLayer,  SingleIconMapLayer } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
 
-export class FenlaLayer extends MapLayerBase implements IAmMapLayer
+export class FenlaLayer extends SingleIconMapLayer implements IAmChildMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/fenla.png";
+  public iconUrl;
   public name = "Fen'La";
   public mapLayer = MapLayerEnum.FenlaAltar;
 
-  constructor(map : L.Map, luminiaApiService: LuminiaApiService, layersToControl?: IAmMapLayer[]) {
-    super(map, luminiaApiService, layersToControl);
-  }
-
-  //Icons
-  private fenla = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/fenla.png",
-    iconSize: [15,15],
-    iconAnchor: [7.5, 7.5]
-  });
-
-  public override async getMarkers() : Promise<void>
-  {
-    await super.getMarkers(this.mapLayer, this.fenla);
+  constructor(map : L.Map) {
+    const iconUrl = FenlaLayer.worldmapImagePath + "icon/fenla.png";
+    super(map, iconUrl);
+    this.iconUrl = iconUrl;
+    this.defaultTooltip = "Fen'La Altar";
   }
 }
 

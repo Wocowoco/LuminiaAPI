@@ -1,27 +1,17 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { IAmChildMapLayer,  SingleIconMapLayer } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
 
-export class VexLayer extends MapLayerBase implements IAmMapLayer
+export class VexLayer extends SingleIconMapLayer implements IAmChildMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/vex.png";
+  public iconUrl;
   public name = "Vex";
   public mapLayer = MapLayerEnum.VexAltar;
 
-  constructor(map : L.Map, luminiaApiService: LuminiaApiService, layersToControl?: IAmMapLayer[]) {
-    super(map, luminiaApiService, layersToControl);
-  }
-
-  //Icons
-  private vex = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/vex.png",
-    iconSize: [15,15],
-    iconAnchor: [7.5, 7.5]
-  });
-
-  public override async getMarkers() : Promise<void>
-  {
-    await super.getMarkers(this.mapLayer, this.vex);
+  constructor(map : L.Map) {
+    const iconUrl = VexLayer.worldmapImagePath + "icon/vex.png";
+    super(map, iconUrl);
+    this.iconUrl = iconUrl;
+    this.defaultTooltip = "Vex Altar";
   }
 }

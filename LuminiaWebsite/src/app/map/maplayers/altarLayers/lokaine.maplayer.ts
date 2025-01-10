@@ -1,27 +1,17 @@
 import * as L from "leaflet";
-import { IAmMapLayer, MapLayerBase } from "../maplayer.interface";
+import { IAmChildMapLayer,  SingleIconMapLayer } from "../maplayer.interface";
 import { MapLayerEnum } from "src/app/services/luminia-api/enums/maplayerenum";
-import { LuminiaApiService } from "src/app/services/luminia-api/luminia-api.service";
 
-export class LokaineLayer extends MapLayerBase implements IAmMapLayer
+export class LokaineLayer extends SingleIconMapLayer implements IAmChildMapLayer
 {
-  public imageUrl = this.worldmapImagePath + "icon/lokaine.png";
+  public iconUrl;
   public name = "Lokaine";
   public mapLayer = MapLayerEnum.LokaineAltar;
 
-  constructor(map : L.Map, luminiaApiService: LuminiaApiService, layersToControl?: IAmMapLayer[]) {
-    super(map, luminiaApiService, layersToControl);
-  }
-
-  //Icons
-  private lokaine = L.icon({
-    iconUrl: this.worldmapImagePath + "icon/lokaine.png",
-    iconSize: [15,15],
-    iconAnchor: [7.5, 7.5]
-  });
-
-  public override async getMarkers() : Promise<void>
-  {
-    await super.getMarkers(this.mapLayer, this.lokaine);
+  constructor(map : L.Map) {
+    const iconUrl = LokaineLayer.worldmapImagePath + "icon/lokaine.png";
+    super(map, iconUrl);
+    this.iconUrl = iconUrl;
+    this.defaultTooltip = "Lokaine Altar";
   }
 }

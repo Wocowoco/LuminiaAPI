@@ -4,5 +4,9 @@ export interface MarkerDto{
   posX: number
   posY: number
   mapLayerId: MapLayerEnum
-  popupText: string
+  titleText: string
+  descriptionText: string
+  width: number
+  height: number
+  imageUrl: string
 }
