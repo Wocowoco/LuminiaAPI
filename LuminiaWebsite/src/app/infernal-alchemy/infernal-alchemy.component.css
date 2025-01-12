@@ -226,7 +226,47 @@
   animation-delay: 500ms;
 }
 
+/* Roll tables */
+.mat-card-header {
+  display: block;
+  text-align: center;
+}
 
+.rolltable-card {
+  width: 35%;
+  min-width: 260px;
+  margin: 5px 15px 5px 15px;
+}
+
+.rolltable-card-header {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 30px;
+  margin-bottom: 15px;
+  line-height: normal;
+}
+
+.rolltable-table {
+  text-align: center;
+  width: 75%;
+  display: table;
+  padding-left: 20px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+
+.center-items {
+  display: flex;
+  justify-content: center;
+}
 
 @keyframes wave {
   0% {
