@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
+import { firstValueFrom } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 
 @Component({
   selector: 'app-infernal-alchemy',
@@ -7,9 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfernalAlchemyComponent implements OnInit {
 
-  researchPoints : number = 1;
-  researchPointsTotal : number = 7;
-  amountOfMoney : number = 402;
+  researchPoints : string = "-";
+  researchPointsTotal : string = "-";
+  budget : string = "---";
 
   earningsData = [
     {range: "< 9", result: "-50 gold"},
@@ -30,9 +34,25 @@ export class InfernalAlchemyComponent implements OnInit {
     {price: "100 gold", dc: "8"},
   ];
   displayedColumns: string[] = ["dc", "effect"]
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(private luminiaApiService : LuminiaApiService, private snackBar: MatSnackBar) {
   }
 
+
+  async ngOnInit(): Promise<void> {
+    try {
+      var infernalAlchemyStats$ = this.luminiaApiService.getInfernalAlchemyStats();
+      var infernalAlchemyStatsDto = await firstValueFrom(infernalAlchemyStats$);
+
+      this.researchPoints = infernalAlchemyStatsDto.researchPoints.toString();
+      this.researchPointsTotal = infernalAlchemyStatsDto.researchPointsTotal.toString();
+      this.budget = infernalAlchemyStatsDto.budget.toString();
+    } catch {
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Infernal Alchemy data could not be loaded.",
+        duration: 10000
+      });
+    }
+  }
 }

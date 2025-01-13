@@ -5,6 +5,7 @@ import { Item } from './dtos/item.interface';
 import { MapLayerEnum } from './enums/maplayerenum';
 import { MarkerDto } from './dtos/markerdto.interface';
 import { environment } from 'src/environments/environment';
+import { InfernalAlchemyStatsDto } from './dtos/infernalAlchemyStatsDto.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,9 @@ export class LuminiaApiService {
     {
       return this.http.get<MarkerDto[]>(this.LuminiaApiURL + "markers");
     }
+  }
+
+  getInfernalAlchemyStats() : Observable<InfernalAlchemyStatsDto> {
+    return this.http.get<InfernalAlchemyStatsDto>(this.LuminiaApiURL + "infernalalchemy");
   }
 }
