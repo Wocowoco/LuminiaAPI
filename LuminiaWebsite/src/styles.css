@@ -20,6 +20,7 @@ hr{
 .hr-dark{
   border-top: 5px solid #5A5152;
 }
+
 /*------------------------//
 //     HEADINGS           //
 //------------------------*/
@@ -47,6 +48,17 @@ hr{
   font-size: 20px;
 }
 
+.page-header {
+  padding-top: 35px;
+  color: #2C2B25;
+  padding-bottom: 35px;
+  clip-path: polygon(0 0, 100% 0%, 100% 80%, 0% 100%);
+  background-color: #BDBBB0;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 /*------------------------//
 //     SUB-HEADERS        //
 //------------------------*/
@@ -55,8 +67,8 @@ hr{
   background-color: #BDBBB0;
   color: #2C2B25;
   padding-top: 25px;
-  height: 60px;
   text-align: center;
+  padding-bottom: 15px;
 }
   .sub-title-down{
     clip-path: polygon(0 0, 100% 20%, 100% 100%, 0% 80%);
@@ -70,12 +82,12 @@ hr{
   background-color: #BDBBB0;
   height: 35px;
 }
-  .divider-down{
-    clip-path: polygon(0 0, 100% 45%, 100% 100%, 0% 55%);
-  }
-  .divider-up{
-    clip-path: polygon(0 45%, 100% 0, 100% 55%, 0% 100%);
-  }
+.divider-down{
+  clip-path: polygon(0 0, 100% 45%, 100% 100%, 0% 55%);
+}
+.divider-up{
+  clip-path: polygon(0 45%, 100% 0, 100% 55%, 0% 100%);
+}
 
 /*------------------------//
 //       WORLDMAP         //

@@ -1,0 +1,88 @@
+<div class="page-header"><h1>Infernal Alchemy</h1></div>
+<div class="page">
+  <div class="potion-container">
+    <div class="potion-cork"></div>
+    <div class="potion-neck"></div>
+    <div class="potion-bottle">
+      <div class="potion-content">
+        <div class="potion-liquid"></div>
+        <div class="potion-liquid"></div>
+        <div class="potion-liquid"></div>
+        <div class="potion-liquid"></div>
+        <div class="potion-solidliquid"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+      </div>
+    </div>
+    <div class="research-points">Research Points: {{researchPoints}}</div>
+    <div class="research-points-total">Total: {{researchPointsTotal}}</div>
+  </div>
+  <div class="coins-container">
+    <img src="../../../assets/images/infernal-alchemy/coins.png">
+    <div class="coins-total">Budget: {{budget}} gold</div>
+    <div class="coin-sparkle"></div>
+    <div class="coin-sparkle"></div>
+    <div class="coin-sparkle"></div>
+    <div class="coin-sparkle"></div>
+    <div class="coin-sparkle"></div>
+  </div>
+</div>
+<div class="sub-title-down"><h2>Alchemical Research Tree</h2></div>
+<div class="page"><p>The full tree is a work in progress (check Discord for the picture).</p></div>
+<div class="sub-title-up"><h2>Activities</h2></div>
+<div class="page">
+  <mat-card class="rolltable-card">
+    <mat-card-header class="rolltable-card-header">Monthly earnings</mat-card-header>
+    <mat-card-content class="card-content">
+      <p>The DC is the sum of a Persuasion skill check and an Alchemical Supplies (Dex) skill check.</p>
+      <div class="center-items">
+        <table mat-table [dataSource]="earningsData" class="rolltable-table">
+          <ng-container matColumnDef="dc">
+            <th mat-header-cell *matHeaderCellDef>Result</th>
+            <td mat-cell *matCellDef="let roll"> {{roll.range}} </td>
+          </ng-container>
+          <ng-container matColumnDef="effect">
+            <th mat-header-cell *matHeaderCellDef>Effect</th>
+            <td mat-cell *matCellDef="let roll"> {{roll.result}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <p></p>
+      <p><i>These earnings are calculated at the first of each month.</i></p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="rolltable-card">
+    <mat-card-header class="rolltable-card-header">Acquiring Research Points</mat-card-header>
+    <mat-card-content class="card-content">
+      <p>Whenever you have something that can yield Research Points (given by the DM), you will need to invest some time and money in to gaining that Research Point.
+      This can be done by spending 8 hours on research and spending some money on buying supplies to work with.</p>
+      <p>The DC is an Alchemist Supplies (Int) skill check. The DC is lowered by the amount of money spent on supplies for the research.</p>
+      <div class="center-items">
+        <table mat-table [dataSource]="researchData" class="rolltable-table">
+          <ng-container matColumnDef="dc">
+            <th mat-header-cell *matHeaderCellDef>Cost</th>
+            <td mat-cell *matCellDef="let roll"> {{roll.price}} </td>
+          </ng-container>
+          <ng-container matColumnDef="effect">
+            <th mat-header-cell *matHeaderCellDef>DC</th>
+            <td mat-cell *matCellDef="let roll"> {{roll.dc}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <p></p>
+      <p>If you failed the check, you can retry by putting in the hours and money again until you succeed.
+        Once you do succeed, you can no longer gain Research Points from that specific source.</p>
+      <p>You can spend a week (7 days) researching without having a specific source to get Research Points from.
+        The costs for materials is multiplied by 7 (materials for each day). On a succesful check at the end of the week, you will gain one Research Point.
+      </p>
+    </mat-card-content>
+
+  </mat-card>
+</div>

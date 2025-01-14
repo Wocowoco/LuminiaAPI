@@ -10,6 +10,7 @@ import { ItemsModule } from './items/items.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PantheonModule } from './pantheon/pantheon.module';
 import { CommonModule } from '@angular/common';
+import { InfernalAlchemyModule } from './infernal-alchemy/infernal-alchemy.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CommonModule } from '@angular/common';
     ItemsModule,
     BrowserModule,
     HttpClientModule,
-    PantheonModule
+    PantheonModule,
+    InfernalAlchemyModule
   ],
   providers: [
   ],
