@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PantheonModule } from './pantheon/pantheon.module';
 import { CommonModule } from '@angular/common';
 import { InfernalAlchemyModule } from './infernal-alchemy/infernal-alchemy.module';
+import { CalendarModule } from './calendar/calendar.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InfernalAlchemyModule } from './infernal-alchemy/infernal-alchemy.modul
     BrowserModule,
     HttpClientModule,
     PantheonModule,
-    InfernalAlchemyModule
+    InfernalAlchemyModule,
+    CalendarModule
   ],
   providers: [
   ],
