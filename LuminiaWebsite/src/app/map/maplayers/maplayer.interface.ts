@@ -47,12 +47,12 @@ export abstract class MapLayerBase
   public getBackgroundColor(): string {
 
     //Inactive color
-    var color: string = "#bdbbb0";
+    var color: string = "#908C7A";
 
     //Active color
     if(this.isActive)
     {
-      color = "#908C7A";
+      color = "#BDBBB0";
     }
 
     return color;
