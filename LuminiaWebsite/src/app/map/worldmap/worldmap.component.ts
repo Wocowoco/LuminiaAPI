@@ -184,6 +184,9 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     if(this.groupMarker !== undefined) {
       this.map.setView([this.groupMarker?.posY, this.groupMarker?.posX], 6);
     }
+    else{
+      this.map.setView([0, 0], 6);
+    }
   }
 
   public toggleAllLayers(isActive: boolean) : void{
