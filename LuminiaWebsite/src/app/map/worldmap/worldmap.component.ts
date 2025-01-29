@@ -36,6 +36,7 @@ import { PointsOfInterestLayer } from '../maplayers/layerGroups/pois.maplayer';
 import { CavesLayer } from '../maplayers/poiLayers/caves.maplayer';
 import { GeonymsLayer } from '../maplayers/locationLayers/geonyms.maplayer';
 import { ActivatedRoute } from '@angular/router';
+import { LuminLayer } from '../maplayers/poiLayers/lumin.maplayer';
 
 
 @Component({
@@ -127,7 +128,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
     //Draggable marker
     var blankIcon = L.icon({
-      iconUrl: "assets/images/worldmap/icon/blank.png",
+      iconUrl: "assets/images/worldmap/icon/lens.png",
       iconSize: [15,15],
       iconAnchor: [7.5,7.5]
     });
@@ -136,7 +137,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     draggable: true,
     icon: blankIcon,
     }).addTo(this.map);
-    this.dragMarker.bindPopup('LatLng Marker');
+    this.dragMarker.bindPopup('Position marker');
     this.dragMarker.on('dragend', () => {
       let latlng : L.LatLng = this.dragMarker.getLatLng();
       let markerText = "X= " + latlng.lng.toFixed(6) + ", Y= " + latlng.lat.toFixed(6);
@@ -197,6 +198,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     let poisLayers: IAmChildMapLayer[] = [
       new DungeonsLayer(this.map),
       new CavesLayer(this.map),
+      new LuminLayer(this.map),
     ];
 
     this.allLayers?.push(new PointsOfInterestLayer(this.map, poisLayers));

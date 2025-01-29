@@ -25,4 +25,5 @@ export enum MapLayerEnum
   Dungeon = 22,
   Cave = 23,
   Geonym = 24,
+  Lumin = 25,
 }
