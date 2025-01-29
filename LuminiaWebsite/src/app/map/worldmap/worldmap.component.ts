@@ -37,6 +37,9 @@ import { CavesLayer } from '../maplayers/poiLayers/caves.maplayer';
 import { GeonymsLayer } from '../maplayers/locationLayers/geonyms.maplayer';
 import { ActivatedRoute } from '@angular/router';
 import { LuminLayer } from '../maplayers/poiLayers/lumin.maplayer';
+import { GroupLayer } from '../maplayers/poiLayers/group.maplayer';
+import { MarkerDto } from 'src/app/services/luminia-api/dtos/markerdto.interface';
+import { MapLayerEnum } from 'src/app/services/luminia-api/enums/maplayerenum';
 
 
 @Component({
@@ -54,6 +57,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   private dragMarker : any;
   private dmMode : boolean = false;
+  private groupMarker : MarkerDto | undefined;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -68,6 +72,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   async ngAfterViewInit(): Promise<void> {
     this.initMap();
     await this.initLayers();
+    this.moveMap();
   }
 
   ngOnInit(): void {
@@ -90,6 +95,10 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       const allMarkers$ = this.luminiaApiService.getAllMarkers(this.dmMode);
       let allMarkerDtos = await firstValueFrom(allMarkers$);
 
+      //Read group marker for coords
+      this.groupMarker = allMarkerDtos.find((marker) => marker.mapLayerId == MapLayerEnum.Group);
+
+      //Create all markers per layer
       allMarkerDtos.forEach(marker => {
         for(const groupLayer of this.allLayers) {
           const foundLayer = groupLayer.childLayers?.find((layer) => layer.mapLayer === marker.mapLayerId);
@@ -111,7 +120,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   private initMap(): void{
     //Create the map
-    this.map = L.map('map', {attributionControl: false}).setView([17.957832, 7.097168],6);
+    this.map = L.map('map', {attributionControl: false});
 
     const mapUrl : string = this.dmMode ? 'mapDM' : 'map';
     //Create the tile layer
@@ -171,6 +180,12 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     });
   }
 
+  private moveMap() : void {
+    if(this.groupMarker !== undefined) {
+      this.map.setView([this.groupMarker?.posY, this.groupMarker?.posX], 6);
+    }
+  }
+
   public toggleAllLayers(isActive: boolean) : void{
     this.allLayers?.forEach(layer => {
       layer.setActive(isActive);
@@ -199,6 +214,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       new DungeonsLayer(this.map),
       new CavesLayer(this.map),
       new LuminLayer(this.map),
+      new GroupLayer(this.map),
     ];
 
     this.allLayers?.push(new PointsOfInterestLayer(this.map, poisLayers));

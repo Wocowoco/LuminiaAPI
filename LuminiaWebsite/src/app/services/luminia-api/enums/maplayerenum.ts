@@ -26,4 +26,5 @@ export enum MapLayerEnum
   Cave = 23,
   Geonym = 24,
   Lumin = 25,
+  Group = 26,
 }
