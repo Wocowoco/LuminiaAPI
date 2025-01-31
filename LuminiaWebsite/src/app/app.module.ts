@@ -12,6 +12,8 @@ import { PantheonModule } from './pantheon/pantheon.module';
 import { CommonModule } from '@angular/common';
 import { InfernalAlchemyModule } from './infernal-alchemy/infernal-alchemy.module';
 import { CalendarModule } from './calendar/calendar.module';
+import { NotFoundPageModule } from './not-found-page/not-found-page.module';
+import { DmPageModule } from './dm-page/dm-page.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { CalendarModule } from './calendar/calendar.module';
     HttpClientModule,
     PantheonModule,
     InfernalAlchemyModule,
-    CalendarModule
+    CalendarModule,
+    DmPageModule,
+    NotFoundPageModule, //This module needs to be the last import because of the wildcard route
   ],
   providers: [
   ],

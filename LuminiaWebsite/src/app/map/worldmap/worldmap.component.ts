@@ -77,7 +77,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      if (params['dmMode'] == "1308")
+      if (params['dmCode'] == "1308")
       {
         this.dmMode = true;
       };
