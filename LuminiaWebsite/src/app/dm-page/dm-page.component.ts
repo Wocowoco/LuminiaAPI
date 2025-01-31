@@ -11,15 +11,6 @@ export class DmPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if (params['dmMode'] == "1308")
-      {
-
-      }
-      else {
-        this.router.navigateByUrl('404');
-      }
-    });
   }
 
 }
