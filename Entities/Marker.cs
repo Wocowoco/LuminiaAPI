@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LuminiaAPI.Entities
 {
-    [Table("marker", Schema = "Luminia")]
+    [Table("marker", Schema = "luminia")]
     public class Marker
         : EntityBase
     {

@@ -62,5 +62,25 @@ namespace LuminiaAPI.Controllers
 
             return Ok(markerDtos);
         }
+
+        [HttpPatch("{markerId}/position")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PatchMarkerPositionByIdAsync(int markerId, decimal posX, decimal posY)
+        {
+            var marker = await _luminiaContext.Marker.FindAsync(markerId);
+
+            if (marker == null)
+            {
+                return NotFound();
+            }
+
+            marker.PosX = posX;
+            marker.PosY = posY; 
+
+            await _luminiaContext.SaveChangesAsync();
+
+            return Ok(marker);
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace LuminiaAPI.Context
                 else if (entry.State == EntityState.Modified)
                 {
                     ((EntityBase)entry.Entity).UpdateDate = DateTime.Now;
-                    ((EntityBase)entry.Entity).CreationUser = LUMINIADB;
+                    ((EntityBase)entry.Entity).UpdateUser = LUMINIADB;
                 }
             }
 

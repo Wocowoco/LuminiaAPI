@@ -46,4 +46,8 @@ export class LuminiaApiService {
   getInfernalAlchemyStats() : Observable<InfernalAlchemyStatsDto> {
     return this.http.get<InfernalAlchemyStatsDto>(this.LuminiaApiURL + "infernalalchemy");
   }
+
+  updateGroupPosition(positionX : number, positionY : number) {
+    return this.http.patch(this.LuminiaApiURL + "markers/1/position?posX="+positionX+"&posY="+positionY, null);
+  }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LuminiaAPI.Entities
 {
-    [Table("item", Schema = "Luminia")]
+    [Table("item", Schema = "luminia")]
     public class Item
         : EntityBase
     {
