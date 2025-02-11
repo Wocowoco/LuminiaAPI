@@ -96,6 +96,9 @@
   border: 2px solid #d48611;
   background-color: #db9e43;
 }
+.leaflet-calendar .event{
+  background-color: #e7ad55;
+}
 .leaflet-button{
   background-color: #db9e43;
 }
