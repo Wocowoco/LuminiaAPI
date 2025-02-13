@@ -1,4 +1,9 @@
 import { AfterViewInit, Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
+import { firstValueFrom } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
+import { CurrentDateDto } from '../services/luminia-api/dtos/currentDateDto.interface';
 
 @Component({
   selector: 'app-calendar',
@@ -7,14 +12,33 @@ import { AfterViewInit, Component, OnInit, ElementRef, Renderer2 } from '@angula
 })
 export class CalendarComponent implements OnInit, AfterViewInit {
 
-  currentDayInYear : number = 138;
-  currentYear : number = 7346;
+  currentDayInYear : number = 0;
   currentSelectedQuarter : number = 0;
   headerText : string = '';
+  currentDateDto : CurrentDateDto | any;
 
-  constructor(private renderer: Renderer2, private elementRef : ElementRef) { }
-  ngOnInit(): void {
-    this.headerText = this.calculateHeaderText(this.currentDayInYear, this.currentYear);
+  constructor(private renderer: Renderer2,
+              private elementRef : ElementRef,
+              private luminiaApiService: LuminiaApiService,
+              private snackBar: MatSnackBar) {
+
+  }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      var currentDate$ = this.luminiaApiService.getCurrentDate();
+      var currentDateDto = await firstValueFrom(currentDate$);
+
+      this.currentDayInYear = currentDateDto.day;
+      this.headerText = this.calculateHeaderText(currentDateDto.day, currentDateDto.year);
+      this.showCurrentDay();
+    } catch {
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Calendar data could not be loaded.",
+        duration: 10000
+      });
+    }
   }
 
   ngAfterViewInit(): void {

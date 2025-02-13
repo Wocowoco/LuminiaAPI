@@ -1,7 +1,5 @@
-﻿using LuminiaAPI.Entities;
-using Microsoft.AspNetCore.Http.Features;
+﻿using LuminiaAPI.Entities; 
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 namespace LuminiaAPI.Context
 {
@@ -10,6 +8,7 @@ namespace LuminiaAPI.Context
         public DbSet<Item> Items { get; set; }
         public DbSet<Marker> Marker { get; set; }
         public DbSet<InfernalAlchemyStats> InfernalAlchemyStats { get; set; }
+        public DbSet<CurrentDate> CurrentDate { get; set; }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
@@ -27,6 +26,7 @@ namespace LuminiaAPI.Context
         public DbSet<Item> Items { get; set; }
         public DbSet<Marker> Marker { get; set; }
         public DbSet<InfernalAlchemyStats> InfernalAlchemyStats { get; set; }
+        public DbSet<CurrentDate> CurrentDate { get; set; }
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

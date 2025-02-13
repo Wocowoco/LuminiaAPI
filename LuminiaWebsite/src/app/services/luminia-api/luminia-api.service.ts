@@ -6,6 +6,7 @@ import { MapLayerEnum } from './enums/maplayerenum';
 import { MarkerDto } from './dtos/markerdto.interface';
 import { environment } from 'src/environments/environment';
 import { InfernalAlchemyStatsDto } from './dtos/infernalAlchemyStatsDto.interface';
+import { CurrentDateDto } from './dtos/currentDateDto.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,9 @@ export class LuminiaApiService {
 
   updateGroupPosition(positionX : number, positionY : number) {
     return this.http.patch(this.LuminiaApiURL + "markers/1/position?posX="+positionX+"&posY="+positionY, null);
+  }
+
+  getCurrentDate() : Observable<CurrentDateDto> {
+    return this.http.get<CurrentDateDto>(this.LuminiaApiURL + "currentdate");
   }
 }
