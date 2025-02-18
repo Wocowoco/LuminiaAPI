@@ -55,4 +55,8 @@ export class LuminiaApiService {
   getCurrentDate() : Observable<CurrentDateDto> {
     return this.http.get<CurrentDateDto>(this.LuminiaApiURL + "currentdate");
   }
+
+  updateCurrentDate(day : number) {
+    return this.http.patch<CurrentDateDto>(this.LuminiaApiURL + "currentdate?day="+day, null);
+  }
 }
