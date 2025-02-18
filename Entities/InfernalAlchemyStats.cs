@@ -2,7 +2,7 @@
 
 namespace LuminiaAPI.Entities
 {
-    [Table("infernalalchemy", Schema = "Luminia")]
+    [Table("infernalalchemy", Schema = "luminia")]
     public class InfernalAlchemyStats
         : EntityBase
     {

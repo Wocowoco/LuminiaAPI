@@ -6,10 +6,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { DmCheckGuard } from '../guards/dm-check/dm-check.guard';
 
 const childRoutes: Routes = [
   {path:"map", component: WorldmapComponent},
-  {path:"map/:dmMode", component: WorldmapComponent}
+  {path:"map/:dmCode", component: WorldmapComponent, canActivate: [DmCheckGuard]}
 ]
 
 @NgModule({

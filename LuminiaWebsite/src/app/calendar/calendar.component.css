@@ -58,6 +58,10 @@
   align-items: center;
 }
 
+.event {
+  z-index: 1;
+}
+
 .bloomen-calendar .day{
   border: 2px solid #2c9104;
 }
@@ -96,6 +100,9 @@
   border: 2px solid #d48611;
   background-color: #db9e43;
 }
+.leaflet-calendar .event{
+  background-color: #e7ad55;
+}
 .leaflet-button{
   background-color: #db9e43;
 }
@@ -112,6 +119,12 @@
 }
 .frizwa-button{
   background-color: #5bb0c5;
+}
+
+.current-day {
+  border: 2px solid #2C2B25 !important;
+  z-index: 1;
+  background-color: #BDBBB0;
 }
 
 .mat-grid-tile-content {
