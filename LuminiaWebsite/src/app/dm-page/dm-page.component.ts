@@ -22,6 +22,11 @@ export class DmPageComponent implements OnInit {
 
   private groupMarker : MarkerDto | undefined;
 
+  oldFolderName : string = '';
+  oldFolderNameDM : string = '';
+  folderName : string = '';
+  folderNameDM : string = '';
+
   constructor(private luminiaApiService: LuminiaApiService) {
   }
 
@@ -29,6 +34,7 @@ export class DmPageComponent implements OnInit {
     // Get current party position
     await this.getCurrentPosition();
     await this.getCurrentDay();
+    await this.getCurrentFolderNames();
   }
 
   async updateGroupPosition() {
@@ -41,6 +47,20 @@ export class DmPageComponent implements OnInit {
     const updateCurrentDay$ = this.luminiaApiService.updateCurrentDate(this.currentDay);
     await firstValueFrom(updateCurrentDay$);
     await this.getCurrentDay();
+  }
+
+  async updateMapFolderName() {
+    const updateWorldMapName$ = this.luminiaApiService.updateWorldMapName(this.folderName);
+    await firstValueFrom(updateWorldMapName$);
+
+    await this.getCurrentFolderNames();
+  }
+
+  async updateMapDmFolderName() {
+    const updateWorldMapNameDm$ = this.luminiaApiService.updateWorldMapDmName(this.folderNameDM);
+    await firstValueFrom(updateWorldMapNameDm$);
+
+    await this.getCurrentFolderNames();
   }
 
   async getCurrentPosition() {
@@ -89,6 +109,18 @@ export class DmPageComponent implements OnInit {
     }
 
     this.currentDayAsDayMonth = dayInMonth.toString() + " " + monthText;
+  }
+
+  async getCurrentFolderNames() {
+    const folderNameWorldMap$ = this.luminiaApiService.getWorldMapName();
+    const folderNameWorldMapDM$ = this.luminiaApiService.getWorldMapDmName();
+    var folderNameWorldMap = await firstValueFrom(folderNameWorldMap$);
+    var folderNameWorldMapDM = await firstValueFrom(folderNameWorldMapDM$);
+
+    this.oldFolderName = folderNameWorldMap.nameOfFolder;
+    this.oldFolderNameDM = folderNameWorldMapDM.nameOfFolder;
+    this.folderName = this.oldFolderName;
+    this.folderNameDM = this.oldFolderNameDM;
   }
 
 }

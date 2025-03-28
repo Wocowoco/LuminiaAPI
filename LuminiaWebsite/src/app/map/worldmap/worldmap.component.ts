@@ -70,7 +70,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   }
 
   async ngAfterViewInit(): Promise<void> {
-    this.initMap();
+    await this.initMap();
     await this.initLayers();
     this.moveMap();
   }
@@ -118,11 +118,36 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     }
   }
 
-  private initMap(): void{
+  private async initMap(): Promise<void>{
     //Create the map
     this.map = L.map('map', {attributionControl: false});
 
-    const mapUrl : string = this.dmMode ? 'mapDM' : 'map';
+    //Get map folder names from DB
+    var mapUrl : string;
+
+    try {
+      if (this.dmMode) {
+        var worldmapDMName$ = this.luminiaApiService.getWorldMapDmName();
+        var worldmapDMName = await firstValueFrom(worldmapDMName$);
+        mapUrl = worldmapDMName.nameOfFolder;
+      }
+      else {
+        var worldmapName$ = this.luminiaApiService.getWorldMapName();
+        var worldmapName =  await firstValueFrom(worldmapName$);
+        mapUrl = worldmapName.nameOfFolder;
+      }
+    }
+    catch{
+      //Fallback in case DM access fails
+      mapUrl = this.dmMode ? 'mapDM' : 'map';
+
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Map could not be loaded. (Version shown might be out of date)",
+        duration: 10000
+      });
+    }
+
     //Create the tile layer
     L.tileLayer('assets/'+ mapUrl +'/{z}/{x}/{y}.png', {
       noWrap: true,
