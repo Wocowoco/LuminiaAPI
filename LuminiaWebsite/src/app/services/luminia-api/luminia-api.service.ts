@@ -7,6 +7,7 @@ import { MarkerDto } from './dtos/markerdto.interface';
 import { environment } from 'src/environments/environment';
 import { InfernalAlchemyStatsDto } from './dtos/infernalAlchemyStatsDto.interface';
 import { CurrentDateDto } from './dtos/currentDateDto.interface';
+import { MapNameDto } from './dtos/mapNameDto.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,21 @@ export class LuminiaApiService {
 
   updateCurrentDate(day : number) {
     return this.http.patch<CurrentDateDto>(this.LuminiaApiURL + "currentdate?day="+day, null);
+  }
+
+  getWorldMapName() {
+    return this.http.get<MapNameDto>(this.LuminiaApiURL + "mapnames/worldmap");
+  }
+
+  getWorldMapDmName() {
+    return this.http.get<MapNameDto>(this.LuminiaApiURL + "mapnames/worldmapDM");
+  }
+
+  updateWorldMapName(updatedName : string) {
+    return this.http.patch<MapNameDto>(this.LuminiaApiURL + "mapnames/worldmap?updatedFolderName="+updatedName, null);
+  }
+
+  updateWorldMapDmName(updatedName : string) {
+    return this.http.patch<MapNameDto>(this.LuminiaApiURL + "mapnames/worldmapDM?updatedFolderName="+updatedName, null);
   }
 }

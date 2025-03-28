@@ -9,6 +9,7 @@ namespace LuminiaAPI.Context
         public DbSet<Marker> Marker { get; set; }
         public DbSet<InfernalAlchemyStats> InfernalAlchemyStats { get; set; }
         public DbSet<CurrentDate> CurrentDate { get; set; }
+        public DbSet<MapName> MapName { get; set; }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
@@ -27,6 +28,7 @@ namespace LuminiaAPI.Context
         public DbSet<Marker> Marker { get; set; }
         public DbSet<InfernalAlchemyStats> InfernalAlchemyStats { get; set; }
         public DbSet<CurrentDate> CurrentDate { get; set; }
+        public DbSet<MapName> MapName { get; set; }
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
