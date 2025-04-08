@@ -4,6 +4,7 @@
       <img class="luminiaImg" src="../../assets/LuminiaLogo.png" alt="Logo of Luminia">
     </a>
   </div>
+  <div class="version">{{version}}</div>
   <ul class="navElements">
     <li class="navbutton" routerLinkActive="active">
       <a routerLink="/pantheon">Pantheon</a>
@@ -21,12 +22,13 @@
 </div>
 
 <!-- Navbar mobile -->
-<div class="navbar " *ngIf="isMobileView">
+<div class="navbar" *ngIf="isMobileView">
   <div class="navTitle">
     <a routerLink="/map">
       <img class="luminiaImg" src="../../assets/LuminiaLogo.png" alt="Logo of Luminia">
     </a>
   </div>
+  <div class="version">{{version}}</div>
   <button mat-stroked-button class="hamburger-button" (click)="toggleMenu()">
     <i class="fa-solid fa-bars fa-lg filterIcon"></i>
   </button>
@@ -48,4 +50,3 @@
     </li>
   </ul>
 </div>
-

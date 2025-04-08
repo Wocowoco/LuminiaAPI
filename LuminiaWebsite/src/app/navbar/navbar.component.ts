@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { VersionService } from '../services/version/version.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,6 +9,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   public isMobileView : boolean = false;
   public isMenuOpen : boolean = false;
+  public version: string = "0.0.0";
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -36,8 +38,11 @@ export class NavbarComponent implements OnInit {
     this.isMenuOpen = false;
   }
 
-  constructor() {
+  constructor(private versionService: VersionService) {
     this.onResize(null);
+    this.versionService.getVersion().subscribe((version: string) => {
+      this.version = version;
+    });
   }
 
   toggleMenu() {
