@@ -14,6 +14,7 @@ import { InfernalAlchemyModule } from './infernal-alchemy/infernal-alchemy.modul
 import { CalendarModule } from './calendar/calendar.module';
 import { NotFoundPageModule } from './not-found-page/not-found-page.module';
 import { DmPageModule } from './dm-page/dm-page.module';
+import { LuminaryModule } from './luminary/luminary.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DmPageModule } from './dm-page/dm-page.module';
     InfernalAlchemyModule,
     CalendarModule,
     DmPageModule,
+    LuminaryModule,
     NotFoundPageModule, //This module needs to be the last import because of the wildcard route
   ],
   providers: [

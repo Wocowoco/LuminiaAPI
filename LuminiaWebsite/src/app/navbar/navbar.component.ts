@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
   {
-    this.isMobileView = window.innerWidth < 685;
+    this.isMobileView = window.innerWidth < 875;
 
     //Close menu if no longer on mobile view
     if(!this.isMobileView){
