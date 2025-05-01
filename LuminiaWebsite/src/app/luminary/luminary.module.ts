@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LuminaryComponent } from './luminaries-page/luminary.component';
 import { LuminaryButtonComponent } from './luminary-button/luminary-button.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 const childRoutes: Routes = [
   {path:"luminaries", component: LuminaryComponent}
@@ -17,6 +18,7 @@ const childRoutes: Routes = [
   imports: [
     CommonModule,
     MatCardModule,
+    MatButtonModule,
     RouterModule.forChild(childRoutes),
   ],
   exports: [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'luminary-button',
@@ -9,7 +9,13 @@ export class LuminaryButtonComponent implements OnInit {
 
   constructor() { }
 
+  @Input() iconName: string = 'unknown';
+  @Input() title: string = 'Unknown';
+  @Input() subTitle: string = '';
+  @Input() disabled: boolean = false;
+
   ngOnInit(): void {
   }
+
 
 }
