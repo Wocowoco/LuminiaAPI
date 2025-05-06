@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'luminary-button',
@@ -14,8 +14,12 @@ export class LuminaryButtonComponent implements OnInit {
   @Input() subTitle: string = '';
   @Input() disabled: boolean = false;
 
+  @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
+
   ngOnInit(): void {
   }
 
-
+  handleClick() {
+    this.onClick.emit();
+  }
 }

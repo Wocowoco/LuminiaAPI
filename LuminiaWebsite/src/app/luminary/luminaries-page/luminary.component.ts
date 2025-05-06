@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-luminary',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LuminaryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  navigateToSwirlingMoon(){
+    this.router.navigate(['/luminaries/swirling-moon']);
   }
 
 }

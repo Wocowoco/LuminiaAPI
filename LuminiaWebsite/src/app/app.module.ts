@@ -15,6 +15,7 @@ import { CalendarModule } from './calendar/calendar.module';
 import { NotFoundPageModule } from './not-found-page/not-found-page.module';
 import { DmPageModule } from './dm-page/dm-page.module';
 import { LuminaryModule } from './luminary/luminary.module';
+import { SpellInfoBlockModule } from './general/spell-info-block/spell-info-block.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LuminaryModule } from './luminary/luminary.module';
     CalendarModule,
     DmPageModule,
     LuminaryModule,
+    SpellInfoBlockModule,
     NotFoundPageModule, //This module needs to be the last import because of the wildcard route
   ],
   providers: [

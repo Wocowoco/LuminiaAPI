@@ -1,4 +1,4 @@
-<button mat-stroked-button disabled={{disabled}}>
+<button mat-stroked-button disabled={{disabled}} (click)="handleClick()">
       <div class="luminary-button" [ngClass]="{'disabled':disabled}">
         <img mat-card-avatar src="../../../assets/images/luminary/{{iconName}}.png" alt="Icon of Luminary" class="luminary-icon">
         <div>

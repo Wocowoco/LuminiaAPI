@@ -3,22 +3,25 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LuminaryComponent } from './luminaries-page/luminary.component';
 import { LuminaryButtonComponent } from './luminary-button/luminary-button.component';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { SwirlingMoonPageComponent } from './swirling-moon-page/swirling-moon-page.component';
+import { SpellInfoBlockModule } from '../general/spell-info-block/spell-info-block.module';
 
 const childRoutes: Routes = [
-  {path:"luminaries", component: LuminaryComponent}
+  {path:"luminaries", component: LuminaryComponent},
+  {path:"luminaries/swirling-moon", component: SwirlingMoonPageComponent}
 ]
 
 @NgModule({
   declarations: [
     LuminaryComponent,
-    LuminaryButtonComponent
+    LuminaryButtonComponent,
+    SwirlingMoonPageComponent
   ],
   imports: [
     CommonModule,
-    MatCardModule,
     MatButtonModule,
+    SpellInfoBlockModule,
     RouterModule.forChild(childRoutes),
   ],
   exports: [
