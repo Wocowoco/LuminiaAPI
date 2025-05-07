@@ -1,6 +1,8 @@
 .spell-card{
+  box-sizing: border-box;
   max-width: 550px;
-  margin: 10px;
+  min-width: 300px;
+  height: 100%;
   background-color: #FAFAF6;
 }
 
@@ -52,6 +54,10 @@
   margin-bottom: 5px;
   line-height: normal;
   color: #2C2B25;
+}
+
+.damage-effect{
+  font-size: 13px;
 }
 
 .spell-description{

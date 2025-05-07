@@ -2,4 +2,30 @@
   <h1>Swirling Moon</h1>
   <h2>Staff of Valere</h2>
 </div>
-<spell-info-block></spell-info-block>
+<div class="page">
+  <spell-info-block
+    spellName='Moonerang'
+    level='2nd'
+    castTime='1 action'
+    range='20 ft.'
+    components='V, S'
+    duration='Instantaneous'
+    school='Evocation'
+    attack='Ranged spell attack'
+    damage='3d6 radiant damage'
+    spellText={{moonerangText}}>
+  </spell-info-block>
+
+  <spell-info-block
+    spellName='Lunar Shield'
+    level='2nd'
+    castTime='1 action'
+    range='Self, 10 ft. sphere'
+    components='V, S, M (moonlight)'
+    duration='Instantaneous'
+    school='Abjuration'
+    attack='None'
+    damage='(2d6+spellcast mod) temp hp'
+    spellText={{lunarShieldText}}>
+  </spell-info-block>
+</div>
