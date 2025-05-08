@@ -6,6 +6,8 @@ import { LuminaryButtonComponent } from './luminary-button/luminary-button.compo
 import { MatButtonModule } from '@angular/material/button';
 import { SwirlingMoonPageComponent } from './swirling-moon-page/swirling-moon-page.component';
 import { SpellInfoBlockModule } from '../general/spell-info-block/spell-info-block.module';
+import { AugmentRuneCardComponent } from './augment-rune-card/augment-rune-card.component';
+import { MatCardModule } from '@angular/material/card';
 
 const childRoutes: Routes = [
   {path:"luminaries", component: LuminaryComponent},
@@ -16,11 +18,13 @@ const childRoutes: Routes = [
   declarations: [
     LuminaryComponent,
     LuminaryButtonComponent,
-    SwirlingMoonPageComponent
+    SwirlingMoonPageComponent,
+    AugmentRuneCardComponent
   ],
   imports: [
     CommonModule,
     MatButtonModule,
+    MatCardModule,
     SpellInfoBlockModule,
     RouterModule.forChild(childRoutes),
   ],

@@ -1,7 +1,33 @@
 .page{
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex-row-div{
+  margin: 20px 0px 20px 0px;
+  display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  gap: 20px;
+  row-gap: 75px;
+  column-gap: 20px;
+}
+
+.augment-col-div{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  gap: 10px;
+}
+
+.augment-title{
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 28px;
+  line-height: normal;
+  color: #2C2B25;
 }
