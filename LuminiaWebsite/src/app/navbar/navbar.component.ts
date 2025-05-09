@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { VersionService } from '../services/version/version.service';
+import { VersionService } from '../services/version-service/version.service';
+import { LuminaryService } from '../services/luminary-service/luminary.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +11,7 @@ export class NavbarComponent implements OnInit {
   public isMobileView : boolean = false;
   public isMenuOpen : boolean = false;
   public version: string = "0.0.0";
+  public isLuminariesVisible: boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -38,10 +40,13 @@ export class NavbarComponent implements OnInit {
     this.isMenuOpen = false;
   }
 
-  constructor(private versionService: VersionService) {
+  constructor(private versionService: VersionService, private luminaryService: LuminaryService) {
     this.onResize(null);
     this.versionService.getVersion().subscribe((version: string) => {
       this.version = version;
+    });
+    this.luminaryService.getLuminariesVisibility().subscribe((isLuminariesVisible: boolean) => {
+      this.isLuminariesVisible = isLuminariesVisible;
     });
   }
 

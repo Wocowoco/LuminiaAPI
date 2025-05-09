@@ -3,8 +3,8 @@
 </div>
 <div class="luminary-page">
   <div class="luminary-buttons">
-      <luminary-button iconName="moon" title="Swirling Moon" subTitle="Staff of Luana" (onClick)="navigateToSwirlingMoon()"></luminary-button>
-      <luminary-button title="Sun Khopesh" subTitle="Dagger of Solen" [disabled]="true"></luminary-button>
+      <luminary-button iconName="moon" name="Swirling Moon" subTitle="Staff of Luana" (onClick)="navigateToSwirlingMoon()" [visible]="isSwirlingMoonVisible" [disabled]="isSwirlingMoonDisabled"></luminary-button>
+      <luminary-button name="Sun Khopesh" subTitle="Dagger of Solen" (onClick)="navigateToSunKhopesh()" [visible]="isSunKhopeshVisible" [disabled]="isSunKhopeshDisabled"></luminary-button>
       <luminary-button [disabled]="true"></luminary-button>
       <luminary-button [disabled]="true"></luminary-button>
       <luminary-button [disabled]="true"></luminary-button>
