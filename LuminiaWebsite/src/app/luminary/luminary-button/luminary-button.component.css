@@ -1,0 +1,52 @@
+.luminary-icon{
+  width: 75px;
+  height: 75px;
+}
+
+.mat-stroked-button {
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+}
+
+.luminary-button{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #FAFAF6;
+  width: 330px;
+  height: 80px;
+  padding: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-origin: content-box;
+}
+
+.luminary-title{
+  width: 250px;
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 28px;
+  margin-bottom: 5px;
+  line-height: normal;
+  color: #2C2B25;
+}
+
+.luminary-subtitle{
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 18px;
+  line-height: normal;
+  color: #2C2B2590;
+}
+
+/* Overrides for when button is disabled */
+.luminary-button.disabled{
+  background-color: #EAECEA;
+}
+  .luminary-button.disabled,
+  .luminary-button.disabled .luminary-title,
+  .luminary-button.disabled .luminary-subtitle{
+    color: #00000042;
+  }

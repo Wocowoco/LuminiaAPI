@@ -1,0 +1,9 @@
+<button mat-stroked-button disabled={{disabled}} (click)="handleClick()">
+      <div class="luminary-button" [ngClass]="{'disabled':disabled}" [style.backgroundImage]="'url(../../../assets/images/decorations/' + displayIconName + '.png)'">
+        <img mat-card-avatar src="../../../assets/images/luminary/{{displayIconName}}.png" alt="Icon of Luminary" class="luminary-icon">
+        <div>
+          <div class="luminary-title">{{displayName}}</div>
+          <div class="luminary-subtitle">{{displaySubTitle}}</div>
+        </div>
+      </div>
+</button>

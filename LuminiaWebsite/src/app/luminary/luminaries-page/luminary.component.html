@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h1>Luminaries</h1>
+</div>
+<div class="luminary-page">
+  <div class="luminary-buttons">
+      <luminary-button iconName="swirling-moon" name="Swirling Moon" subTitle="Staff of Luana" (onClick)="navigateToSwirlingMoon()" [visible]="isSwirlingMoonVisible" [disabled]="isSwirlingMoonDisabled"></luminary-button>
+      <luminary-button name="Sun Khopesh" subTitle="Dagger of Solen" (onClick)="navigateToSunKhopesh()" [visible]="isSunKhopeshVisible" [disabled]="isSunKhopeshDisabled"></luminary-button>
+      <luminary-button [disabled]="true"></luminary-button>
+      <luminary-button [disabled]="true"></luminary-button>
+      <luminary-button [disabled]="true"></luminary-button>
+  </div>
+</div>
