@@ -25,7 +25,6 @@ export class LuminaryButtonComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log('ngOnChanges', this.iconName, this.name, this.subTitle, this.disabled, this.visible);
     if (this.visible === false) {
       this.displayIconName = 'unknown';
       this.displayName = 'Unknown';

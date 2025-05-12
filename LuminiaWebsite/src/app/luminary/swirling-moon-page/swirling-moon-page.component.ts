@@ -32,4 +32,10 @@ export class SwirlingMoonPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  navigate(navigateTo: string): void {
+    const element = document.getElementById(navigateTo);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }

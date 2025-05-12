@@ -24,7 +24,6 @@ export class LuminaryComponent implements OnInit {
 
   getSwirlingMoonState(){
     this.luminaryService.getSwirlingMoon().subscribe((swirlingMoonState: LuminaryVisibility) => {
-      console.log("SwirlingMoon: "+ swirlingMoonState);
       switch (swirlingMoonState){
         case LuminaryVisibility.Hidden:
           this.isSwirlingMoonVisible = false;
@@ -49,7 +48,6 @@ export class LuminaryComponent implements OnInit {
 
   getSunKhopeshState(){
     this.luminaryService.getSunKhopesh().subscribe((sunKhopeshState: LuminaryVisibility) => {
-      console.log("SunKhopesh: "+ sunKhopeshState);
       switch (sunKhopeshState){
         case LuminaryVisibility.Hidden:
           this.isSunKhopeshVisible = false;

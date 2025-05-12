@@ -5,8 +5,17 @@
   justify-content: center;
 }
 
+.luminary-subtitle{
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 28px;
+  line-height: normal;
+  color: #2C2B2590;
+  padding-bottom: 15px;
+}
+
 .flex-row-div{
-  margin: 20px 0px 20px 0px;
+  margin: 20px 10px 20px 10px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -30,4 +39,83 @@
   font-size: 28px;
   line-height: normal;
   color: #2C2B25;
+}
+
+.info{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 10px;
+  background-image: url("../../../assets/images/decorations/swirling-moon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 750px;
+}
+
+@media (max-width: 750px) {
+  .info{
+    padding: 0px 40px 0px 40px;
+  }
+}
+
+.item-info{
+  margin: 20px 10px 20px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  color: #2C2B25;
+  font-size: 15px;
+
+}
+
+.info-picture{
+  height: 175px;
+  width: 175px;
+}
+
+.nav-buttons-div{
+  margin: 20px 10px 20px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.nav-buttons-card{
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  background-color: #FAFAF6;
+}
+
+.nav-buttons-content{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5px;
+  height: 100%;
+}
+
+.nav-buttons-header{
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 20px;
+  margin-bottom: 15px;
+  line-height: normal;
+  color:#2C2B25;
+  text-align: center;
+}
+
+.nav-button{
+  width: 180px;
+  background-color: #F8F8F2;
 }

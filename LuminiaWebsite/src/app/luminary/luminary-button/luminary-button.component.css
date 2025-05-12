@@ -14,8 +14,13 @@
   justify-content: space-evenly;
   align-items: center;
   background-color: #FAFAF6;
-  width: 350px;
-  height: 100px;
+  width: 330px;
+  height: 80px;
+  padding: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-origin: content-box;
 }
 
 .luminary-title{
@@ -33,13 +38,15 @@
   font-weight: normal;
   font-size: 18px;
   line-height: normal;
-  color: #908C7A
+  color: #2C2B2590;
 }
 
 /* Overrides for when button is disabled */
-.luminary-button.disabled,
-.luminary-button.disabled .luminary-title,
-.luminary-button.disabled .luminary-subtitle{
+.luminary-button.disabled{
   background-color: #EAECEA;
-  color: #00000042;
 }
+  .luminary-button.disabled,
+  .luminary-button.disabled .luminary-title,
+  .luminary-button.disabled .luminary-subtitle{
+    color: #00000042;
+  }

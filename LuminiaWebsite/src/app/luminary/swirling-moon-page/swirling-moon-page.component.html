@@ -1,14 +1,50 @@
 <div class="page-header">
   <h1>Swirling Moon</h1>
-  <h2>Staff of Valere</h2>
+  <div class="luminary-subtitle">Staff of Luana</div>
 </div>
 <div class="page">
+  <div class="info">
+    <img src="../../../assets/images/luminary/swirling-moon.png" alt="Staff of Luana" class="info-picture"/>
+    <div class="item-info">
+      <div class="item-text">Luminary Weapon</div>
+      <div class="item-text">Simple Melee (Quarterstaff)</div>
+      <div class="item-text"><b>Attunement Item</b></div>
+      <div class="item-text"> While you are attuned to this staff, you can cast the <b>Moonerang</b> and <b>Lunar Shield</b> spells.</div>
+    </div>
+  </div>
+  <div class="nav-buttons-div">
+    <mat-card class="nav-buttons-card">
+      <div class="nav-buttons-header">Spells</div>
+      <mat-card-content class="nav-buttons-content">
+        <button mat-stroked-button class="nav-button" (click)="navigate('spell-moonerang')">
+          Moonerang
+        </button>
+        <button mat-stroked-button class="nav-button" (click)="navigate('spell-lunar-shield')">
+          Lunar Shield
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="nav-buttons-card">
+      <div class="nav-buttons-header">Augment Runes</div>
+      <mat-card-content class="nav-buttons-content">
+        <button mat-stroked-button class="nav-button" (click)="navigate('ar-general')">
+          General
+        </button>
+        <button mat-stroked-button class="nav-button" (click)="navigate('ar-moonerang')">
+          Moonerang
+        </button>
+        <button mat-stroked-button class="nav-button" (click)="navigate('ar-lunar-shield')">
+          Lunar Shield
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
   <div class="sub-title-down">
     <h2>Spells</h2>
   </div>
-
   <div class="flex-row-div">
     <spell-info-block
+      id="spell-moonerang"
       spellName='Moonerang'
       level='2nd'
       castTime='1 action'
@@ -22,6 +58,7 @@
     </spell-info-block>
 
     <spell-info-block
+      id="spell-lunar-shield"
       spellName='Lunar Shield'
       level='2nd'
       castTime='1 action'
@@ -41,7 +78,7 @@
 
   <div class="flex-row-div">
     <div class="augment-col-div">
-      <div class="augment-title">General</div>
+      <div class="augment-title" id="ar-general">General</div>
       <augment-rune-card iconName="luanaBlessing" augmentName="Luana's Blessing" rarity="legendary" description="Whenever you gain temporary hit points, you can choose to add them to any temporary hit points you already have. Your total amount of temporary hit points can't exceed your hit point maximum."></augment-rune-card>
       <augment-rune-card iconName="precision" augmentName="Improved Critical" rarity="epic" description="Your spell attacks score a critical hit on a roll of 19 or 20."></augment-rune-card>
       <augment-rune-card iconName="blueBlock" augmentName="Improved Defences" rarity="rare" description="You gain a +1 bonus to AC and saving throws."></augment-rune-card>
@@ -50,7 +87,7 @@
       <augment-rune-card iconName="glitch" augmentName="Missmatch" rarity="uncommon" description="Your hit point maximum increases by 5."></augment-rune-card>
     </div>
     <div class="augment-col-div">
-      <div class="augment-title">Moonerang</div>
+      <div class="augment-title" id="ar-moonerang">Moonerang</div>
       <augment-rune-card iconName="shieldbreak" augmentName="Shield Breaker" rarity="legendary" description="Moonerang no longer deals damage to creatures with temporary hit points. At the end your spell, each creature that got hit by Moonerang loses all their temporary hit points."></augment-rune-card>
       <augment-rune-card iconName="blueClaw" augmentName="Bouncy" rarity="epic" description="Moonerang no longer needs to return to you between bounces. Instead, it can bounce freely between creatures within range."></augment-rune-card>
       <augment-rune-card iconName="redMark" augmentName="Déjà Vu" rarity="epic" description="Moonerang can hit the same creature more than once, but a different creature must be hit between each instance."></augment-rune-card>
@@ -59,7 +96,7 @@
       <augment-rune-card iconName="sharp" augmentName="Distant" rarity="uncommon" description="The range of Moonerang is increased by 20 ft."></augment-rune-card>
     </div>
     <div class="augment-col-div">
-      <div class="augment-title">Lunar Shield</div>
+      <div class="augment-title" id="ar-lunar-shield">Lunar Shield</div>
       <augment-rune-card iconName="purpleSpark" augmentName="New Moon" rarity="legendary" description="You can cast Lunar Shield without providing its material component (moonlight)."></augment-rune-card>
       <augment-rune-card iconName="yellowSpin" augmentName="Hasty Moon" rarity="epic" description="You can cast Lunar Shield using a bonus action, rather than its normal casting time."></augment-rune-card>
       <augment-rune-card iconName="cyanMan" augmentName="Lone Moon" rarity="rare" description="Lunar Shield no longer targets a sphere around you. Instead, when you cast the spell, you gain an additional 2d6 temporary hit points."></augment-rune-card>
