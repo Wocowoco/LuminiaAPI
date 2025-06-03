@@ -68,7 +68,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   showCurrentDay()
   {
     setTimeout(() => {
-      console.log('Update');
       const currentDay = this.elementRef.nativeElement.querySelector('#day'+ this.currentDayInYear);
       if (currentDay) {
         this.renderer.addClass(currentDay, 'current-day');

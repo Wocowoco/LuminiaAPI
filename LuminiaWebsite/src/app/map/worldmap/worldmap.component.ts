@@ -40,6 +40,7 @@ import { LuminLayer } from '../maplayers/poiLayers/lumin.maplayer';
 import { GroupLayer } from '../maplayers/poiLayers/group.maplayer';
 import { MarkerDto } from 'src/app/services/luminia-api/dtos/markerdto.interface';
 import { MapLayerEnum } from 'src/app/services/luminia-api/enums/maplayerenum';
+import { BankLayer } from '../maplayers/storeLayers/bank.maplayer';
 
 
 @Component({
@@ -273,6 +274,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     let storeLayers: IAmChildMapLayer[] = [
       new AlchemistLayer(this.map),
       new ArcheryLayer(this.map),
+      new BankLayer(this.map),
       new BlacksmithLayer(this.map),
       new GeneralStoreLayer(this.map),
       new InnLayer(this.map),
