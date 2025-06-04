@@ -1,1 +1,19 @@
-<p>gemstone-exchange works!</p>
+<div class="page">
+  <ngx-charts-line-chart
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="lineChartData"
+    [gradient]="false"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="true"
+    [legendPosition]="legendPosition"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [timeline]="true"
+    [xAxisLabel]="'Date (Day - Month - Year)'"
+    [xAxisTickFormatting]="dateFormatter"
+    [yAxisLabel]="'Gold'"
+    [autoScale]="true">
+  </ngx-charts-line-chart>
+</div>
