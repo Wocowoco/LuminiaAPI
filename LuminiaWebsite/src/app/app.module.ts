@@ -16,6 +16,7 @@ import { NotFoundPageModule } from './not-found-page/not-found-page.module';
 import { DmPageModule } from './dm-page/dm-page.module';
 import { LuminaryModule } from './luminary/luminary.module';
 import { SpellInfoBlockModule } from './general/spell-info-block/spell-info-block.module';
+import { GemstoneExchangeModule } from './gemstone-exchange/gemstone-exchange.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { SpellInfoBlockModule } from './general/spell-info-block/spell-info-bloc
     DmPageModule,
     LuminaryModule,
     SpellInfoBlockModule,
+    GemstoneExchangeModule,
     NotFoundPageModule, //This module needs to be the last import because of the wildcard route
   ],
   providers: [
