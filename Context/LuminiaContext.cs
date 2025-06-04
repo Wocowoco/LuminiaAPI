@@ -10,6 +10,7 @@ namespace LuminiaAPI.Context
         public DbSet<InfernalAlchemyStats> InfernalAlchemyStats { get; set; }
         public DbSet<CurrentDate> CurrentDate { get; set; }
         public DbSet<MapName> MapName { get; set; }
+        public DbSet<GemstoneExchange> GemstoneExchange { get; set; }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
@@ -29,6 +30,7 @@ namespace LuminiaAPI.Context
         public DbSet<InfernalAlchemyStats> InfernalAlchemyStats { get; set; }
         public DbSet<CurrentDate> CurrentDate { get; set; }
         public DbSet<MapName> MapName { get; set; }
+        public DbSet<GemstoneExchange> GemstoneExchange { get; set; }
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

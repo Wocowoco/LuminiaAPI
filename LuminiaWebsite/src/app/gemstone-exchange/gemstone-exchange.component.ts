@@ -15,25 +15,25 @@ export class GemstoneExchangeComponent implements OnInit {
   {
     name: 'Ruby',
     series: [
-      { name: 1, value: 10 },
-      { name: 2, value: 15 },
-      { name: 3, value: 25 },
+      { name: 2674086, value: 10 },
+      { name: 2674087, value: 15 },
+      { name: 2674088, value: 25 },
     ]
   },
   {
     name: 'Sapphire',
     series: [
-      { name: 1, value: 5 },
-      { name: 2, value: 12 },
-      { name: 3, value: 8 },
+      { name: 2674086, value: 5 },
+      { name: 2674087, value: 12 },
+      { name: 2674088, value: 8 },
     ]
   },
   {
     name: 'Emerald',
     series: [
-      { name: 1,  value: 4 },
-      { name: 2,  value: 7 },
-      { name: 3,  value: 13 },
+      { name: 2674086,  value: 4 },
+      { name: 2674087,  value: 7 },
+      { name: 2674088,  value: 13 },
     ]
   }
   ];
@@ -58,7 +58,7 @@ export class GemstoneExchangeComponent implements OnInit {
     var months = ['Bloomen', 'Sumsun', 'Leaflet', 'Frizwa'];
     const year = Math.floor(dayNumber / 364);
     const monthIndex = Math.floor((dayNumber % 364) / 91);
-    const dayInMonth = (dayNumber % 91);
+    const dayInMonth = (dayNumber % 91) + 1;
     const monthName = months[monthIndex] || '???';
     return dayInMonth + " " + monthName + " " + year;
   }
