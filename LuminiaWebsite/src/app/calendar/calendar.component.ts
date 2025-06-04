@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
 import { firstValueFrom } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 import { CurrentDateDto } from '../services/luminia-api/dtos/currentDateDto.interface';
 
