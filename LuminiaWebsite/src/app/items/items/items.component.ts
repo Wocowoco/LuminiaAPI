@@ -1,6 +1,6 @@
 import { CdkTable } from '@angular/cdk/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatLegacyTable as MatTable } from '@angular/material/legacy-table';
+import { MatTable } from '@angular/material/table';
 import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.service';
 import { Item } from '../../services/luminia-api/dtos/item.interface';
 import { ItemQueryFilter } from 'src/app/services/luminia-api/dtos/itemQueryFilter.interface';

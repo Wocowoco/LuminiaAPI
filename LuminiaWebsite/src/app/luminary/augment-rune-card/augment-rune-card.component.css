@@ -10,6 +10,7 @@
   max-width: 350px;
   height: 200px;
   width: 100%;
+  padding: 12px;
 }
 
 .augment-icon{
@@ -32,6 +33,7 @@
 
 .augment-description{
   margin-top: 10px;
+  padding: 0px;
 }
 
 .uncommon{

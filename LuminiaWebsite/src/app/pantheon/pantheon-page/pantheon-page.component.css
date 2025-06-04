@@ -40,7 +40,7 @@
     height: 25px;
   }
 
-.mat-card-header {
+.mat-mdc-card-header {
   display: block;
   text-align: center;
 }
@@ -65,15 +65,9 @@
   align-items: stretch;
 }
 
-.mat-stroked-button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3px;
-}
-
 .white-pantheon{
   background-color: #F8F8F2;
-  color: #2C2B25;
+  color: #2C2B25 !important;
 }
 
 .white-pantheon-summary{
@@ -83,7 +77,7 @@
 
 .grey-pantheon{
   background-color: #DFE2DF;
-  color: #2C2B25;
+  color: #2C2B25 !important;
 }
 
 .grey-pantheon-summary{
@@ -93,13 +87,24 @@
 
 .black-pantheon{
   background-color: #525252;
-  color: #FBFBF2;
+  color: #FBFBF2 !important;
 }
 
 .black-pantheon-summary,
 .black-pantheon-summary h2{
   background-color: #666666;
   color: #FBFBF2;
+}
+
+.mat-mdc-outlined-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3px;
+}
+
+.patheon-button{
+  display: flex;
+  align-items: center;
 }
 
 .standard-to-white{

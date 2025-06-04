@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
 import { firstValueFrom } from 'rxjs';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 
 @Component({

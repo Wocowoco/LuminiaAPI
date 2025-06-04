@@ -10,12 +10,12 @@
   </mat-expansion-panel>
 
   <!-- Search options for desktop -->
-  <mat-card class="itemfiltercard hide-mobile">
+  <mat-card appearance="outlined" class="itemfiltercard hide-mobile">
     <app-itemfilter (itemsSearchQueryEvent)="searchItemsFiltered($event)"></app-itemfilter>
   </mat-card>
 
   <!-- Table -->
-  <mat-card class="itemtablecard">
+  <mat-card appearance="outlined" class="itemtablecard">
     <table mat-table [dataSource]="itemData" class="itemtable" >
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Name</th>

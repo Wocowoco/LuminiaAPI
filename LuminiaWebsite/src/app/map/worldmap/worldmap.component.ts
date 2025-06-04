@@ -20,7 +20,7 @@ import { TaoidesLayer } from '../maplayers/altarLayers/taoides.maplayer';
 import { VaknorLayer } from '../maplayers/altarLayers/vaknor.maplayer';
 import { YuvicLayer } from '../maplayers/altarLayers/yuvic.maplayer';
 import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-snackbar.component';
 import { InnLayer } from '../maplayers/storeLayers/inn.maplayer';
 import { StoresLayer } from '../maplayers/layerGroups/stores.maplayer';

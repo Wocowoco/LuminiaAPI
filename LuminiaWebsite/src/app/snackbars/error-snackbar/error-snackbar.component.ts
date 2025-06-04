@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MAT_LEGACY_SNACK_BAR_DATA as MAT_SNACK_BAR_DATA, MatLegacySnackBarModule as MatSnackBarModule, MatLegacySnackBarRef as MatSnackBarRef } from '@angular/material/legacy-snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 export class ErrorSnackbarComponent implements OnInit {
   public snackBarRef = inject(MatSnackBarRef);
-
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string) {
   }

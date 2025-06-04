@@ -92,12 +92,6 @@ hr{
 /*------------------------//
 //       WORLDMAP         //
 //------------------------*/
-.error-snackbar {
-  background: #F44336;
-  color: white;
-  padding-right: 5px !important;
-}
-
 .filterIcon{
   padding-top: 12px;
   height: 12px;
@@ -134,6 +128,16 @@ hr{
   font-weight: normal;
   font-size: 16px;
 }
+
+/*------------------------//
+//       SNACKBAR         //
+//------------------------*/
+.error-snackbar {
+  --mdc-snackbar-container-color: #F44336;
+  --mdc-snackbar-supporting-text-color: #FCF6F0;
+  --mat-snack-bar-button-color: #FCF6F0;
+}
+
 
 
 

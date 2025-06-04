@@ -227,7 +227,7 @@
 }
 
 /* Roll tables */
-.mat-card-header {
+.mat-mdc-card-header {
   display: block;
   text-align: center;
 }
@@ -247,7 +247,6 @@
 }
 
 .rolltable-table {
-  text-align: center;
   width: 75%;
   display: table;
   padding-left: 20px;
@@ -259,7 +258,11 @@
   align-items: stretch;
 }
 
-.mat-header-cell {
+.mat-mdc-header-cell {
+  text-align: center;
+}
+
+.mat-mdc-cell {
   text-align: center;
 }
 
