@@ -14,8 +14,9 @@ import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackb
 export class GemstoneExchangeComponent implements OnInit {
 
   legendPosition : LegendPosition = LegendPosition.Below;
-  view: [number, number] = [window.innerWidth * 0.95, window.innerHeight *0.85];
+  view: [number, number] = [window.innerWidth * 0.95, window.innerHeight *0.55];
   lineChartData: GemstoneExchangeDataDto | undefined;
+  selectedButton: number = 7; //Number in days
 
   colorScheme = {
     name: 'customScheme',
@@ -28,7 +29,7 @@ export class GemstoneExchangeComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeData();
+      var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeDataForLastDays(7);
       this.lineChartData = await firstValueFrom(allGemstoneExchangeData$);
     } catch {
       this.snackBar.openFromComponent(ErrorSnackbarComponent, {
@@ -41,15 +42,33 @@ export class GemstoneExchangeComponent implements OnInit {
 
   @HostListener('window:resize')
   onResize() {
-    this.view = [window.innerWidth * 0.95, window.innerHeight * 0.85];
+    this.view = [window.innerWidth * 0.95, window.innerHeight * 0.55];
   }
 
   dateFormatter(dayNumber: number): string {
-    var months = ['Bloomen', 'Sumsun', 'Leaflet', 'Frizwa'];
-    const year = Math.floor(dayNumber / 364);
-    const monthIndex = Math.floor((dayNumber % 364) / 91);
-    const dayInMonth = (dayNumber % 91) + 1;
-    const monthName = months[monthIndex] || '???';
-    return dayInMonth + " " + monthName + " " + year;
+    // If the day is not a integer number, give the entry no text
+    if (Number.isInteger(dayNumber)){
+      var months = ['Bloomen', 'Sumsun', 'Leaflet', 'Frizwa'];
+      const year = Math.floor(dayNumber / 364);
+      const monthIndex = Math.floor((dayNumber % 364) / 91);
+      const dayInMonth = (dayNumber % 91) + 1;
+      const monthName = months[monthIndex] || '???';
+      return dayInMonth + " " + monthName + " " + year;
+    }
+    else return "";
+  }
+
+  async getGraphData(amountOfDays: number = 0) {
+    try {
+      var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeDataForLastDays(amountOfDays);
+      this.lineChartData = await firstValueFrom(allGemstoneExchangeData$);
+      this.selectedButton = amountOfDays;
+    } catch {
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Gemstone Exchange data could not be loaded.",
+        duration: 10000
+      });
+    }
   }
 }

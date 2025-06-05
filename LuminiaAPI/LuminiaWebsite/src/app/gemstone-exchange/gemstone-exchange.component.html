@@ -1,19 +1,30 @@
 <div class="page">
-  <ngx-charts-line-chart
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="lineChartData"
-    [gradient]="false"
-    [xAxis]="true"
-    [yAxis]="true"
-    [legend]="true"
-    [legendPosition]="legendPosition"
-    [showXAxisLabel]="true"
-    [showYAxisLabel]="true"
-    [timeline]="true"
-    [xAxisLabel]="'Date (Day - Month - Year)'"
-    [xAxisTickFormatting]="dateFormatter"
-    [yAxisLabel]="'Gold'"
-    [autoScale]="true">
-  </ngx-charts-line-chart>
+  <div class="sub-title-down"><h2>All Gemstone Prices</h2></div>
+  <div class="all-graph">
+    <div class="all-graph-buttons">
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(7)" [ngClass]="{'active': selectedButton === 7}">1 Week</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(91)" [ngClass]="{'active': selectedButton === 91}">1 Quarter</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(364)" [ngClass]="{'active': selectedButton === 364}">1 Year</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(1820)" [ngClass]="{'active': selectedButton === 1820}">5 Years</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(3640)" [ngClass]="{'active': selectedButton === 3640}">10 Years</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(0)" [ngClass]="{'active': selectedButton === 0}">All</button>
+    </div>
+    <ngx-charts-line-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="lineChartData"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [legendPosition]="legendPosition"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [timeline]="selectedButton === 0"
+      [xAxisLabel]="'Date (Day - Month - Year)'"
+      [xAxisTickFormatting]="dateFormatter"
+      [yAxisLabel]="'Gold'"
+      [autoScale]="true">
+    </ngx-charts-line-chart>
+  </div>
 </div>

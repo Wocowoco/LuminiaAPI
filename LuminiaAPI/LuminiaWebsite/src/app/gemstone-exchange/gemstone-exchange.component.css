@@ -6,5 +6,21 @@
 	align-content: stretch;
   text-align: center;
   flex-wrap: wrap;
+  flex-direction: column;
+  color: #2C2B25;
+}
+
+.all-graph-buttons{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.timeline-button{
+  background-color: #F8F8F2;
+  color: #2C2B25;
+}
+.active{
+  background-color: #bdbbb0;
   color: #2C2B25;
 }
