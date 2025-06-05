@@ -1,5 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { LegendPosition, ScaleType } from '@swimlane/ngx-charts';
+import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
+import { GemstoneExchangeDataDto } from '../services/luminia-api/dtos/gemstoneExchangeData.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { firstValueFrom } from 'rxjs';
+import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 
 @Component({
   selector: 'app-gemstone-exchange',
@@ -10,33 +15,7 @@ export class GemstoneExchangeComponent implements OnInit {
 
   legendPosition : LegendPosition = LegendPosition.Below;
   view: [number, number] = [window.innerWidth * 0.95, window.innerHeight *0.85];
-
-  lineChartData = [
-  {
-    name: 'Ruby',
-    series: [
-      { name: 2674086, value: 10 },
-      { name: 2674087, value: 15 },
-      { name: 2674088, value: 25 },
-    ]
-  },
-  {
-    name: 'Sapphire',
-    series: [
-      { name: 2674086, value: 5 },
-      { name: 2674087, value: 12 },
-      { name: 2674088, value: 8 },
-    ]
-  },
-  {
-    name: 'Emerald',
-    series: [
-      { name: 2674086,  value: 4 },
-      { name: 2674087,  value: 7 },
-      { name: 2674088,  value: 13 },
-    ]
-  }
-  ];
+  lineChartData: GemstoneExchangeDataDto | undefined;
 
   colorScheme = {
     name: 'customScheme',
@@ -44,9 +23,20 @@ export class GemstoneExchangeComponent implements OnInit {
     group: ScaleType.Ordinal,
     domain: ['#e53935', '#1e88e5', '#608c26']
   };
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) { }
+
+  async ngOnInit(): Promise<void> {
+    try {
+      var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeData();
+      this.lineChartData = await firstValueFrom(allGemstoneExchangeData$);
+    } catch {
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Gemstone Exchange data could not be loaded.",
+        duration: 10000
+      });
+    }
   }
 
   @HostListener('window:resize')

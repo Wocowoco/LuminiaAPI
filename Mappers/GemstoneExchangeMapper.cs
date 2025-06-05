@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LuminiaAPI.Dtos.Gemstone;
+using LuminiaAPI.Dtos.GemstoneExchange;
 using LuminiaAPI.Entities;
 
 namespace LuminiaAPI.Mappers;

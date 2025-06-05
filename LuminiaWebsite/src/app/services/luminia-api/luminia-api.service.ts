@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { InfernalAlchemyStatsDto } from './dtos/infernalAlchemyStatsDto.interface';
 import { CurrentDateDto } from './dtos/currentDateDto.interface';
 import { MapNameDto } from './dtos/mapNameDto.interface';
+import { GemstoneExchangeDataDto } from './dtos/gemstoneExchangeData.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -75,5 +76,9 @@ export class LuminiaApiService {
 
   updateWorldMapDmName(updatedName : string) {
     return this.http.patch<MapNameDto>(this.LuminiaApiURL + "mapnames/worldmapDM?updatedFolderName="+updatedName, null);
+  }
+
+  getAllGemstoneExchangeData() {
+    return this.http.get<GemstoneExchangeDataDto>(this.LuminiaApiURL + "gemstoneexchanges/graph");
   }
 }

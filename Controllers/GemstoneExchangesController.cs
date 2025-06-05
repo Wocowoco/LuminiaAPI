@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using LuminiaAPI.Context;
-using LuminiaAPI.Dtos.Gemstone;
+using LuminiaAPI.Dtos.GemstoneExchange;
 using LuminiaAPI.Mappers;
 using Microsoft.AspNetCore.Mvc;
 

@@ -9,5 +9,5 @@ public class GemstoneExchange
 {
     public Gemstone GemstoneId { get; set; }
     public int Day { get; set; }
-    public int Price { get; set; }
+    public double Price { get; set; }
 }

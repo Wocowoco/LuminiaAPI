@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LuminiaAPI.Dtos.Gemstone;
+﻿namespace LuminiaAPI.Dtos.GemstoneExchange;
 
 public class GemstoneGraphData
 {
