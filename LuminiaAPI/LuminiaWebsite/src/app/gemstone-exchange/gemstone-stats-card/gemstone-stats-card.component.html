@@ -1,33 +1,33 @@
-<mat-card appearance="outlined" class="gemstone-stats-card">
+<mat-card appearance="outlined" class="gemstone-stats-card" [ngClass]="getCardColorByPercentage(percentageYesterday)">
   <div class="info-part">
     <div class="name-price">
       <div>{{name}}</div>
       <div>{{currentPrice}}</div>
     </div>
     <div class="price-compares">
-        <mat-card appearance="outlined" class="compare">
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageYesterday)">
           <div>Today</div>
-          <div>{{compareYesterday}}</div>
+          <div>{{differenceYesterday}} ({{percentageYesterday.toFixed(2)}}%)</div>
         </mat-card>
-        <mat-card appearance="outlined" class="compare">
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageWeek)">
           <div>Past week</div>
-          <div>{{compareWeek}}</div>
+          <div>{{differenceWeek}} ({{percentageWeek.toFixed(2)}}%)</div>
         </mat-card>
-        <mat-card appearance="outlined" class="compare">
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageQuarter)">
           <div>Past quarter</div>
-          <div>{{compareQuarter}}</div>
+          <div>{{differenceQuarter}} ({{percentageQuarter.toFixed(2)}}%)</div>
         </mat-card>
-        <mat-card appearance="outlined" class="compare">
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageYear)">
           <div>Past year</div>
-          <div>{{compareYear}}</div>
+          <div>{{differenceYear}} ({{percentageYear.toFixed(2)}}%)</div>
         </mat-card>
-        <mat-card appearance="outlined" class="compare">
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageFiveYear)">
           <div>Past 5 years</div>
-          <div>{{compareFiveYear}}</div>
+          <div>{{differenceFiveYear}} ({{percentageFiveYear.toFixed(2)}}%)</div>
         </mat-card>
-        <mat-card appearance="outlined" class="compare">
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageTenYear)">
           <div>Past 10 years</div>
-          <div>{{compareTenYear}}</div>
+          <div>{{differenceTenYear}} ({{percentageTenYear.toFixed(2)}}%)</div>
         </mat-card>
     </div>
   </div>

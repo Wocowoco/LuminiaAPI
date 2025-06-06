@@ -44,3 +44,32 @@
   width: 150px;
   height: 45px;
 }
+
+.percent-positive-3{
+  background-color: #00941966;
+}
+.percent-positive-2{
+  background-color: #00941944;
+}
+.percent-positive-1{
+  background-color: #00941922;
+}
+
+.percent-negative-3{
+  background-color: #FF000066;
+}
+.percent-negative-2{
+  background-color: #FF000044;
+}
+.percent-negative-1{
+  background-color: #FF000022;
+}
+
+.card-positive{
+ background-color: #00941905;
+ border-color: #00941944;;
+}
+.card-negative{
+  background-color: #FF000005;
+  border-color: #FF000044;
+}

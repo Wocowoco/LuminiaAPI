@@ -48,22 +48,6 @@ public class GemstoneExchangesController
         return CreatedAtAction(nameof(GetAllGemstoneExchanges), dbitems);
     }
 
-    [HttpGet("graph")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult GetAllGemstoneExchangesInGraphFormat()
-    {
-        var gemstoneExchanges = _luminiaContext.GemstoneExchange.ToList();
-        if (gemstoneExchanges == null || gemstoneExchanges.Count == 0)
-        {
-            return NotFound();
-        }
-
-        var graphData = GemstoneExchangeGraphMapper.Map(gemstoneExchanges);
-
-        return Ok(graphData);
-    }
-
     [HttpGet("graph/{days}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -96,5 +80,42 @@ public class GemstoneExchangesController
         var graphData = GemstoneExchangeGraphMapper.Map(gemstoneExchanges);
 
         return Ok(graphData);
+    }
+
+    [HttpGet("history")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult GetAllGemstoneExchangesPriceHistory()
+    {
+        List<GemstoneExchange> gemstoneExchanges;
+        int yesterday;
+        int lastWeek;
+        int lastQuarter;
+        int lastYear;
+        int lastFiveYears;
+        int lastTenYears;
+
+        // Get latest day in db
+        var latestDay = _luminiaContext.GemstoneExchange
+            .OrderByDescending(x => x.Day)
+            .Select(x => x.Day)
+            .FirstOrDefault();
+
+        yesterday = latestDay - 1;
+        lastWeek = latestDay - 7;
+        lastQuarter = latestDay - 91;
+        lastYear = latestDay - 364;
+        lastFiveYears = latestDay - 1820;
+        lastTenYears = latestDay - 3640;
+
+        var dayList = new List<int> { latestDay, yesterday, lastWeek, lastQuarter, lastYear, lastFiveYears, lastTenYears };
+
+        gemstoneExchanges = _luminiaContext.GemstoneExchange
+                                .Where(x => dayList.Contains(x.Day))
+                                .ToList();
+
+        var priceHistory = GemstoneExchangeGraphMapper.Map(gemstoneExchanges);
+
+        return Ok(priceHistory);
     }
 }

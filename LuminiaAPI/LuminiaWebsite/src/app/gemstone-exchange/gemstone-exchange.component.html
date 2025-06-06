@@ -2,21 +2,24 @@
   <h1>Gemstone Exchange</h1>
 </div>
 <div class="page">
-  <div class="gemstone-stats-div" *ngFor="let statCard of gemstoneStatCards">
+  <div class="gemstone-stats-div">
+   <div *ngFor="let statCard of gemstoneStatCards">
     <gemstone-stats-card
       [color]="statCard.color"
       [graphData]="statCard.graphData"
+      [priceHistory]="statCard.priceHistory"
       *ngIf="statCard.graphData.length">
     </gemstone-stats-card>
+   </div>
   </div>
   <div class="sub-title-down"><h2>All Gemstone Prices</h2></div>
   <div class="all-graph">
     <div class="all-graph-buttons">
-      <button class="timeline-button" mat-stroked-button (click)="getGraphData(7)" [ngClass]="{'active': selectedButton === 7}">1 Week</button>
-      <button class="timeline-button" mat-stroked-button (click)="getGraphData(91)" [ngClass]="{'active': selectedButton === 91}">1 Quarter</button>
-      <button class="timeline-button" mat-stroked-button (click)="getGraphData(364)" [ngClass]="{'active': selectedButton === 364}">1 Year</button>
-      <button class="timeline-button" mat-stroked-button (click)="getGraphData(1820)" [ngClass]="{'active': selectedButton === 1820}">5 Years</button>
-      <button class="timeline-button" mat-stroked-button (click)="getGraphData(3640)" [ngClass]="{'active': selectedButton === 3640}">10 Years</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(8)" [ngClass]="{'active': selectedButton === 8}">1 Week</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(92)" [ngClass]="{'active': selectedButton === 92}">1 Quarter</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(365)" [ngClass]="{'active': selectedButton === 365}">1 Year</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(1821)" [ngClass]="{'active': selectedButton === 1821}">5 Years</button>
+      <button class="timeline-button" mat-stroked-button (click)="getGraphData(3641)" [ngClass]="{'active': selectedButton === 3641}">10 Years</button>
       <button class="timeline-button" mat-stroked-button (click)="getGraphData(0)" [ngClass]="{'active': selectedButton === 0}">All</button>
     </div>
     <ngx-charts-line-chart

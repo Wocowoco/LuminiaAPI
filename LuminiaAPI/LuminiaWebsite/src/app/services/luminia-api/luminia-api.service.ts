@@ -78,11 +78,11 @@ export class LuminiaApiService {
     return this.http.patch<MapNameDto>(this.LuminiaApiURL + "mapnames/worldmapDM?updatedFolderName="+updatedName, null);
   }
 
-  getAllGemstoneExchangeData() {
-    return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph");
-  }
-
   getAllGemstoneExchangeDataForLastDays(days: number) {
     return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ days);
+  }
+
+  getAllGemstoneExchangeDataHistory() {
+    return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/history/");
   }
 }

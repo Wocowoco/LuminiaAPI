@@ -40,6 +40,11 @@ public static class GemstoneExchangeGraphMapper
             }    
         }
 
+        foreach (var gemstone in graphData)
+        {
+            gemstone.Series = gemstone.Series.OrderBy(x => x.Name).ToList();
+        }
+
         return graphData;
     }
 }

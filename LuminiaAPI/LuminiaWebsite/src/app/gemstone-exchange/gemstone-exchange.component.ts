@@ -17,6 +17,7 @@ export class GemstoneExchangeComponent implements OnInit {
   legendPosition : LegendPosition = LegendPosition.Below;
   view: [number, number] = [window.innerWidth * 0.95, window.innerHeight *0.55];
   lineChartData: GemstoneExchangeDataDto[] = [];
+  priceHistoryData: GemstoneExchangeDataDto[] = [];
   weekLineChartData: GemstoneExchangeDataDto[] = [];
   selectedButton: number = -1;
 
@@ -27,7 +28,7 @@ export class GemstoneExchangeComponent implements OnInit {
     domain: ['#e53935', '#1e88e5', '#608c26']
   };
 
-  gemstoneStatCards: { color: string; graphData: GemstoneExchangeDataDto[] }[] = [];
+  gemstoneStatCards: { color: string; graphData: GemstoneExchangeDataDto[], priceHistory: GemstoneExchangeDataDto}[] = [];
 
   color1: string = '#000000';
   color2: string = '#000000';
@@ -56,7 +57,8 @@ export class GemstoneExchangeComponent implements OnInit {
   constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) { }
 
   async ngOnInit(): Promise<void> {
-    await this.getGraphData(7, true);
+    await this.getGraphData(8, true);
+    await this.getPriceHistory();
     this.initializeGemstoneStats();
   }
 
@@ -104,16 +106,41 @@ export class GemstoneExchangeComponent implements OnInit {
     }
   }
 
+   async getPriceHistory(amountOfDays: number = 0, saveForGemstoneStats: boolean = false) {
+    try {
+      var priceHistory$ = this.luminiaApiService.getAllGemstoneExchangeDataHistory();
+      this.priceHistoryData = await firstValueFrom(priceHistory$);
+
+    } catch {
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Gemstone Exchange data could not be loaded.",
+        duration: 10000
+      });
+    }
+  }
+
   async initializeGemstoneStats() {
     // Order them by value (high to low)
     this.weekLineChartData.sort((a, b) => Number(b.series[6].value) - Number(a.series[6].value));
 
     this.weekLineChartData.forEach(gemstone => {
+      // Set gemstone graph data
       const gemstoneDtoArr: GemstoneExchangeDataDto[] = [];
       gemstoneDtoArr.push(gemstone);
+
+      // Assign colors to the gemstone stat cards
+
+      // Set price history
+      const priceHistory = this.priceHistoryData.find(x => x.name === gemstone.name);
+      if (!priceHistory) {
+        return; // If no price history is found, skip this gemstone
+      }
+
       this.gemstoneStatCards.push({
         color: "#00ffff",
-        graphData: gemstoneDtoArr
+        graphData: gemstoneDtoArr,
+        priceHistory: priceHistory
       });
     });
   };
