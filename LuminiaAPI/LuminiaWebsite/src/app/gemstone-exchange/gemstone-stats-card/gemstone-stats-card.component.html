@@ -1,0 +1,58 @@
+<mat-card appearance="outlined" class="gemstone-stats-card">
+  <div class="info-part">
+    <div class="name-price">
+      <div>Diamond</div>
+      <div>9999.9</div>
+    </div>
+    <div class="price-compares">
+        <mat-card appearance="outlined" class="compare">
+          <div>Today</div>
+          <div>-25.5 (99.99%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare">
+          <div>Past week</div>
+          <div>-25.5 (99.99%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare">
+          <div>Past quarter</div>
+          <div>-25.5 (99.99%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare">
+          <div>Past year</div>
+          <div>-25.5 (99.99%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare">
+          <div>Past 5 years</div>
+          <div>-25.5 (99.99%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare">
+          <div>Past 10 years</div>
+          <div>-25.5 (99.99%)</div>
+        </mat-card>
+    </div>
+  </div>
+  <div class="graph-part">
+    <ngx-charts-line-chart
+      [view]="[350, 200]"
+      [scheme]="colorScheme"
+      [results]="lineChartData"
+      [gradient]="false"
+      [xAxis]="false"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="false"
+      [showYAxisLabel]="true"
+      [yAxisLabel]="'Gold'"
+      [autoScale]="true">
+      <ng-template #tooltipTemplate let-model="model">
+        <div class="small-chart-tooltip">
+          {{ model.value }}
+        </div>
+      </ng-template>
+      <ng-template #seriesTooltipTemplate let-model="model">
+        {{model[0].value}}
+      </ng-template>
+    </ngx-charts-line-chart>
+  </div>
+</mat-card>
+

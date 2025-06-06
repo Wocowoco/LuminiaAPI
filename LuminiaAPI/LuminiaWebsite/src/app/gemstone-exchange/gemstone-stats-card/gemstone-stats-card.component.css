@@ -1,0 +1,46 @@
+.gemstone-stats-card{
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #FAFAF6;
+  width: 100%;
+}
+
+.info-part  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 325px;
+}
+
+.name-price{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  height: 50px;
+  gap: 20px;
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 18px;
+  line-height: normal;
+  color: #2C2B25;
+}
+
+.price-compares{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.compare{
+  width: 150px;
+  height: 45px;
+}

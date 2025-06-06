@@ -10,13 +10,27 @@
   color: #2C2B25;
 }
 
-.all-graph-buttons{
+.gemstone-stats-div{
+  margin: 10px;
   display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  column-gap: 20px;
+  row-gap: 5px;
+}
+
+.all-graph-buttons{
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 5px;
 }
 
 .timeline-button{
+  width: 110px;
   background-color: #F8F8F2;
   color: #2C2B25;
 }
