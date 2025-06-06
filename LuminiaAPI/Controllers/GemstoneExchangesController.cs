@@ -78,7 +78,7 @@ public class GemstoneExchangesController
                 .Select(x => x.Day)
                 .FirstOrDefault();
 
-            var startingDay = latestDay - days;
+            var startingDay = latestDay - days + 1;
             gemstoneExchanges = _luminiaContext.GemstoneExchange
                 .Where(x => x.Day >= startingDay)
                 .ToList();

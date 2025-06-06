@@ -2,11 +2,12 @@
   <h1>Gemstone Exchange</h1>
 </div>
 <div class="page">
-  <div class="gemstone-stats-div">
-    <gemstone-stats-card></gemstone-stats-card>
-    <gemstone-stats-card></gemstone-stats-card>
-    <gemstone-stats-card></gemstone-stats-card>
-    <gemstone-stats-card></gemstone-stats-card>
+  <div class="gemstone-stats-div" *ngFor="let statCard of gemstoneStatCards">
+    <gemstone-stats-card
+      [color]="statCard.color"
+      [graphData]="statCard.graphData"
+      *ngIf="statCard.graphData.length">
+    </gemstone-stats-card>
   </div>
   <div class="sub-title-down"><h2>All Gemstone Prices</h2></div>
   <div class="all-graph">

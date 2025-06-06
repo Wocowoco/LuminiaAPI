@@ -5,6 +5,7 @@ import { GemstoneExchangeDataDto } from '../services/luminia-api/dtos/gemstoneEx
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
+import { Gemstone } from '../services/luminia-api/enums/gemstone.enum';
 
 @Component({
   selector: 'app-gemstone-exchange',
@@ -15,8 +16,9 @@ export class GemstoneExchangeComponent implements OnInit {
 
   legendPosition : LegendPosition = LegendPosition.Below;
   view: [number, number] = [window.innerWidth * 0.95, window.innerHeight *0.55];
-  lineChartData: GemstoneExchangeDataDto | undefined;
-  selectedButton: number = 7; //Number in days
+  lineChartData: GemstoneExchangeDataDto[] = [];
+  weekLineChartData: GemstoneExchangeDataDto[] = [];
+  selectedButton: number = -1;
 
   colorScheme = {
     name: 'customScheme',
@@ -25,19 +27,37 @@ export class GemstoneExchangeComponent implements OnInit {
     domain: ['#e53935', '#1e88e5', '#608c26']
   };
 
+  gemstoneStatCards: { color: string; graphData: GemstoneExchangeDataDto[] }[] = [];
+
+  color1: string = '#000000';
+  color2: string = '#000000';
+  color3: string = '#000000';
+  color4: string = '#000000';
+
+  placeholderGraphData: GemstoneExchangeDataDto[] =
+    [{
+      name: 'Placeholder',
+      series: [
+        { name: 0, value: 0 },
+        { name: 1, value: 0 },
+        { name: 2, value: 0 },
+        { name: 3, value: 0 },
+        { name: 4, value: 0 },
+        { name: 5, value: 0 },
+        { name: 6, value: 0 },
+      ]
+    }];
+
+  graphData1: GemstoneExchangeDataDto[] = [];
+  graphData2: GemstoneExchangeDataDto[] = [];
+  graphData3: GemstoneExchangeDataDto[] = [];
+  graphData4: GemstoneExchangeDataDto[] = [];
+
   constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) { }
 
   async ngOnInit(): Promise<void> {
-    try {
-      var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeDataForLastDays(7);
-      this.lineChartData = await firstValueFrom(allGemstoneExchangeData$);
-    } catch {
-      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
-        panelClass: 'error-snackbar',
-        data: "Gemstone Exchange data could not be loaded.",
-        duration: 10000
-      });
-    }
+    await this.getGraphData(7, true);
+    this.initializeGemstoneStats();
   }
 
   @HostListener('window:resize')
@@ -58,10 +78,22 @@ export class GemstoneExchangeComponent implements OnInit {
     else return "";
   }
 
-  async getGraphData(amountOfDays: number = 0) {
+  async getGraphData(amountOfDays: number = 0, saveForGemstoneStats: boolean = false) {
     try {
       var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeDataForLastDays(amountOfDays);
       this.lineChartData = await firstValueFrom(allGemstoneExchangeData$);
+
+      if (saveForGemstoneStats) {
+        this.weekLineChartData = structuredClone(this.lineChartData);
+      }
+
+      // Order them by GemstoneId
+      this.lineChartData.sort((a, b) => Number(a.name) - Number(b.name));
+      // Convert enum value to string
+      this.lineChartData.forEach(gemstone => {
+        gemstone.name = Gemstone[gemstone.name as keyof typeof Gemstone].toString();
+      });
+
       this.selectedButton = amountOfDays;
     } catch {
       this.snackBar.openFromComponent(ErrorSnackbarComponent, {
@@ -71,4 +103,18 @@ export class GemstoneExchangeComponent implements OnInit {
       });
     }
   }
+
+  async initializeGemstoneStats() {
+    // Order them by value (high to low)
+    this.weekLineChartData.sort((a, b) => Number(b.series[6].value) - Number(a.series[6].value));
+
+    this.weekLineChartData.forEach(gemstone => {
+      const gemstoneDtoArr: GemstoneExchangeDataDto[] = [];
+      gemstoneDtoArr.push(gemstone);
+      this.gemstoneStatCards.push({
+        color: "#00ffff",
+        graphData: gemstoneDtoArr
+      });
+    });
+  };
 }

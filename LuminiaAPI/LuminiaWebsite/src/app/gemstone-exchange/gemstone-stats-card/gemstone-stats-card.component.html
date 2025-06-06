@@ -1,33 +1,33 @@
 <mat-card appearance="outlined" class="gemstone-stats-card">
   <div class="info-part">
     <div class="name-price">
-      <div>Diamond</div>
-      <div>9999.9</div>
+      <div>{{name}}</div>
+      <div>{{currentPrice}}</div>
     </div>
     <div class="price-compares">
         <mat-card appearance="outlined" class="compare">
           <div>Today</div>
-          <div>-25.5 (99.99%)</div>
+          <div>{{compareYesterday}}</div>
         </mat-card>
         <mat-card appearance="outlined" class="compare">
           <div>Past week</div>
-          <div>-25.5 (99.99%)</div>
+          <div>{{compareWeek}}</div>
         </mat-card>
         <mat-card appearance="outlined" class="compare">
           <div>Past quarter</div>
-          <div>-25.5 (99.99%)</div>
+          <div>{{compareQuarter}}</div>
         </mat-card>
         <mat-card appearance="outlined" class="compare">
           <div>Past year</div>
-          <div>-25.5 (99.99%)</div>
+          <div>{{compareYear}}</div>
         </mat-card>
         <mat-card appearance="outlined" class="compare">
           <div>Past 5 years</div>
-          <div>-25.5 (99.99%)</div>
+          <div>{{compareFiveYear}}</div>
         </mat-card>
         <mat-card appearance="outlined" class="compare">
           <div>Past 10 years</div>
-          <div>-25.5 (99.99%)</div>
+          <div>{{compareTenYear}}</div>
         </mat-card>
     </div>
   </div>
@@ -35,22 +35,21 @@
     <ngx-charts-line-chart
       [view]="[350, 200]"
       [scheme]="colorScheme"
-      [results]="lineChartData"
+      [results]="graphData"
       [gradient]="false"
       [xAxis]="false"
       [yAxis]="true"
       [legend]="false"
       [showXAxisLabel]="false"
-      [showYAxisLabel]="true"
-      [yAxisLabel]="'Gold'"
+      [showYAxisLabel]="false"
       [autoScale]="true">
       <ng-template #tooltipTemplate let-model="model">
         <div class="small-chart-tooltip">
-          {{ model.value }}
+          {{ model.value }} gold
         </div>
       </ng-template>
       <ng-template #seriesTooltipTemplate let-model="model">
-        {{model[0].value}}
+        {{model[0].value}} gold
       </ng-template>
     </ngx-charts-line-chart>
   </div>

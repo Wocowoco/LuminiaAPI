@@ -1,8 +1,10 @@
-﻿namespace LuminiaAPI.Dtos.GemstoneExchange;
+﻿using LuminiaAPI.Enums;
+
+namespace LuminiaAPI.Dtos.GemstoneExchange;
 
 public class GemstoneGraphData
 {
-    public required string Name { get; init; }
+    public required Gemstone Name { get; init; }
     public IList<GemstoneGraphDataRow> Series { get; set; }
 
     public GemstoneGraphData()

@@ -13,10 +13,10 @@ public static class GemstoneExchangeGraphMapper
         foreach (var exchange in gemstoneExchanges)
         {
             // Check if gemstone already has a collection
-            if (graphData.Any(x => x.Name == exchange.GemstoneId.ToString()))
+            if (graphData.Any(x => x.Name == exchange.GemstoneId))
             {
                 // Add to existing collection
-                graphData.Single(x => x.Name == exchange.GemstoneId.ToString())
+                graphData.Single(x => x.Name == exchange.GemstoneId)
                     .Series.Add(new GemstoneGraphDataRow
                     {
                         Name = exchange.Day,
@@ -27,7 +27,7 @@ public static class GemstoneExchangeGraphMapper
             {
                 graphData.Add(new GemstoneGraphData
                 {
-                    Name = exchange.GemstoneId.ToString(),
+                    Name = exchange.GemstoneId,
                     Series = new List<GemstoneGraphDataRow>
                     {
                         new GemstoneGraphDataRow
