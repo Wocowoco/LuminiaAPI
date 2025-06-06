@@ -78,12 +78,14 @@ Console.WriteLine("Generating " + gemstoneId.ToString() + " data, starting from 
 while (true)
 {
     double price = startingPrice;
-    double minPrice = 33;
-    double maxPrice = 213;
+    double minPrice = 5;
+    double maxPrice = 60;
+    double volatility = 0.05;
+    double protectionDistanceMin = 5;
+    double protectionDistanceMax = 5;
     double lowest = startingPrice;
     double highest = startingPrice;
     double protectionFactor = 0;
-    double protectionDistance = 50;
 
     var GemstoneExchangeList = new List<GemstoneExchangeDto>();
 
@@ -92,23 +94,20 @@ while (true)
         //Generate next number for the stock
         var rng = new Random();
 
-        // Volatility factor controls how much it can move
-        double volatility = 0.05;
-
         // Generate base random value between -1 and 1
         double direction = (rng.NextDouble() * 2.0) - 1.0;
 
         // Bias the downward direction to be smaller near minPrice
         if (direction < 0)
         {
-            protectionFactor = Math.Pow(Math.Max(0, price - minPrice) / protectionDistance, 0.3);
+            protectionFactor = Math.Pow(Math.Max(0, price - minPrice) / protectionDistanceMin, 0.3);
             protectionFactor = Math.Clamp(protectionFactor, 0.1, 1.0);
             direction *= protectionFactor;
         }
         // Bias the upward direction to be smaller near maxPrice
         else
         {
-            protectionFactor = Math.Pow(Math.Max(0, maxPrice - price) / protectionDistance, 0.3);
+            protectionFactor = Math.Pow(Math.Max(0, maxPrice - price) / protectionDistanceMax, 0.3);
             protectionFactor = Math.Clamp(protectionFactor, 0.1, 1.0);
             direction *= protectionFactor;
         }
@@ -150,4 +149,5 @@ while (true)
     Console.WriteLine("Lowest price: " + lowest);
     Console.WriteLine("Highest price: " + highest);
     Console.ReadLine();
+    Console.Clear();
 }

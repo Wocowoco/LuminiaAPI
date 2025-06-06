@@ -20,44 +20,21 @@ export class GemstoneExchangeComponent implements OnInit {
   priceHistoryData: GemstoneExchangeDataDto[] = [];
   weekLineChartData: GemstoneExchangeDataDto[] = [];
   selectedButton: number = -1;
+  colors: string[] = ['#e53935', '#242fc9', '#608c26', '#ebb134', '#5cafdb', '#7714a8', '#2e2e2e', '#d9611c']
 
   colorScheme = {
     name: 'customScheme',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#e53935', '#1e88e5', '#608c26']
+    domain: this.colors
   };
 
   gemstoneStatCards: { color: string; graphData: GemstoneExchangeDataDto[], priceHistory: GemstoneExchangeDataDto}[] = [];
 
-  color1: string = '#000000';
-  color2: string = '#000000';
-  color3: string = '#000000';
-  color4: string = '#000000';
-
-  placeholderGraphData: GemstoneExchangeDataDto[] =
-    [{
-      name: 'Placeholder',
-      series: [
-        { name: 0, value: 0 },
-        { name: 1, value: 0 },
-        { name: 2, value: 0 },
-        { name: 3, value: 0 },
-        { name: 4, value: 0 },
-        { name: 5, value: 0 },
-        { name: 6, value: 0 },
-      ]
-    }];
-
-  graphData1: GemstoneExchangeDataDto[] = [];
-  graphData2: GemstoneExchangeDataDto[] = [];
-  graphData3: GemstoneExchangeDataDto[] = [];
-  graphData4: GemstoneExchangeDataDto[] = [];
-
   constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) { }
 
   async ngOnInit(): Promise<void> {
-    await this.getGraphData(8, true);
+    await this.getGraphData(92, true);
     await this.getPriceHistory();
     this.initializeGemstoneStats();
   }
@@ -122,7 +99,7 @@ export class GemstoneExchangeComponent implements OnInit {
 
   async initializeGemstoneStats() {
     // Order them by value (high to low)
-    this.weekLineChartData.sort((a, b) => Number(b.series[6].value) - Number(a.series[6].value));
+    this.weekLineChartData.sort((a, b) => Number(b.series[length].value) - Number(a.series[length].value));
 
     this.weekLineChartData.forEach(gemstone => {
       // Set gemstone graph data
@@ -130,6 +107,7 @@ export class GemstoneExchangeComponent implements OnInit {
       gemstoneDtoArr.push(gemstone);
 
       // Assign colors to the gemstone stat cards
+      const color = this.colors[Number(gemstone.name) - 1];
 
       // Set price history
       const priceHistory = this.priceHistoryData.find(x => x.name === gemstone.name);
@@ -138,7 +116,7 @@ export class GemstoneExchangeComponent implements OnInit {
       }
 
       this.gemstoneStatCards.push({
-        color: "#00ffff",
+        color: color,
         graphData: gemstoneDtoArr,
         priceHistory: priceHistory
       });
