@@ -82,6 +82,10 @@ export class LuminiaApiService {
     return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ days);
   }
 
+  getGemstoneExchangeDataForLastDays(days: number, gemstoneId: number) {
+    return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ gemstoneId + "/" + days);
+  }
+
   getAllGemstoneExchangeDataHistory() {
     return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/history/");
   }

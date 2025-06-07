@@ -53,6 +53,14 @@
         {{model[0].value}} gold
       </ng-template>
     </ngx-charts-line-chart>
+    <div class="all-graph-buttons">
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(8)" [ngClass]="{'active': selectedButton === 8}">W</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(92)" [ngClass]="{'active': selectedButton === 92}">Q</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(365)" [ngClass]="{'active': selectedButton === 365}">Y</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(1821)" [ngClass]="{'active': selectedButton === 1821}">5Y</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(3641)" [ngClass]="{'active': selectedButton === 3641}">10Y</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(0)" [ngClass]="{'active': selectedButton === 0}">All</button>
+    </div>
   </div>
 </mat-card>
 

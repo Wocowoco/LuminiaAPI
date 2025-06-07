@@ -1,7 +1,11 @@
 import { Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScaleType } from '@swimlane/ngx-charts';
+import { firstValueFrom } from 'rxjs';
 import { GemstoneExchangeDataDto } from 'src/app/services/luminia-api/dtos/gemstoneExchangeData.interface';
 import { Gemstone } from 'src/app/services/luminia-api/enums/gemstone.enum';
+import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.service';
+import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-snackbar.component';
 
 @Component({
   selector: 'gemstone-stats-card',
@@ -26,8 +30,10 @@ export class GemstoneStatsCardComponent {
       ]
     }];
 
+  selectedButton: number = -1;
   name: string = 'Gemstone';
   currentPrice: number = 0.0;
+  gemstoneId: number = 0;
 
   differenceYesterday: string = '0.0';
   differenceWeek: string = '0.0';
@@ -50,6 +56,9 @@ export class GemstoneStatsCardComponent {
     domain: [this.color]
   };
 
+  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) {
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['color']) {
       this.colorScheme = {
@@ -60,21 +69,26 @@ export class GemstoneStatsCardComponent {
       };
     };
 
+    if(changes['graphData']) {
+      this.gemstoneId = Number(this.graphData[0].name);
+      this.selectedButton = this.graphData[0].series.length;
+    }
+
     if (changes['priceHistory']) {
-        this.name = Gemstone[this.priceHistory.name as keyof typeof Gemstone].toString();
-        this.currentPrice = this.priceHistory.series[6].value;
-        this.differenceYesterday = this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[5].value);
-        this.differenceWeek =      this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[4].value);
-        this.differenceQuarter =   this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[3].value);
-        this.differenceYear =      this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[2].value);
-        this.differenceFiveYear =  this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[1].value);
-        this.differenceTenYear =   this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[0].value);
-        this.percentageYesterday = this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[5].value);
-        this.percentageWeek =      this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[4].value);
-        this.percentageQuarter =   this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[3].value);
-        this.percentageYear =      this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[2].value);
-        this.percentageFiveYear =  this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[1].value);
-        this.percentageTenYear =   this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[0].value)
+      this.name = Gemstone[this.priceHistory.name as keyof typeof Gemstone].toString();
+      this.currentPrice = this.priceHistory.series[6].value;
+      this.differenceYesterday = this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[5].value);
+      this.differenceWeek =      this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[4].value);
+      this.differenceQuarter =   this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[3].value);
+      this.differenceYear =      this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[2].value);
+      this.differenceFiveYear =  this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[1].value);
+      this.differenceTenYear =   this.calculatePriceDifference(this.currentPrice, this.priceHistory.series[0].value);
+      this.percentageYesterday = this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[5].value);
+      this.percentageWeek =      this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[4].value);
+      this.percentageQuarter =   this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[3].value);
+      this.percentageYear =      this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[2].value);
+      this.percentageFiveYear =  this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[1].value);
+      this.percentageTenYear =   this.calculatePercentageDifference(this.currentPrice, this.priceHistory.series[0].value)
     }
   };
 
@@ -126,6 +140,20 @@ export class GemstoneStatsCardComponent {
     }
     else {
       return 'card-negative';
+    }
+  }
+
+  async getGraphData(amountOfDays: number = 0) {
+    try {
+      var allGemstoneExchangeData$ = this.luminiaApiService.getGemstoneExchangeDataForLastDays(amountOfDays, this.gemstoneId);
+      this.graphData = await firstValueFrom(allGemstoneExchangeData$);
+      this.selectedButton = amountOfDays;
+    } catch {
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Gemstone Exchange data could not be loaded.",
+        duration: 10000
+      });
     }
   }
 }

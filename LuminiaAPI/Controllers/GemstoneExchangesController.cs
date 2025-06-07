@@ -2,6 +2,7 @@
 using LuminiaAPI.Context;
 using LuminiaAPI.Dtos.GemstoneExchange;
 using LuminiaAPI.Entities;
+using LuminiaAPI.Enums;
 using LuminiaAPI.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,6 +71,40 @@ public class GemstoneExchangesController
         else // If no days specified (0), get all data
         {
             gemstoneExchanges = _luminiaContext.GemstoneExchange.ToList();
+        }
+
+        if (gemstoneExchanges == null || gemstoneExchanges.Count == 0)
+        {
+            return NotFound();
+        }
+
+        var graphData = GemstoneExchangeGraphMapper.Map(gemstoneExchanges);
+
+        return Ok(graphData);
+    }
+
+    [HttpGet("graph/{gemstoneId}/{days}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult GetGemstoneExchangesInGraphFormatForLastDays(Gemstone gemstoneId, int days)
+    {
+        List<GemstoneExchange> gemstoneExchanges;
+        if (days != 0) // If day specified, go back x days
+        {
+            // Get latest day in db
+            var latestDay = _luminiaContext.GemstoneExchange
+                .OrderByDescending(x => x.Day)
+                .Select(x => x.Day)
+                .FirstOrDefault();
+
+            var startingDay = latestDay - days + 1;
+            gemstoneExchanges = _luminiaContext.GemstoneExchange
+                .Where(x => x.Day >= startingDay && x.GemstoneId == gemstoneId)
+                .ToList();
+        }
+        else // If no days specified (0), get all data for that Gemstone
+        {
+            gemstoneExchanges = _luminiaContext.GemstoneExchange.Where(x => x.GemstoneId == gemstoneId).ToList();
         }
 
         if (gemstoneExchanges == null || gemstoneExchanges.Count == 0)
