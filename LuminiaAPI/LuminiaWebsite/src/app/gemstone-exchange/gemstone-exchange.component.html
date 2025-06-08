@@ -35,9 +35,17 @@
       [showYAxisLabel]="true"
       [timeline]="selectedButton === 0"
       [xAxisLabel]="'Date (Day - Month - Year)'"
-      [xAxisTickFormatting]="dateFormatter"
+      [xAxisTickFormatting]="formatDate"
       [yAxisLabel]="'Gold'"
       [autoScale]="true">
+      <ng-template #tooltipTemplate let-model="model">
+        <div class="chart-tooltip">
+          {{formatDate(model.name)}}
+          <br>
+          {{model.value}} gold
+        </div>
+      </ng-template>
+      >
     </ngx-charts-line-chart>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScaleType } from '@swimlane/ngx-charts';
 import { firstValueFrom } from 'rxjs';
+import { DateFormatterService } from 'src/app/helpers/date-formatter.service';
 import { GemstoneExchangeDataDto } from 'src/app/services/luminia-api/dtos/gemstoneExchangeData.interface';
 import { Gemstone } from 'src/app/services/luminia-api/enums/gemstone.enum';
 import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.service';
@@ -56,8 +57,16 @@ export class GemstoneStatsCardComponent {
     domain: [this.color]
   };
 
-  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) {
+  formatDate: (dayNumber: number) => string;
+
+  constructor(
+    private luminiaApiService: LuminiaApiService,
+    private snackBar: MatSnackBar,
+    private dateFormatterService: DateFormatterService) {
+      this.formatDate = (dayNumber: number) => this.dateFormatterService.formatDaynumberToString(dayNumber);
   }
+
+
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['color']) {

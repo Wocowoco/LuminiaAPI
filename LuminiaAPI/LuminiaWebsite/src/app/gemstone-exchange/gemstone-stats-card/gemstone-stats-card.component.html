@@ -45,12 +45,18 @@
       [showYAxisLabel]="false"
       [autoScale]="true">
       <ng-template #tooltipTemplate let-model="model">
-        <div class="small-chart-tooltip">
-          {{ model.value }} gold
+        <div class="chart-tooltip">
+          {{formatDate(model.name)}}
+          <br>
+          {{model.value}} gold
         </div>
       </ng-template>
       <ng-template #seriesTooltipTemplate let-model="model">
-        {{model[0].value}} gold
+        <div class="chart-tooltip">
+          {{formatDate(model[0].name)}}
+          <br>
+          {{model[0].value}} gold
+        </div>
       </ng-template>
     </ngx-charts-line-chart>
     <div class="all-graph-buttons">

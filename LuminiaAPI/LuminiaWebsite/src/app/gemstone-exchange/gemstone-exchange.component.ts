@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 import { Gemstone } from '../services/luminia-api/enums/gemstone.enum';
+import { DateFormatterService } from '../helpers/date-formatter.service';
 
 @Component({
   selector: 'app-gemstone-exchange',
@@ -21,6 +22,7 @@ export class GemstoneExchangeComponent implements OnInit {
   weekLineChartData: GemstoneExchangeDataDto[] = [];
   selectedButton: number = -1;
   colors: string[] = ['#e53935', '#242fc9', '#608c26', '#ebb134', '#5cafdb', '#7714a8', '#2e2e2e', '#d9611c']
+  formatDate: (dayNumber: number) => string;
 
   colorScheme = {
     name: 'customScheme',
@@ -31,7 +33,12 @@ export class GemstoneExchangeComponent implements OnInit {
 
   gemstoneStatCards: { color: string; graphData: GemstoneExchangeDataDto[], priceHistory: GemstoneExchangeDataDto}[] = [];
 
-  constructor(private luminiaApiService: LuminiaApiService, private snackBar: MatSnackBar) { }
+  constructor(
+    private luminiaApiService: LuminiaApiService,
+    private snackBar: MatSnackBar,
+    private dateFormatterService: DateFormatterService) {
+      this.formatDate = (dayNumber: number) => this.dateFormatterService.formatDaynumberToString(dayNumber);
+    }
 
   async ngOnInit(): Promise<void> {
     await this.getGraphData(92, true);
@@ -39,22 +46,11 @@ export class GemstoneExchangeComponent implements OnInit {
     this.initializeGemstoneStats();
   }
 
+
+
   @HostListener('window:resize')
   onResize() {
     this.view = [window.innerWidth * 0.95, window.innerHeight * 0.55];
-  }
-
-  dateFormatter(dayNumber: number): string {
-    // If the day is not a integer number, give the entry no text
-    if (Number.isInteger(dayNumber)){
-      var months = ['Bloomen', 'Sumsun', 'Leaflet', 'Frizwa'];
-      const year = Math.floor(dayNumber / 364);
-      const monthIndex = Math.floor((dayNumber % 364) / 91);
-      const dayInMonth = (dayNumber % 91) + 1;
-      const monthName = months[monthIndex] || '???';
-      return dayInMonth + " " + monthName + " " + year;
-    }
-    else return "";
   }
 
   async getGraphData(amountOfDays: number = 0, saveForGemstoneStats: boolean = false) {
