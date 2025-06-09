@@ -21,6 +21,8 @@ export class GemstoneExchangeComponent implements OnInit {
   priceHistoryData: GemstoneExchangeDataDto[] = [];
   weekLineChartData: GemstoneExchangeDataDto[] = [];
   selectedButton: number = -1;
+  isLoading: boolean = true;
+  hasError: boolean = false;
   colors: string[] = ['#e53935', '#242fc9', '#608c26', '#ebb134', '#5cafdb', '#7714a8', '#2e2e2e', '#d9611c']
   formatDate: (dayNumber: number) => string;
 
@@ -41,9 +43,10 @@ export class GemstoneExchangeComponent implements OnInit {
     }
 
   async ngOnInit(): Promise<void> {
-    await this.getGraphData(92, true);
+    await this.getGraphData(92, true, true);
     await this.getPriceHistory();
-    this.initializeGemstoneStats();
+    await this.initializeGemstoneStats();
+    this.isLoading = false;
   }
 
 
@@ -53,7 +56,7 @@ export class GemstoneExchangeComponent implements OnInit {
     this.view = [window.innerWidth * 0.95, window.innerHeight * 0.55];
   }
 
-  async getGraphData(amountOfDays: number = 0, saveForGemstoneStats: boolean = false) {
+  async getGraphData(amountOfDays: number = 0, saveForGemstoneStats: boolean = false, setHasError: boolean = false) {
     try {
       var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeDataForLastDays(amountOfDays);
       this.lineChartData = await firstValueFrom(allGemstoneExchangeData$);
@@ -71,25 +74,17 @@ export class GemstoneExchangeComponent implements OnInit {
 
       this.selectedButton = amountOfDays;
     } catch {
-      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
-        panelClass: 'error-snackbar',
-        data: "Gemstone Exchange data could not be loaded.",
-        duration: 10000
-      });
+      this.showLoadError(setHasError);
     }
   }
 
-   async getPriceHistory(amountOfDays: number = 0, saveForGemstoneStats: boolean = false) {
+   async getPriceHistory() {
     try {
       var priceHistory$ = this.luminiaApiService.getAllGemstoneExchangeDataHistory();
       this.priceHistoryData = await firstValueFrom(priceHistory$);
 
     } catch {
-      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
-        panelClass: 'error-snackbar',
-        data: "Gemstone Exchange data could not be loaded.",
-        duration: 10000
-      });
+      this.showLoadError();
     }
   }
 
@@ -117,5 +112,18 @@ export class GemstoneExchangeComponent implements OnInit {
         priceHistory: priceHistory
       });
     });
+  };
+
+  showLoadError(setHasError: boolean = false){
+    this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+          panelClass: 'error-snackbar',
+          data: "Gemstone Exchange data could not be loaded.",
+          duration: 10000
+    });
+
+    if(setHasError){
+      this.hasError = true;
+      this.isLoading = false;
+    }
   };
 }

@@ -6,6 +6,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatButtonModule } from '@angular/material/button';
 import { GemstoneStatsCardComponent } from './gemstone-stats-card/gemstone-stats-card.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const childRoutes: Routes = [
   {path:"gemstone-exchange", component: GemstoneExchangeComponent }
@@ -20,6 +21,7 @@ const childRoutes: Routes = [
     CommonModule,
     MatButtonModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     RouterModule.forChild(childRoutes),
     NgxChartsModule,
 ]
