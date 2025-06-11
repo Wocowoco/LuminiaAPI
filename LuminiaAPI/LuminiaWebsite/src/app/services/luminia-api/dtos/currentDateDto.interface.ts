@@ -1,4 +1,5 @@
 export interface CurrentDateDto {
-    day : number;
-    year : number;
+    day : number; // Depricated
+    year : number; // Depricated
+    dayNumber: number;
 }

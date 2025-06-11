@@ -6,7 +6,8 @@ namespace LuminiaAPI.Entities
     public class CurrentDate
         : EntityBase
     {
-        public int Day { get; set; }
-        public int Year { get; set; }
+        public int Day { get; set; } // Depricated
+        public int Year { get; set; } // Depricated
+        public int DayNumber { get; set; }
     }
 }

@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 import { CurrentDateDto } from '../services/luminia-api/dtos/currentDateDto.interface';
+import { DateFormatterService } from '../helpers/date-formatter.service';
 
 @Component({
   selector: 'app-calendar',
@@ -17,20 +18,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   headerText : string = '';
   currentDateDto : CurrentDateDto | any;
 
+
   constructor(private renderer: Renderer2,
               private elementRef : ElementRef,
               private luminiaApiService: LuminiaApiService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private dateFormatterService: DateFormatterService ) {
 
   }
 
   async ngOnInit(): Promise<void> {
     try {
       var currentDate$ = this.luminiaApiService.getCurrentDate();
-      var currentDateDto = await firstValueFrom(currentDate$);
+      this.currentDateDto = await firstValueFrom(currentDate$);
 
-      this.currentDayInYear = currentDateDto.day;
-      this.headerText = this.calculateHeaderText(currentDateDto.day, currentDateDto.year);
+      this.headerText = this.dateFormatterService.formatDaynumberToString(this.currentDateDto.dayNumber);
+      this.currentDayInYear = Math.floor(this.currentDateDto.dayNumber % 364 + 1);
+      this.setCurrentQuarter(this.currentDayInYear);
       this.showCurrentDay();
     } catch {
       this.snackBar.openFromComponent(ErrorSnackbarComponent, {
@@ -42,7 +46,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.showCurrentDay();
   }
 
   clickedBloomen() : void {
@@ -75,55 +78,22 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  calculateHeaderText(dayInYear : number, year : number) : string {
-
-    var dayInMonth: number;
-    var daySuffix: string;
-    var monthText: string;
-
-    switch (Math.floor((dayInYear - 1) / 91)) {
+  setCurrentQuarter(dayNumber: number) {
+    switch (Math.floor((dayNumber - 1) / 91)) {
       case 0:
-        monthText = 'Bloomen';
         this.currentSelectedQuarter = 1;
-        dayInMonth = dayInYear;
         break;
       case 1:
-        monthText = 'Sumsun';
         this.currentSelectedQuarter = 2;
-        dayInMonth = dayInYear - 91;
         break;
       case 2:
-        monthText = 'Leaflet';
         this.currentSelectedQuarter = 3;
-        dayInMonth = dayInYear - 182;
         break;
       case 3:
-        monthText = 'Frizwa';
         this.currentSelectedQuarter = 4;
-        dayInMonth = dayInYear - 273;
         break;
       default:
-        monthText = '???';
-        dayInMonth = 0;
         break;
     }
-
-    if (dayInMonth % 10 == 1 && dayInMonth != 11)
-    {
-      daySuffix = "st";
-    }
-    else if (dayInMonth % 10 == 2 && dayInMonth != 12)
-    {
-      daySuffix = "nd";
-    }
-    else if (dayInMonth % 10 == 3 && dayInMonth != 13)
-    {
-      daySuffix = "rd"
-    }
-    else {
-      daySuffix = "th";
-    }
-
-    return dayInMonth.toString() + daySuffix + " of " + monthText + " " + year;
   }
 }
