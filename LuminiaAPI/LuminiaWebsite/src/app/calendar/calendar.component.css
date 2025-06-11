@@ -142,3 +142,26 @@
     max-width: 95%;
   }
 }
+
+.loading{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-card{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 250px;
+  height: 50px;
+  column-gap: 20px;
+  background-color: #FAFAF6;
+  padding: 10px;
+}
+
+.spinner-color{
+  --mdc-circular-progress-active-indicator-color: #2C2B25;
+}

@@ -17,6 +17,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   currentSelectedQuarter : number = 0;
   headerText : string = '';
   currentDateDto : CurrentDateDto | any;
+  isLoading : boolean = true;
 
 
   constructor(private renderer: Renderer2,
@@ -39,9 +40,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     } catch {
       this.snackBar.openFromComponent(ErrorSnackbarComponent, {
         panelClass: 'error-snackbar',
-        data: "Calendar data could not be loaded.",
+        data: "Current day could not be loaded.",
         duration: 10000
       });
+      this.headerText = "Calendar";
+      this.currentSelectedQuarter = 1;
+    } finally {
+    this.isLoading = false;
     }
   }
 
