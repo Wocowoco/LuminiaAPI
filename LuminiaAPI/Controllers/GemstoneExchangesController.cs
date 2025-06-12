@@ -3,6 +3,7 @@ using LuminiaAPI.Context;
 using LuminiaAPI.Dtos.GemstoneExchange;
 using LuminiaAPI.Entities;
 using LuminiaAPI.Enums;
+using LuminiaAPI.Handlers.GemstoneExchangeHandlers;
 using LuminiaAPI.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +16,13 @@ public class GemstoneExchangesController
 {
     private readonly ILuminiaContext _luminiaContext;
     private readonly IMapper _mapper;
+    private readonly ICreateGemstoneExchangesHandler _createGemstoneExchangesHandler;
 
-    public GemstoneExchangesController(ILuminiaContext luminiaContext, IMapper mapper)
+    public GemstoneExchangesController(ILuminiaContext luminiaContext, IMapper mapper, ICreateGemstoneExchangesHandler createGemstoneExchangesHandler)
     {
         _luminiaContext = luminiaContext;
         _mapper = mapper;
+        _createGemstoneExchangesHandler = createGemstoneExchangesHandler;
     }
 
     [HttpGet]
@@ -42,11 +45,26 @@ public class GemstoneExchangesController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> PostGemstoneExchanges([FromBody] GemstoneExchangeDto[] gemstoneExchangeDtos)
     {
-        var dbitems = gemstoneExchangeDtos.Select(x => _mapper.Map<Entities.GemstoneExchange>(x)).ToList();
+        var dbitems = gemstoneExchangeDtos.Select(x => _mapper.Map<GemstoneExchange>(x)).ToList();
         _luminiaContext.GemstoneExchange.AddRange(dbitems);
         await _luminiaContext.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetAllGemstoneExchanges), dbitems);
+    }
+
+    [HttpPost("{dayNumber}")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateGemstoneExchangesForDay(int dayNumber)
+    {
+        var oldExchanges = _luminiaContext.GemstoneExchange.Where(x => x.Day == (dayNumber - 1)).ToList();
+
+        var newExchanges = _createGemstoneExchangesHandler.Handle(oldExchanges);
+
+        _luminiaContext.GemstoneExchange.AddRange(newExchanges);
+        await _luminiaContext.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetAllGemstoneExchanges), newExchanges);
     }
 
     [HttpGet("graph/{days}")]

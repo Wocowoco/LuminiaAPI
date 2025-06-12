@@ -91,7 +91,7 @@ while (true)
 
     for (int i = 0; i < amountOfDays; i++)
     {
-        //Generate next number for the stock
+        // Generate next number for the stock
         var rng = new Random();
 
         // Generate base random value between -1 and 1

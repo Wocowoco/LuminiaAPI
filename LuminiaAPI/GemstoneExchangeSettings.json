@@ -1,0 +1,68 @@
+{
+  "gemstoneSettings": [
+    {
+      "gemstoneId": "Ruby",
+      "minPrice": 50,
+      "maxPrice": 90,
+      "volatility": 0.02,
+      "protectionDistanceMin": 30,
+      "protectionDistanceMax": 30
+    },
+    {
+      "gemstoneId": "Sapphire",
+      "minPrice": 40,
+      "maxPrice": 90,
+      "volatility": 0.02,
+      "protectionDistanceMin": 30,
+      "protectionDistanceMax": 30
+    },
+    {
+      "gemstoneId": "Emerald",
+      "minPrice": 70,
+      "maxPrice": 110,
+      "volatility": 0.03,
+      "protectionDistanceMin": 50,
+      "protectionDistanceMax": 30
+    },
+    {
+      "gemstoneId": "Topaz",
+      "minPrice": 35,
+      "maxPrice": 65,
+      "volatility": 0.05,
+      "protectionDistanceMin": 50,
+      "protectionDistanceMax": 50
+    },
+    {
+      "gemstoneId": "Diamond",
+      "minPrice": 250,
+      "maxPrice": 350,
+      "volatility": 0.03,
+      "protectionDistanceMin": 75,
+      "protectionDistanceMax": 75
+    },
+    {
+      "gemstoneId": "Onyx",
+      "minPrice": 150,
+      "maxPrice": 225,
+      "volatility": 0.015,
+      "protectionDistanceMin": 250,
+      "protectionDistanceMax": 30
+    },
+    {
+      "gemstoneId": "Amethyst",
+      "minPrice": 115,
+      "maxPrice": 200,
+      "volatility": 0.025,
+      "protectionDistanceMin": 50,
+      "protectionDistanceMax": 50
+    },
+    {
+      "gemstoneId": "Citrine",
+      "minPrice": 5,
+      "maxPrice": 100,
+      "volatility": 0.1,
+      "protectionDistanceMin": 85,
+      "protectionDistanceMax": 25
+    }
+  ]
+}

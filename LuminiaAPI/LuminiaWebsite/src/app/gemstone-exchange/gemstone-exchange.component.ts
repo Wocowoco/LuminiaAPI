@@ -90,7 +90,7 @@ export class GemstoneExchangeComponent implements OnInit {
 
   async initializeGemstoneStats() {
     // Order them by value (high to low)
-    this.weekLineChartData.sort((a, b) => Number(b.series[length].value) - Number(a.series[length].value));
+    this.weekLineChartData.sort((a, b) => Number(b.series[a.series.length-1].value) - Number(a.series[b.series.length-1].value));
 
     this.weekLineChartData.forEach(gemstone => {
       // Set gemstone graph data

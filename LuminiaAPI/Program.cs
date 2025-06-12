@@ -1,10 +1,12 @@
 using LuminiaAPI.Context;
+using LuminiaAPI.Handlers.GemstoneExchangeHandlers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<ILuminiaContext, LuminiaContext>();
+builder.Services.AddTransient<ICreateGemstoneExchangesHandler, CreateGemstoneExchangesHandler>();
 builder.Services.AddDbContext<LuminiaContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("LuminiaDbOnline")!));
 
 // Add automapper

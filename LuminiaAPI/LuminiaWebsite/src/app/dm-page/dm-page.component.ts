@@ -44,8 +44,15 @@ export class DmPageComponent implements OnInit {
   }
 
   async updateToNextDay() {
+    // Set day counter + 1
     const updateCurrentDay$ = this.luminiaApiService.updateCurrentDate(this.currentDayNumber + 1);
     await firstValueFrom(updateCurrentDay$);
+
+    // Update Gemstone Exchange
+    const updateGemstoneExchange$ = this.luminiaApiService.updateGemstoneExchange(this.currentDayNumber + 1);
+    await firstValueFrom(updateGemstoneExchange$);
+
+    // Update display in front end
     await this.getCurrentDay();
   }
 
