@@ -33,7 +33,7 @@ namespace LuminiaAPI.Controllers
         [HttpPatch]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateCurrentDateAsync(int day)
+        public async Task<IActionResult> UpdateCurrentDateAsync(int dayNumber)
         {
             var currentDate = _luminiaContext.CurrentDate.SingleOrDefault();
 
@@ -42,7 +42,7 @@ namespace LuminiaAPI.Controllers
                 return NotFound();
             }
 
-            currentDate.Day = day;
+            currentDate.DayNumber = dayNumber;
             await _luminiaContext.SaveChangesAsync();
 
             var currentDateDto = _mapper.Map<CurrentDateDto>(currentDate);

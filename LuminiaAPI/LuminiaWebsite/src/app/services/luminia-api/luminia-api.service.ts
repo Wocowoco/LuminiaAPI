@@ -58,8 +58,8 @@ export class LuminiaApiService {
     return this.http.get<CurrentDateDto>(this.LuminiaApiURL + "currentdate");
   }
 
-  updateCurrentDate(day : number) {
-    return this.http.patch<CurrentDateDto>(this.LuminiaApiURL + "currentdate?day="+day, null);
+  updateCurrentDate(dayNumber : number) {
+    return this.http.patch<CurrentDateDto>(this.LuminiaApiURL + "currentdate?dayNumber="+dayNumber, null);
   }
 
   getWorldMapName() {

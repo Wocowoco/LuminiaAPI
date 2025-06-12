@@ -20,14 +20,8 @@
   <mat-card appearance="outlined" class="card-group">
     <mat-card-header class="card-header">Update current day</mat-card-header>
     <mat-card-content class="card-content">
-      <p>The current day is: {{oldCurrentDay}} ({{currentDayAsDayMonth}}) </p>
-      <form>
-        <mat-form-field class="input">
-          <mat-label>Current day</mat-label>
-          <input matInput type="number" [(ngModel)]="currentDay" name="currentDay">
-        </mat-form-field>
-        <button mat-stroked-button class="submit-button" (click)="updateCurrentDay()">Submit</button>
-      </form>
+      <p>The current day is: {{currentDayText}}</p>
+      <button mat-stroked-button class="submit-button" (click)="updateToNextDay()">Next Day</button>
     </mat-card-content>
   </mat-card>
   <mat-card appearance="outlined" class="card-group">

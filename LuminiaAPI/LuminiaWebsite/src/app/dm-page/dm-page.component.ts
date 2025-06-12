@@ -3,6 +3,7 @@ import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
 import { MapLayerEnum } from '../services/luminia-api/enums/maplayerenum';
 import { first, firstValueFrom } from 'rxjs';
 import { MarkerDto } from '../services/luminia-api/dtos/markerdto.interface';
+import { DateFormatterService } from '../helpers/date-formatter.service';
 
 @Component({
   selector: 'app-dm-page',
@@ -16,9 +17,8 @@ export class DmPageComponent implements OnInit {
   oldX : number = 0.00;
   oldY : number = 0.00;
 
-  oldCurrentDay : number = 0;
-  currentDay : number = 0;
-  currentDayAsDayMonth : string = '';
+  currentDayText : string = "Loading...";
+  currentDayNumber : number = 0;
 
   private groupMarker : MarkerDto | undefined;
 
@@ -27,7 +27,7 @@ export class DmPageComponent implements OnInit {
   folderName : string = '';
   folderNameDM : string = '';
 
-  constructor(private luminiaApiService: LuminiaApiService) {
+  constructor(private luminiaApiService: LuminiaApiService, private dateFormatterService : DateFormatterService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -43,8 +43,8 @@ export class DmPageComponent implements OnInit {
     await this.getCurrentPosition();
   }
 
-  async updateCurrentDay() {
-    const updateCurrentDay$ = this.luminiaApiService.updateCurrentDate(this.currentDay);
+  async updateToNextDay() {
+    const updateCurrentDay$ = this.luminiaApiService.updateCurrentDate(this.currentDayNumber + 1);
     await firstValueFrom(updateCurrentDay$);
     await this.getCurrentDay();
   }
@@ -78,37 +78,8 @@ export class DmPageComponent implements OnInit {
     const currentDay$ = this.luminiaApiService.getCurrentDate();
     var currentDayDto = await firstValueFrom(currentDay$);
 
-    this.oldCurrentDay = currentDayDto.day;
-    this.currentDay = this.oldCurrentDay;
-
-    var dayInMonth: number;
-    var daySuffix: string;
-    var monthText: string;
-
-    switch (Math.floor((this.oldCurrentDay - 1) / 91)) {
-      case 0:
-        monthText = 'Bloomen';
-        dayInMonth = this.oldCurrentDay;
-        break;
-      case 1:
-        monthText = 'Sumsun';
-        dayInMonth = this.oldCurrentDay - 91;
-        break;
-      case 2:
-        monthText = 'Leaflet';
-        dayInMonth = this.oldCurrentDay - 182;
-        break;
-      case 3:
-        monthText = 'Frizwa';
-        dayInMonth = this.oldCurrentDay - 273;
-        break;
-      default:
-        monthText = '???';
-        dayInMonth = 0;
-        break;
-    }
-
-    this.currentDayAsDayMonth = dayInMonth.toString() + " " + monthText;
+    this.currentDayNumber = currentDayDto.dayNumber;
+    this.currentDayText = this.dateFormatterService.formatDaynumberToString(this.currentDayNumber);
   }
 
   async getCurrentFolderNames() {
