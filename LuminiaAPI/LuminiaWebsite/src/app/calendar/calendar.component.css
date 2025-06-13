@@ -1,0 +1,167 @@
+.page {
+  width: 100%;
+  height: 100%;
+	display: flex;
+  flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  color: #2C2B25;
+}
+
+.quarters-card{
+  background-color: #FAFAF6;
+  max-width: 500px;
+  width: 80%;
+  margin: 10px;
+}
+
+.mat-mdc-card-header{
+  display: block;
+  text-align: center;
+}
+
+.quarter-content{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.quarters-header-text{
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 30px;
+  margin-bottom: 15px;
+  line-height: normal;
+}
+
+.quarter-button{
+  min-width: 100px;
+  margin: 5px;
+}
+
+.day-indicator {
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day {
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.event {
+  z-index: 1;
+}
+
+.bloomen-calendar .day{
+  border: 2px solid #2c9104;
+}
+.bloomen-calendar .day-indicator{
+  border: 2px solid #2c9104;
+  background-color: #5eb83a;
+}
+.bloomen-calendar .event{
+  background-color: #82da5f;
+}
+.bloomen-button{
+  background-color: #5eb83a;
+}
+
+.sumsun-calendar .day{
+  border: 2px solid #d3c505;
+}
+.sumsun-calendar .day-indicator{
+  border: 2px solid #d3c505;;
+  background-color: #ebdd21;
+}
+.sumsun-calendar .event{
+  background-color: #fff260;
+}
+.sumsun-event{
+  background: linear-gradient(to top, #fff260, #cf5935);
+}
+.sumsun-button{
+  background-color: #ebdd21;
+}
+
+.leaflet-calendar .day{
+  border: 2px solid #d48611;
+}
+.leaflet-calendar .day-indicator{
+  border: 2px solid #d48611;
+  background-color: #db9e43;
+}
+.leaflet-calendar .event{
+  background-color: #e7ad55;
+}
+.leaflet-button{
+  background-color: #db9e43;
+}
+
+.frizwa-calendar .day{
+  border: 2px solid #0da3c9;
+}
+.frizwa-calendar .day-indicator{
+  border: 2px solid #0da3c9;
+  background-color: #5bb0c5;
+}
+.frizwa-calendar .event{
+  background-color: #78cee4;
+}
+.frizwa-button{
+  background-color: #5bb0c5;
+}
+
+.current-day {
+  border: 2px solid #2C2B25 !important;
+  z-index: 1;
+  background-color: #BDBBB0;
+}
+
+.mat-grid-tile-content {
+  border: 1px;
+  border-color: black;
+}
+
+.calendar-container{
+  max-width: 55%;
+  width: 100%;
+  position: relative;
+}
+@media(max-width: 550px) {
+  .calendar-container{
+    max-width: 95%;
+  }
+}
+
+.loading{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-card{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 250px;
+  height: 50px;
+  column-gap: 20px;
+  background-color: #FAFAF6;
+  padding: 10px;
+}
+
+.spinner-color{
+  --mdc-circular-progress-active-indicator-color: #2C2B25;
+}

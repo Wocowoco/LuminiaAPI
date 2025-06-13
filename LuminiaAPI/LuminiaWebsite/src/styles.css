@@ -1,0 +1,143 @@
+@import url('~@angular/material/prebuilt-themes/deeppurple-amber.css');
+@import url('~leaflet/dist/leaflet.css');
+
+html,
+body{
+    height: 100%;
+    margin: 0;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+hr{
+  border: none;
+  width: 75%;
+  border-radius: 3px;
+  border-top: 5px solid #BDBBB0;
+}
+
+.hr-dark{
+  border-top: 5px solid #5A5152;
+}
+
+/*------------------------//
+//     HEADINGS           //
+//------------------------*/
+.mat-typography h1 {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 36px;
+}
+
+.mat-typography h2 {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 32px;
+}
+
+.mat-typography h3 {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 28px;
+}
+
+.mat-typography h4 {
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.page-header {
+  padding-top: 35px;
+  color: #2C2B25;
+  padding-bottom: 35px;
+  clip-path: polygon(0 0, 100% 0%, 100% 80%, 0% 100%);
+  background-color: #BDBBB0;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/*------------------------//
+//     SUB-HEADERS        //
+//------------------------*/
+.sub-title-down,
+.sub-title-up{
+  background-color: #BDBBB0;
+  color: #2C2B25;
+  padding-top: 25px;
+  text-align: center;
+  padding-bottom: 15px;
+}
+  .sub-title-down{
+    clip-path: polygon(0 0, 100% 20%, 100% 100%, 0% 80%);
+  }
+  .sub-title-up{
+    clip-path: polygon(0 20%, 100% 0, 100% 80%, 0% 100%);
+  }
+
+.divider-down,
+.divider-up{
+  background-color: #BDBBB0;
+  height: 35px;
+}
+.divider-down{
+  clip-path: polygon(0 0, 100% 45%, 100% 100%, 0% 55%);
+}
+.divider-up{
+  clip-path: polygon(0 45%, 100% 0, 100% 55%, 0% 100%);
+}
+
+/*------------------------//
+//       WORLDMAP         //
+//------------------------*/
+.filterIcon{
+  padding-top: 12px;
+  height: 12px;
+  display: block;
+}
+
+.leaflet-popup-tip {
+  background-color: #BDBBB0;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-tooltip {
+  border-color: #BDBBB0;
+  background-color: #BDBBB0;
+  color: #2C2B25;
+  border-radius: 3px;
+}
+
+.leaflet-tooltip::before,
+.leaflet-tooltip::after {
+  border-right-color: #BDBBB0;
+}
+
+.leaflet-no-pointer {
+  cursor: grab;
+}
+
+
+/*------------------------//
+//       TOOLTIPS         //
+//------------------------*/
+.calendar-tooltip {
+  font-family: "Roboto";
+  font-weight: normal;
+  font-size: 16px;
+}
+
+/*------------------------//
+//       SNACKBAR         //
+//------------------------*/
+.error-snackbar {
+  --mdc-snackbar-container-color: #F44336;
+  --mdc-snackbar-supporting-text-color: #FCF6F0;
+  --mat-snack-bar-button-color: #FCF6F0;
+}
+
+
+
+

@@ -1,0 +1,72 @@
+<mat-card appearance="outlined" class="gemstone-stats-card" [ngClass]="getCardColorByPercentage(percentageYesterday)">
+  <div class="info-part">
+    <div class="name-price">
+      <div>{{name}}</div>
+      <div>{{currentPrice}}</div>
+    </div>
+    <div class="price-compares">
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageYesterday)">
+          <div>Today</div>
+          <div>{{differenceYesterday}} ({{percentageYesterday.toFixed(2)}}%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageWeek)">
+          <div>Past week</div>
+          <div>{{differenceWeek}} ({{percentageWeek.toFixed(2)}}%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageQuarter)">
+          <div>Past quarter</div>
+          <div>{{differenceQuarter}} ({{percentageQuarter.toFixed(2)}}%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageYear)">
+          <div>Past year</div>
+          <div>{{differenceYear}} ({{percentageYear.toFixed(2)}}%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageFiveYear)">
+          <div>Past 5 years</div>
+          <div>{{differenceFiveYear}} ({{percentageFiveYear.toFixed(2)}}%)</div>
+        </mat-card>
+        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageTenYear)">
+          <div>Past 10 years</div>
+          <div>{{differenceTenYear}} ({{percentageTenYear.toFixed(2)}}%)</div>
+        </mat-card>
+    </div>
+  </div>
+  <div class="graph-part">
+    <ngx-charts-line-chart
+      [view]="[350, 200]"
+      [scheme]="colorScheme"
+      [results]="graphData"
+      [gradient]="false"
+      [xAxis]="false"
+      [yAxis]="true"
+      [legend]="false"
+      [roundDomains]="true"
+      [showXAxisLabel]="false"
+      [showYAxisLabel]="false"
+      [autoScale]="true">
+      <ng-template #tooltipTemplate let-model="model">
+        <div class="chart-tooltip">
+          {{formatDate(model.name)}}
+          <br>
+          {{model.value}} gold
+        </div>
+      </ng-template>
+      <ng-template #seriesTooltipTemplate let-model="model">
+        <div class="chart-tooltip">
+          {{formatDate(model[0].name)}}
+          <br>
+          {{model[0].value}} gold
+        </div>
+      </ng-template>
+    </ngx-charts-line-chart>
+    <div class="all-graph-buttons">
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(8)" [ngClass]="{'active': selectedButton === 8}">W</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(92)" [ngClass]="{'active': selectedButton === 92}">Q</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(365)" [ngClass]="{'active': selectedButton === 365}">Y</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(1821)" [ngClass]="{'active': selectedButton === 1821}">5Y</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(3641)" [ngClass]="{'active': selectedButton === 3641}">10Y</button>
+      <button mat-stroked-button class="graph-button" (click)="getGraphData(0)" [ngClass]="{'active': selectedButton === 0}">All</button>
+    </div>
+  </div>
+</mat-card>
+

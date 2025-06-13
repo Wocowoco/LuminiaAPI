@@ -1,0 +1,44 @@
+<mat-card appearance="outlined" class="spell-card">
+    <mat-card-header>
+      <div class="spell-header-text">{{spellName}}</div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="spell-content">
+        <div class="spell-properties">
+          <div class="spell-property">
+            <div class="spell-property-title">Level</div>
+            <div class="spell-property-text">{{level}}</div>
+          </div>
+          <div class="spell-property">
+            <div class="spell-property-title">Cast Time</div>
+            <div class="spell-property-text">{{castTime}}</div>
+          </div>
+          <div class="spell-property">
+            <div class="spell-property-title">Range</div>
+            <div class="spell-property-text">{{range}}</div>
+          </div>
+          <div class="spell-property">
+            <div class="spell-property-title">Components</div>
+            <div class="spell-property-text">{{components}}</div>
+          </div>
+          <div class="spell-property">
+            <div class="spell-property-title">Duration</div>
+            <div class="spell-property-text">{{duration}}</div>
+          </div>
+          <div class="spell-property">
+            <div class="spell-property-title">School</div>
+            <div class="spell-property-text">{{school}}</div>
+          </div>
+          <div class="spell-property">
+            <div class="spell-property-title">Attack/Save</div>
+            <div class="spell-property-text">{{attack}}</div>
+          </div>
+          <div class="spell-property">
+            <div class="spell-property-title damage-effect">Damage/Effect</div>
+            <div class="spell-property-text">{{damage}}</div>
+          </div>
+        </div>
+        <div class="spell-description" [innerHTML]="spellText"></div>
+      </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,96 @@
+.gemstone-stats-card{
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #FAFAF6;
+  width: 100%;
+}
+
+.info-part  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 325px;
+}
+
+.name-price{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  height: 50px;
+  gap: 20px;
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 18px;
+  line-height: normal;
+  color: #2C2B25;
+}
+
+.price-compares{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.compare{
+  width: 150px;
+  height: 45px;
+}
+
+.all-graph-buttons{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.graph-button{
+  min-width: 40px;
+  height: 30px;
+  padding: 0px;
+  font-size: 12px;
+}
+
+.active{
+  background-color: #bdbbb0;
+  color: #2C2B25;
+}
+
+.percent-positive-3{
+  background-color: #00941966;
+}
+.percent-positive-2{
+  background-color: #00941944;
+}
+.percent-positive-1{
+  background-color: #00941922;
+}
+
+.percent-negative-3{
+  background-color: #FF000066;
+}
+.percent-negative-2{
+  background-color: #FF000044;
+}
+.percent-negative-1{
+  background-color: #FF000022;
+}
+
+.card-positive{
+ background-color: #00941905;
+ border-color: #00941944;;
+}
+.card-negative{
+  background-color: #FF000005;
+  border-color: #FF000044;
+}

@@ -1,0 +1,57 @@
+
+.augment-card{
+  box-sizing: border-box;
+  background-color: #FAFAF6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  justify-content: flex-start;
+  max-width: 350px;
+  height: 200px;
+  width: 100%;
+  padding: 12px;
+}
+
+.augment-icon{
+  width: 75px;
+  height: 75px;
+}
+
+.augment-header{
+  display: flex;
+  align-items: center;
+}
+
+.augment-name{
+  font-family: "Titan One";
+  font-weight: normal;
+  font-size: 18px;
+  line-height: normal;
+  color: #2C2B25;
+}
+
+.augment-description{
+  margin-top: 10px;
+  padding: 0px;
+}
+
+.uncommon{
+  background-color: #556b2f30;
+  border: 3px solid #556b2f;
+}
+
+.rare{
+  background-color: #00008b30;
+  border: 3px solid #00008b;
+}
+
+.epic{
+  background-color: #4b008230;
+  border: 3px solid #4b0082;
+}
+
+.legendary{
+  background-color: #ffd74030;
+  border: 3px solid #ffd740;
+}
