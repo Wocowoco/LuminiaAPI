@@ -10,11 +10,7 @@ export class LuminaryService {
 
   constructor(private httpClient: HttpClient) { }
 
-    getLuminariesVisibility () : Observable<boolean> {
-      return this.httpClient.get<{showLuminaries: boolean}>('assets/luminary-settings.json', { responseType: 'json' })
-        .pipe(
-          map((response => response.showLuminaries)));
-    }
+
 
     getSwirlingMoon () : Observable<LuminaryVisibility> {
       return this.httpClient.get<{swirlingMoon: LuminaryVisibility}>('assets/luminary-settings.json', { responseType: 'json' })

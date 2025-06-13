@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { VersionService } from '../services/version-service/version.service';
-import { LuminaryService } from '../services/luminary-service/luminary.service';
+import { NavbarService } from '../services/navbar-service/navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
   public isMenuOpen : boolean = false;
   public version: string = "0.0.0";
   public isLuminariesVisible: boolean = false;
+  public isGemstoneExchangeVisible: boolean = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -40,13 +41,16 @@ export class NavbarComponent implements OnInit {
     this.isMenuOpen = false;
   }
 
-  constructor(private versionService: VersionService, private luminaryService: LuminaryService) {
+  constructor(private versionService: VersionService, private navbarService: NavbarService) {
     this.onResize(null);
     this.versionService.getVersion().subscribe((version: string) => {
       this.version = version;
     });
-    this.luminaryService.getLuminariesVisibility().subscribe((isLuminariesVisible: boolean) => {
+    this.navbarService.getLuminariesVisibility().subscribe((isLuminariesVisible: boolean) => {
       this.isLuminariesVisible = isLuminariesVisible;
+    });
+    this.navbarService.getGemstoneExchangeVisibility().subscribe((isGemstoneExchangeVisible: boolean) => {
+      this.isGemstoneExchangeVisible = isGemstoneExchangeVisible;
     });
   }
 
