@@ -7,13 +7,16 @@
   <div class="version">{{version}}</div>
   <ul class="navElements">
     <li class="navbutton" routerLinkActive="active">
-      <a routerLink="/pantheon">Pantheon</a>
-    </li>
-    <li class="navbutton" routerLinkActive="active">
       <a routerLink="/calendar">Calendar</a>
+    </li>
+    <li class="navbutton" routerLinkActive="active" *ngIf="isGemstoneExchangeVisible">
+      <a routerLink="/gemstone-exchange">Gemstone Exchange</a>
     </li>
     <li class="navbutton" routerLinkActive="active" *ngIf="isLuminariesVisible">
       <a routerLink="/luminaries">Luminaries</a>
+    </li>
+    <li class="navbutton" routerLinkActive="active">
+      <a routerLink="/pantheon">Pantheon</a>
     </li>
     <li class="navbutton" routerLinkActive="active">
       <a routerLink="/map">World Map</a>
@@ -37,13 +40,16 @@
 <div class="mobile-menu" [ngClass]="{'open':isMenuOpen}">
   <ul class="navElements mobile">
     <li class="mobile-menu-button" routerLinkActive="active">
-      <a routerLink="/pantheon">Pantheon</a>
-    </li>
-    <li class="mobile-menu-button" routerLinkActive="active">
       <a routerLink="/calendar">Calendar</a>
+    </li>
+    <li class="mobile-menu-button" routerLinkActive="active" *ngIf="isGemstoneExchangeVisible">
+      <a routerLink="/gemstone-exchange">Gemstone Exchange</a>
     </li>
     <li class="mobile-menu-button" routerLinkActive="active" *ngIf="isLuminariesVisible">
       <a routerLink="/luminaries">Luminaries</a>
+    </li>
+    <li class="mobile-menu-button" routerLinkActive="active">
+      <a routerLink="/pantheon">Pantheon</a>
     </li>
     <li class="mobile-menu-button" routerLinkActive="active">
       <a routerLink="/map">World Map</a>
