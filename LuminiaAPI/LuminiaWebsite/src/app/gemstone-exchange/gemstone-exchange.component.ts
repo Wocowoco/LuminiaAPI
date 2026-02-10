@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 import { Gemstone } from '../services/luminia-api/enums/gemstone.enum';
 import { DateFormatterService } from '../helpers/date-formatter.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gemstone-exchange',
@@ -23,6 +24,7 @@ export class GemstoneExchangeComponent implements OnInit {
   selectedButton: number = -1;
   isLoading: boolean = true;
   hasError: boolean = false;
+  dmMode: boolean = false;
   colors: string[] = ['#e53935', '#242fc9', '#608c26', '#ebb134', '#5cafdb', '#7714a8', '#2e2e2e', '#d9611c']
   formatDate: (dayNumber: number) => string;
 
@@ -38,18 +40,24 @@ export class GemstoneExchangeComponent implements OnInit {
   constructor(
     private luminiaApiService: LuminiaApiService,
     private snackBar: MatSnackBar,
-    private dateFormatterService: DateFormatterService) {
+    private dateFormatterService: DateFormatterService,
+    private route: ActivatedRoute) {
       this.formatDate = (dayNumber: number) => this.dateFormatterService.formatDaynumberToString(dayNumber);
     }
 
   async ngOnInit(): Promise<void> {
+     this.route.params.subscribe(params => {
+      if (params['dmCode'] == "1308")
+      {
+        this.dmMode = true;
+      };
+    });
+
     await this.getGraphData(92, true, true);
     await this.getPriceHistory();
     await this.initializeGemstoneStats();
     this.isLoading = false;
   }
-
-
 
   @HostListener('window:resize')
   onResize() {
@@ -58,7 +66,7 @@ export class GemstoneExchangeComponent implements OnInit {
 
   async getGraphData(amountOfDays: number = 0, saveForGemstoneStats: boolean = false, setHasError: boolean = false) {
     try {
-      var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeDataForLastDays(amountOfDays);
+      var allGemstoneExchangeData$ = this.luminiaApiService.getAllGemstoneExchangeDataForLastDays(amountOfDays, this.dmMode);
       this.lineChartData = await firstValueFrom(allGemstoneExchangeData$);
 
       if (saveForGemstoneStats) {
@@ -80,7 +88,7 @@ export class GemstoneExchangeComponent implements OnInit {
 
    async getPriceHistory() {
     try {
-      var priceHistory$ = this.luminiaApiService.getAllGemstoneExchangeDataHistory();
+      var priceHistory$ = this.luminiaApiService.getAllGemstoneExchangeDataHistory(this.dmMode);
       this.priceHistoryData = await firstValueFrom(priceHistory$);
 
     } catch {

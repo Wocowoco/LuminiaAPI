@@ -16,6 +16,7 @@ import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-s
 export class GemstoneStatsCardComponent {
 
   @Input() color: string = '#000000';
+  @Input() dmMode: boolean = false;
   @Input() priceHistory: GemstoneExchangeDataDto = {name: 'Placeholder', series: []};
   @Input() graphData: GemstoneExchangeDataDto[] =
     [{
@@ -154,7 +155,7 @@ export class GemstoneStatsCardComponent {
 
   async getGraphData(amountOfDays: number = 0) {
     try {
-      var allGemstoneExchangeData$ = this.luminiaApiService.getGemstoneExchangeDataForLastDays(amountOfDays, this.gemstoneId);
+      var allGemstoneExchangeData$ = this.luminiaApiService.getGemstoneExchangeDataForLastDays(amountOfDays, this.gemstoneId, this.dmMode);
       this.graphData = await firstValueFrom(allGemstoneExchangeData$);
       this.selectedButton = amountOfDays;
     } catch {

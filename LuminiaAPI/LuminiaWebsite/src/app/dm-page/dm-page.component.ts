@@ -48,10 +48,6 @@ export class DmPageComponent implements OnInit {
     const updateCurrentDay$ = this.luminiaApiService.updateCurrentDate(this.currentDayNumber + 1);
     await firstValueFrom(updateCurrentDay$);
 
-    // Update Gemstone Exchange
-    const updateGemstoneExchange$ = this.luminiaApiService.updateGemstoneExchange(this.currentDayNumber + 1);
-    await firstValueFrom(updateGemstoneExchange$);
-
     // Update display in front end
     await this.getCurrentDay();
   }

@@ -78,16 +78,37 @@ export class LuminiaApiService {
     return this.http.patch<MapNameDto>(this.LuminiaApiURL + "mapnames/worldmapDM?updatedFolderName="+updatedName, null);
   }
 
-  getAllGemstoneExchangeDataForLastDays(days: number) {
+  getAllGemstoneExchangeDataForLastDays(days: number, showAll : boolean = false) {
+    if (showAll)
+    {
+      return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ days + "?showAll=true");
+    }
+    else
+    {
     return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ days);
+    }
   }
 
-  getGemstoneExchangeDataForLastDays(days: number, gemstoneId: number) {
-    return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ gemstoneId + "/" + days);
+  getGemstoneExchangeDataForLastDays(days: number, gemstoneId: number, showAll : boolean = false) {
+    if (showAll)
+    {
+      return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ gemstoneId + "/" + days + "?showAll=true");
+    }
+    else
+    {
+      return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/graph/"+ gemstoneId + "/" + days);
+    }
   }
 
-  getAllGemstoneExchangeDataHistory() {
-    return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/history/");
+  getAllGemstoneExchangeDataHistory(showAll : boolean = false) {
+    if (showAll)
+    {
+      return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/history?showAll=true");
+    }
+    else
+    {
+      return this.http.get<GemstoneExchangeDataDto[]>(this.LuminiaApiURL + "gemstoneexchanges/history/");
+    }
   }
 
   updateGemstoneExchange(day: number) {
