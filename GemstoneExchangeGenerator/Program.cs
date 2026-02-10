@@ -77,12 +77,20 @@ Console.WriteLine("Generating " + gemstoneId.ToString() + " data, starting from 
 
 while (true)
 {
+    /*
+     *       "gemstoneId": "Sapphire",
+      "minPrice": 40,
+      "maxPrice": 90,
+      "volatility": 0.02,
+      "protectionDistanceMin": 30,
+      "protectionDistanceMax": 30
+    */
     double price = startingPrice;
-    double minPrice = 5;
-    double maxPrice = 60;
-    double volatility = 0.05;
-    double protectionDistanceMin = 5;
-    double protectionDistanceMax = 5;
+    double minPrice = 40;
+    double maxPrice = 90;
+    double volatility = 0.04;
+    double protectionDistanceMin = 300;
+    double protectionDistanceMax = 30;
     double lowest = startingPrice;
     double highest = startingPrice;
     double protectionFactor = 0;

@@ -7,9 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { GemstoneStatsCardComponent } from './gemstone-stats-card/gemstone-stats-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DmCheckGuard } from '../guards/dm-check/dm-check.guard';
 
 const childRoutes: Routes = [
-  {path:"gemstone-exchange", component: GemstoneExchangeComponent }
+  {path:"gemstone-exchange", component: GemstoneExchangeComponent},
+  {path:"gemstone-exchange/:dmCode", component: GemstoneExchangeComponent, canActivate: [DmCheckGuard]}
 ]
 
 @NgModule({

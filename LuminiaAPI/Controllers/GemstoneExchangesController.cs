@@ -70,25 +70,28 @@ public class GemstoneExchangesController
     [HttpGet("graph/{days}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult GetAllGemstoneExchangesInGraphFormatForLastDays(int days)
+    public IActionResult GetAllGemstoneExchangesInGraphFormatForLastDays(int days, bool showAll = false)
     {
         List<GemstoneExchange> gemstoneExchanges;
+        var latestDay = GetLatestDay(showAll);
+
         if (days != 0) // If day specified, go back x days
         {
-            // Get latest day in db
-            var latestDay = _luminiaContext.GemstoneExchange
-                .OrderByDescending(x => x.Day)
-                .Select(x => x.Day)
-                .FirstOrDefault();
-
             var startingDay = latestDay - days + 1;
             gemstoneExchanges = _luminiaContext.GemstoneExchange
-                .Where(x => x.Day >= startingDay)
+                .Where(x => x.Day >= startingDay && x.Day <= latestDay)
                 .ToList();
         }
         else // If no days specified (0), get all data
         {
-            gemstoneExchanges = _luminiaContext.GemstoneExchange.ToList();
+            if (showAll) // DM - shows everything
+            {
+                gemstoneExchanges = _luminiaContext.GemstoneExchange.ToList();
+            }
+            else // For players - show everything until current day
+            {
+                gemstoneExchanges = _luminiaContext.GemstoneExchange.Where(x => x.Day <= latestDay).ToList();
+            }
         }
 
         if (gemstoneExchanges == null || gemstoneExchanges.Count == 0)
@@ -104,25 +107,30 @@ public class GemstoneExchangesController
     [HttpGet("graph/{gemstoneId}/{days}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult GetGemstoneExchangesInGraphFormatForLastDays(Gemstone gemstoneId, int days)
+    public IActionResult GetGemstoneExchangesInGraphFormatForLastDays(Gemstone gemstoneId, int days, bool showAll = false)
     {
         List<GemstoneExchange> gemstoneExchanges;
+        var latestDay = GetLatestDay(showAll);
+
         if (days != 0) // If day specified, go back x days
         {
-            // Get latest day in db
-            var latestDay = _luminiaContext.GemstoneExchange
-                .OrderByDescending(x => x.Day)
-                .Select(x => x.Day)
-                .FirstOrDefault();
-
             var startingDay = latestDay - days + 1;
             gemstoneExchanges = _luminiaContext.GemstoneExchange
-                .Where(x => x.Day >= startingDay && x.GemstoneId == gemstoneId)
+                .Where(x => x.Day >= startingDay && 
+                            x.Day <= latestDay &&
+                            x.GemstoneId == gemstoneId)
                 .ToList();
         }
         else // If no days specified (0), get all data for that Gemstone
         {
-            gemstoneExchanges = _luminiaContext.GemstoneExchange.Where(x => x.GemstoneId == gemstoneId).ToList();
+            if (showAll) // DM - shows everything
+            {
+                gemstoneExchanges = _luminiaContext.GemstoneExchange.Where(x => x.GemstoneId == gemstoneId).ToList();
+            }
+            else // For players - show everything until current day
+            {
+                gemstoneExchanges = _luminiaContext.GemstoneExchange.Where(x => x.GemstoneId == gemstoneId && x.Day <= latestDay).ToList();
+            }
         }
 
         if (gemstoneExchanges == null || gemstoneExchanges.Count == 0)
@@ -138,7 +146,7 @@ public class GemstoneExchangesController
     [HttpGet("history")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult GetAllGemstoneExchangesPriceHistory()
+    public IActionResult GetAllGemstoneExchangesPriceHistory(bool showAll = false)
     {
         List<GemstoneExchange> gemstoneExchanges;
         int yesterday;
@@ -148,11 +156,7 @@ public class GemstoneExchangesController
         int lastFiveYears;
         int lastTenYears;
 
-        // Get latest day in db
-        var latestDay = _luminiaContext.GemstoneExchange
-            .OrderByDescending(x => x.Day)
-            .Select(x => x.Day)
-            .FirstOrDefault();
+        var latestDay = GetLatestDay(showAll);
 
         yesterday = latestDay - 1;
         lastWeek = latestDay - 7;
@@ -170,5 +174,25 @@ public class GemstoneExchangesController
         var priceHistory = GemstoneExchangeGraphMapper.Map(gemstoneExchanges);
 
         return Ok(priceHistory);
+    }
+
+    private int GetLatestDay(bool showAll)
+    {
+        int latestDay;
+
+        if (showAll) // Get latest day in gemstoneExchanges (for DM) 
+        {
+            latestDay = _luminiaContext.GemstoneExchange
+                .OrderByDescending(x => x.Day)
+                .Select(x => x.Day)
+                .FirstOrDefault();
+        }
+        else // Get latest day in db (for players)
+        {
+            var currentday = _luminiaContext.CurrentDate.Single();
+            latestDay = currentday.DayNumber;
+        }
+
+        return latestDay;
     }
 }
