@@ -1,5 +1,5 @@
 :host {
-  --backgroundcolor: #fbfbf2;
+  --backgroundcolor: var(--lum-paper);
   --potioncolor: rgb(196, 85, 196);
   --bubblecolor: rgb(245, 114, 245);
 }
@@ -12,7 +12,7 @@
 	align-content: stretch;
   text-align: center;
   flex-wrap: wrap;
-  color: #2C2B25;
+  color: var(--lum-ink);
 }
 
 .potion-container{
@@ -29,7 +29,7 @@
   height: 55px;
   position: absolute;
   border-radius: 5px;
-  border: 7px solid #2C2B25;
+  border: 7px solid var(--lum-ink);
   border-bottom: none;
   background-color: var(--backgroundcolor);
   z-index: 2;
@@ -40,7 +40,7 @@
   height: 20px;
   position: absolute;
   border-radius: 5px;
-  border: 7px solid #2C2B25;
+  border: 7px solid var(--lum-ink);
   background-color: var(--backgroundcolor);
   top: 15px;
   z-index: 3;
@@ -49,7 +49,7 @@
 .potion-bottle {
   position: absolute;
   border-radius: 50%;
-  border: 7px solid #2C2B25;
+  border: 7px solid var(--lum-ink);
   width: 150px;
   height: 150px;
   top: 50px;
@@ -233,24 +233,45 @@
 }
 
 .rolltable-card {
-  width: 35%;
-  min-width: 260px;
-  margin: 5px 15px 5px 15px;
+  flex: 1 1 380px;
+  max-width: 560px;
+  padding: 8px 12px 12px;
+  line-height: 1.6;
 }
 
 .rolltable-card-header {
-  font-family: "Titan One";
-  font-weight: normal;
-  font-size: 30px;
-  margin-bottom: 15px;
-  line-height: normal;
+  padding-top: 16px;
+  margin-bottom: 8px;
+  font-family: var(--lum-font-display);
+  font-size: 26px;
+  line-height: 1.2;
 }
 
 .rolltable-table {
-  width: 75%;
-  display: table;
-  padding-left: 20px;
+  width: 100%;
+  margin: 4px 0 12px;
+  overflow: hidden;
+  border: 1px solid var(--lum-border);
+  border-radius: var(--lum-radius);
+  background-color: var(--lum-surface);
+  --mat-table-row-item-outline-color: var(--lum-border);
 }
+  .rolltable-table .mat-mdc-header-row {
+    background-color: var(--lum-cream);
+  }
+  .rolltable-table .mat-mdc-header-cell {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--lum-text-muted);
+  }
+  .rolltable-table .mat-mdc-row:nth-child(even) {
+    background-color: rgba(90, 81, 82, 0.03);
+  }
+  .rolltable-table .mat-mdc-cell {
+    font-variant-numeric: tabular-nums;
+  }
 
 .card-content {
   display: flex;
@@ -269,6 +290,13 @@
 .center-items {
   display: flex;
   justify-content: center;
+}
+
+.activities {
+  gap: 20px;
+  padding: 0 16px 48px;
+  box-sizing: border-box;
+  align-items: stretch;
 }
 
 @keyframes wave {

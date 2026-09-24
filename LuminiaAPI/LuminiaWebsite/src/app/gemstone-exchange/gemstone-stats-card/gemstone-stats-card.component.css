@@ -1,96 +1,151 @@
 .gemstone-stats-card{
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  background-color: #FAFAF6;
+  gap: 8px 16px;
   width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .info-part  {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 325px;
+  gap: 14px;
+  width: 320px;
+  max-width: 100%;
 }
 
 .name-price{
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  height: 50px;
-  gap: 20px;
-  font-family: "Titan One";
-  font-weight: normal;
-  font-size: 18px;
-  line-height: normal;
-  color: #2C2B25;
+  align-items: center;
+  gap: 10px;
+  color: var(--lum-ink);
 }
 
+.gem-dot{
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(44, 43, 37, 0.06);
+}
+
+.gem-name{
+  font-family: var(--lum-font-display);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.gem-price{
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+  .gem-price span{
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--lum-text-muted);
+  }
+
 .price-compares{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 5px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
 }
 
 .compare{
-  width: 150px;
-  height: 45px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background-color: rgba(90, 81, 82, 0.06);
+  text-align: left;
 }
 
-.all-graph-buttons{
+.compare-label{
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--lum-text-muted);
+}
+
+.compare-value{
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.graph-part{
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
-.graph-button{
-  min-width: 40px;
-  height: 30px;
-  padding: 0px;
-  font-size: 12px;
+.segmented{
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 10px;
+  background-color: rgba(90, 81, 82, 0.08);
 }
-
-.active{
-  background-color: #bdbbb0;
-  color: #2C2B25;
-}
+  .segmented button{
+    min-width: 42px;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--lum-text-muted);
+    font: 600 12px var(--lum-font-body);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .segmented button:hover{
+    color: var(--lum-ink);
+  }
+  .segmented button.active{
+    background-color: var(--lum-surface);
+    color: var(--lum-ink);
+    box-shadow: var(--lum-shadow-sm);
+  }
 
 .percent-positive-3{
-  background-color: #00941966;
+  background-color: rgba(46, 125, 50, 0.24);
 }
 .percent-positive-2{
-  background-color: #00941944;
+  background-color: rgba(46, 125, 50, 0.16);
 }
 .percent-positive-1{
-  background-color: #00941922;
+  background-color: rgba(46, 125, 50, 0.09);
 }
+  [class*="percent-positive"] .compare-value{
+    color: #1E5E22;
+  }
 
 .percent-negative-3{
-  background-color: #FF000066;
+  background-color: rgba(198, 40, 40, 0.22);
 }
 .percent-negative-2{
-  background-color: #FF000044;
+  background-color: rgba(198, 40, 40, 0.14);
 }
 .percent-negative-1{
-  background-color: #FF000022;
+  background-color: rgba(198, 40, 40, 0.08);
 }
+  [class*="percent-negative"] .compare-value{
+    color: #8E1C1C;
+  }
 
 .card-positive{
- background-color: #00941905;
- border-color: #00941944;;
+  box-shadow: inset 4px 0 0 rgba(46, 125, 50, 0.55), var(--lum-shadow-sm);
 }
 .card-negative{
-  background-color: #FF000005;
-  border-color: #FF000044;
+  box-shadow: inset 4px 0 0 rgba(198, 40, 40, 0.5), var(--lum-shadow-sm);
+}
+
+@media (max-width: 600px) {
+  .gemstone-stats-card{
+    padding: 16px 12px;
+  }
 }

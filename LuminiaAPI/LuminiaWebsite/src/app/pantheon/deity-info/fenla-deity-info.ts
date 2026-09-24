@@ -7,7 +7,7 @@ export class FenlaDeityInfo implements IDeityInfo{
   name = "Fen'La";
   pronoun = "Goddess";
   domains = "Nature, Hunt, Life, Earth, Poison";
-  titles = ["Mother Nature"];
+  titles = ["Mother Nature", "Root of Life"];
   gender = "Female";
   race = "Dryad";
   alignment = "Chaotic Good";

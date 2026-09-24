@@ -1,53 +1,76 @@
-.luminary-icon{
-  width: 75px;
-  height: 75px;
-}
-
-.mat-mdc-outlined-button {
-  display: flex;
-  justify-content: center;
-  padding: 0px;
-  height: auto !important;
-}
-
 .luminary-button{
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
-  background-color: #FAFAF6;
-  width: 330px;
-  height: 80px !important;
-  padding: 10px;
+  gap: 16px;
+  width: 340px;
+  max-width: 100%;
+  height: 96px;
+  padding: 14px 22px;
+  box-sizing: border-box;
+  border: 1px solid var(--lum-border);
+  border-radius: var(--lum-radius);
+  background-color: var(--lum-surface);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   background-origin: content-box;
+  box-shadow: var(--lum-shadow-sm);
+  font-family: var(--lum-font-body);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s var(--lum-ease), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+  .luminary-button:not(.disabled):hover{
+    transform: translateY(-2px);
+    border-color: var(--lum-stone);
+    box-shadow: var(--lum-shadow);
+  }
+
+.luminary-icon{
+  flex: none;
+  width: 64px;
+  height: 64px;
+}
+
+.luminary-text{
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .luminary-title{
-  width: 250px;
-  font-family: "Titan One";
-  font-weight: normal;
-  font-size: 28px;
-  margin-bottom: 5px;
-  line-height: normal;
-  color: #2C2B25;
+  font-family: var(--lum-font-display);
+  font-size: 24px;
+  line-height: 1.15;
+  color: var(--lum-ink);
 }
 
 .luminary-subtitle{
-  font-family: "Titan One";
-  font-weight: normal;
-  font-size: 18px;
-  line-height: normal;
-  color: #2C2B2590;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--lum-text-muted);
 }
+
+.luminary-arrow{
+  margin-left: auto;
+  color: var(--lum-olive);
+  transition: transform 0.2s var(--lum-ease);
+}
+  .luminary-button:hover .luminary-arrow{
+    transform: translateX(3px);
+  }
 
 /* Overrides for when button is disabled */
 .luminary-button.disabled{
-  background-color: #EAECEA;
+  border-style: dashed;
+  background-color: rgba(90, 81, 82, 0.05);
+  box-shadow: none;
+  cursor: default;
 }
-  .luminary-button.disabled,
+  .luminary-button.disabled .luminary-icon{
+    opacity: 0.35;
+  }
   .luminary-button.disabled .luminary-title,
   .luminary-button.disabled .luminary-subtitle{
-    color: #00000042;
+    color: rgba(44, 43, 37, 0.35);
   }

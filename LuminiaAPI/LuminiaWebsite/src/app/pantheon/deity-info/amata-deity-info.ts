@@ -7,7 +7,7 @@ export class AmataDeityInfo implements IDeityInfo{
   name = "Amata";
   pronoun = "God";
   domains = "Creation, Invention, Knowledge, Exploration, Air (Focuses on Arcane Arts)";
-  titles = ["The Twin God"];
+  titles = ["The Twin God", "The Mind of the Twins"];
   gender = "Male";
   race = "Gnome";
   alignment = "Lawful Neutral";

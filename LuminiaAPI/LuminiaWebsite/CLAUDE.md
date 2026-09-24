@@ -47,4 +47,5 @@ Routes with `:dmCode` are protected by `guards/dm-check/DmCheckGuard`.
 ## Style
 
 - Colour palette: https://coolors.co/2c2b25-353535-5a5152-908c7a-bdbbb0-cfd2cd-f7f4ea-fbfbf2
-- Component CSS has a 2 kB warning budget. A few components already exceed it, which is a warning, not an error.
+- Component CSS budget: 6 kB warning, 10 kB error (`angular.json`).
+- Design tokens (`--lum-*` palette, fonts, radii, shadows) and the Material 3 colour mapping (`--mat-sys-*`) live in `src/styles.css`. Use the tokens instead of hard-coded hex values. Titan One (`--lum-font-display`) is for page and section titles only; everything else uses Inter.

@@ -12,25 +12,14 @@
   <div>
     <div class="page-header"><h1>{{headerText}}</h1></div>
     <div class="page">
-      <mat-card appearance="outlined" class="quarters-card">
-        <mat-card-header>
-          <div class="quarters-header-text">Quarters</div>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="quarter-content">
-            <div>
-              <button mat-stroked-button class="quarter-button bloomen-button" (click)="clickedBloomen()">Bloomen</button>
-              <button mat-stroked-button class="quarter-button sumsun-button" (click)="clickedSumsun()">Sumsun</button>
-            </div>
-            <div>
-              <button mat-stroked-button class="quarter-button leaflet-button" (click)="clickedLeaflet()">Leaflet</button>
-              <button mat-stroked-button class="quarter-button frizwa-button" (click)="clickedFrizwa()">Frizwa</button>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <div class="quarters" role="group" aria-label="Quarters">
+        <button type="button" class="quarter-button bloomen-button" [class.active]="currentSelectedQuarter == 1" (click)="clickedBloomen()"><span class="quarter-dot"></span>Bloomen</button>
+        <button type="button" class="quarter-button sumsun-button" [class.active]="currentSelectedQuarter == 2" (click)="clickedSumsun()"><span class="quarter-dot"></span>Sumsun</button>
+        <button type="button" class="quarter-button leaflet-button" [class.active]="currentSelectedQuarter == 3" (click)="clickedLeaflet()"><span class="quarter-dot"></span>Leaflet</button>
+        <button type="button" class="quarter-button frizwa-button" [class.active]="currentSelectedQuarter == 4" (click)="clickedFrizwa()"><span class="quarter-dot"></span>Frizwa</button>
+      </div>
       <div class="calendar-container">
-        <mat-grid-list cols="7" rowHeight="3:1">
+        <mat-grid-list cols="7" rowHeight="3:1" gutterSize="6px">
           @if (currentSelectedQuarter == 1) {
             <div class="bloomen-calendar">
               <mat-grid-tile class="day-indicator">Mon</mat-grid-tile>

@@ -7,7 +7,7 @@ export class VexDeityInfo implements IDeityInfo{
   name = "Vex";
   pronoun = "Goddess";
   domains = "Death, Necromancy, Darkness";
-  titles = ["The Reaper"];
+  titles = ["The Reaper", "Mistress of Bones"];
   gender = "Female";
   race = "Goblin";
   alignment = "Lawful Evil";

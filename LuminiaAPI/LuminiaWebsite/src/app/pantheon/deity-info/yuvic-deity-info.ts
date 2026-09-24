@@ -7,7 +7,7 @@ export class YuvicDeityInfo implements IDeityInfo{
   name = "Yuvic";
   pronoun = "God";
   domains = "Love, Emotion, Passion, Music, Fire";
-  titles = ["The Horny/Horned One"];
+  titles = ["The Horny/Horned One", "The Heartstring", "Keeper of the Flame"];
   gender = "Male";
   race = "Tiefling";
   alignment = "Neutral Good";

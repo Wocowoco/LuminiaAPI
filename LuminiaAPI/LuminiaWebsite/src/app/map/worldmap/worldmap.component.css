@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
-
 .map-container {
   display: flex;
   flex-flow: column;
@@ -17,14 +15,18 @@
 }
 
 .drawer{
-  border-left-width: 0px;
-  width: 350px;
-  background-color: #fbfbf2;
+  width: 340px;
+  padding: 16px 14px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--lum-border);
+  border-radius: 0;
+  background-color: var(--lum-paper);
   background-image: url(../../../assets/images/decorations/worldmap-filtermenu.png);
   background-size: 150px;
   background-repeat: no-repeat;
   background-position-x: center;
   background-position-y: 98%;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.18);
 }
   @media(max-width: 550px) {
     .drawer{
@@ -32,87 +34,135 @@
     }
 }
 
-.toggle{
-  margin: 2px;
-  margin-bottom: 3px;
-  background-color: #bdbbb0;
+.drawer-header{
   display: flex;
-  height: 25px;
-  border-radius: 10px;
-  border: 1px solid #2C2B25;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 4px 14px;
+}
+
+.drawer-title{
+  margin: 0;
+  font-family: var(--lum-font-display);
+  font-size: 24px;
+  font-weight: normal;
+  color: var(--lum-ink);
+}
+
+.close-drawer-button{
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: var(--lum-radius-sm);
+  background-color: rgba(90, 81, 82, 0.08);
+  color: var(--lum-ink);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.toggleAllLayers{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 4px;
+  border-radius: 12px;
+  background-color: rgba(90, 81, 82, 0.08);
 }
 
 .toggleAllLayersButton{
   display: flex;
-  font-size: 20px;
-  margin: 5px;
-  flex-grow: 4;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--lum-taupe);
+  font: 600 14px var(--lum-font-body);
+  cursor: pointer;
   user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
-
-.subtoggle{
-  width: 150px;
-}
-
-.toggleAllLayers{
-  font-family: "Titan One";
-  font-weight: 100;
-  color: #353535;
-  background-color: #bdbbb0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  height: 30px;
-  margin-bottom: 10px;
-}
-
-  .toggle:hover{
-    font-weight: bold;
-    cursor: pointer;
-  }
   .toggleAllLayersButton:hover{
-    color: #5A5152;
-    cursor: pointer;
+    background-color: var(--lum-surface);
+    color: var(--lum-ink);
+    box-shadow: var(--lum-shadow-sm);
   }
-
-
-.icon{
-  padding-left: 5px;
-  padding-top: 5px;
-  height: 15px;
-  width: 15px;
-  user-select: none;
-}
-
-.iconText{
-  padding-left: 4px;
-  padding-top: 3px;
-  user-select: none;
-}
 
 .layerParentGroup{
   margin-bottom: 10px;
-  margin-left: 2px;
-  margin-right: 2px;
+}
+
+.toggle{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--lum-border);
+  border-radius: 10px;
+  background-color: transparent;
+  color: var(--lum-text-muted);
+  font: 500 14px var(--lum-font-body);
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+  .toggle:not(.active){
+    opacity: 0.6;
+  }
+  .toggle:not(.active) .icon{
+    filter: grayscale(1);
+  }
+  .toggle.active{
+    border-color: var(--lum-stone);
+    background-color: var(--lum-surface);
+    color: var(--lum-ink);
+    box-shadow: var(--lum-shadow-sm);
+  }
+  .toggle:hover{
+    opacity: 1;
+    border-color: var(--lum-olive);
+  }
+
+.icon{
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.iconText{
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.count{
+  padding: 1px 7px;
+  border-radius: 999px;
+  background-color: rgba(90, 81, 82, 0.08);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .layerChildGroup{
-  margin-left: 15px;
-  flex-wrap: wrap;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin: 4px 0 0 14px;
+}
+
+.subtoggle{
+  padding: 5px 8px;
+  font-size: 13px;
 }
 
 .sidepanel-button{
   z-index: 5000;
 }
-
-.close-drawer-button{
-  box-sizing: border-box;
-  width: calc(100% - 20px);
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
-  background-color: #F5F5F4 ;
-}
-

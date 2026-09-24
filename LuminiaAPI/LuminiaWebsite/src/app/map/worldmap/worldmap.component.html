@@ -1,40 +1,46 @@
-
 <div class="map-container">
   <mat-drawer-container hasBackdrop="false" class="map-container">
     <!--Drawer content goes here-->
     <mat-drawer class="drawer" #sidePanel mode="side" position="end" id="sidePanel">
 
-      <!-- Close toggle for small screens -->
-      @if (isMobileView) {
-        <div>
-          <button mat-stroked-button class="close-drawer-button" (click)="closeDrawer()">Close filters <i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-      }
+      <div class="drawer-header">
+        <h2 class="drawer-title">Map filters</h2>
+        <!-- Close toggle for small screens -->
+        @if (isMobileView) {
+          <button type="button" class="close-drawer-button" (click)="closeDrawer()" aria-label="Close filters">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        }
+      </div>
 
       <div class="toggleAllLayers">
-        <div class="toggleAllLayersButton" (click)="toggleAllLayers(true)">
-          <p unselectable="on">Show All</p>
-        </div>
-        <div class="toggleAllLayersButton" (click)="toggleAllLayers(false)">
-          <p unselectable="on">Hide All</p>
-        </div>
+        <button type="button" class="toggleAllLayersButton" (click)="toggleAllLayers(true)">
+          <i class="fa-solid fa-eye" aria-hidden="true"></i> Show all
+        </button>
+        <button type="button" class="toggleAllLayersButton" (click)="toggleAllLayers(false)">
+          <i class="fa-solid fa-eye-slash" aria-hidden="true"></i> Hide all
+        </button>
       </div>
 
       <!-- Generate all layer toggles-->
       @for (layer of allLayers; track layer) {
         <div class="layerParentGroup">
-          <div (click)="layer.toggleActive()" class="toggle" [style.background-color]="layer.getBackgroundColor()">
-            <img class="icon" src="{{layer.iconUrl}}">
-            <p class="iconText">{{layer?.name}} ({{layer?.amount}})</p>
-          </div>
-          <div class="layerChildGroup">
-            @for (childLayer of layer.childLayers; track childLayer) {
-              <div (click)="childLayer.toggleActive()" class="toggle subtoggle" [style.background-color]="childLayer.getBackgroundColor()">
-                <img class="icon" src="{{childLayer.iconUrl}}">
-                <p class="iconText">{{childLayer?.name}} ({{childLayer?.amount}})</p>
-              </div>
-            }
-          </div>
+          <button type="button" (click)="layer.toggleActive()" class="toggle" [class.active]="layer.isActive" [attr.aria-pressed]="layer.isActive">
+            <img class="icon" src="{{layer.iconUrl}}" alt="">
+            <span class="iconText">{{layer?.name}}</span>
+            <span class="count">{{layer?.amount}}</span>
+          </button>
+          @if (layer.childLayers?.length) {
+            <div class="layerChildGroup">
+              @for (childLayer of layer.childLayers; track childLayer) {
+                <button type="button" (click)="childLayer.toggleActive()" class="toggle subtoggle" [class.active]="childLayer.isActive" [attr.aria-pressed]="childLayer.isActive">
+                  <img class="icon" src="{{childLayer.iconUrl}}" alt="">
+                  <span class="iconText">{{childLayer?.name}}</span>
+                  <span class="count">{{childLayer?.amount}}</span>
+                </button>
+              }
+            </div>
+          }
         </div>
       }
     </mat-drawer>
@@ -45,4 +51,3 @@
     </mat-drawer-content>
   </mat-drawer-container>
 </div>
-

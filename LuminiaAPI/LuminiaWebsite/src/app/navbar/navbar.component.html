@@ -1,70 +1,42 @@
-@if (!isMobileView) {
-  <div class="navbar">
-    <div class="navTitle">
-      <a routerLink="/map">
-        <img class="luminiaImg" src="../../assets/LuminiaLogo.png" alt="Logo of Luminia">
-      </a>
-    </div>
-    <div class="version">{{version}}</div>
-    <ul class="navElements">
-      <li class="navbutton" routerLinkActive="active">
-        <a routerLink="/calendar">Calendar</a>
-      </li>
-      @if (isGemstoneExchangeVisible) {
-        <li class="navbutton" routerLinkActive="active">
-          <a routerLink="/gemstone-exchange">Gemstone Exchange</a>
-        </li>
-      }
-      @if (isLuminariesVisible) {
-        <li class="navbutton" routerLinkActive="active">
-          <a routerLink="/luminaries">Luminaries</a>
-        </li>
-      }
-      <li class="navbutton" routerLinkActive="active">
-        <a routerLink="/pantheon">Pantheon</a>
-      </li>
-      <li class="navbutton" routerLinkActive="active">
-        <a routerLink="/map">World Map</a>
-      </li>
-    </ul>
-  </div>
-}
+<header class="navbar">
+  <a class="brand" routerLink="/map" aria-label="Luminia home">
+    <img class="brand-logo" src="assets/luminia-logo.webp" alt="Luminia">
+  </a>
+  <span class="version" title="Site version">v{{version}}</span>
 
-<!-- Navbar mobile -->
-@if (isMobileView) {
-  <div class="navbar">
-    <div class="navTitle">
-      <a routerLink="/map">
-        <img class="luminiaImg" src="../../assets/LuminiaLogo.png" alt="Logo of Luminia">
+  <nav class="nav-links" aria-label="Main">
+    @for (link of navLinks; track link.route) {
+      <a class="nav-link" [routerLink]="link.route" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <i class="fa-solid {{link.icon}}" aria-hidden="true"></i>
+        <span>{{link.label}}</span>
       </a>
-    </div>
-    <div class="version">{{version}}</div>
-    <button mat-stroked-button class="hamburger-button" (click)="toggleMenu()">
-      <i class="fa-solid fa-bars fa-lg filterIcon"></i>
+    }
+  </nav>
+
+  <button type="button" class="menu-button" (click)="toggleMenu()"
+          [attr.aria-expanded]="isMenuOpen" aria-controls="mobile-menu" aria-label="Open menu">
+    <span class="menu-icon" [class.open]="isMenuOpen" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
+</header>
+
+<!-- Mobile drawer -->
+<div class="drawer-backdrop" [class.open]="isMenuOpen" (click)="closeMenu()" aria-hidden="true"></div>
+<aside id="mobile-menu" class="drawer" [class.open]="isMenuOpen" [attr.aria-hidden]="!isMenuOpen" [attr.inert]="isMenuOpen ? null : ''">
+  <div class="drawer-header">
+    <img class="brand-logo" src="assets/luminia-logo.webp" alt="Luminia">
+    <button type="button" class="drawer-close" (click)="closeMenu()" aria-label="Close menu">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
     </button>
   </div>
-}
-
-<div class="mobile-menu" [ngClass]="{'open':isMenuOpen}">
-  <ul class="navElements mobile">
-    <li class="mobile-menu-button" routerLinkActive="active">
-      <a routerLink="/calendar">Calendar</a>
-    </li>
-    @if (isGemstoneExchangeVisible) {
-      <li class="mobile-menu-button" routerLinkActive="active">
-        <a routerLink="/gemstone-exchange">Gemstone Exchange</a>
-      </li>
+  <nav class="drawer-links" aria-label="Main">
+    @for (link of navLinks; track link.route) {
+      <a class="drawer-link" [routerLink]="link.route" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <i class="fa-solid {{link.icon}}" aria-hidden="true"></i>
+        <span>{{link.label}}</span>
+      </a>
     }
-    @if (isLuminariesVisible) {
-      <li class="mobile-menu-button" routerLinkActive="active">
-        <a routerLink="/luminaries">Luminaries</a>
-      </li>
-    }
-    <li class="mobile-menu-button" routerLinkActive="active">
-      <a routerLink="/pantheon">Pantheon</a>
-    </li>
-    <li class="mobile-menu-button" routerLinkActive="active">
-      <a routerLink="/map">World Map</a>
-    </li>
-  </ul>
-</div>
+  </nav>
+  <div class="drawer-footer">v{{version}}</div>
+</aside>

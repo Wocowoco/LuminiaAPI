@@ -7,7 +7,7 @@ export class KrigonDeityInfo implements IDeityInfo{
   name = "Krigon";
   pronoun = "God";
   domains = "War, Blood, Pain, Sacrifice";
-  titles = [];
+  titles = ["Lord of the Red Field", "The Blood-Tithe"];
   gender = "Male";
   race = "Centaur";
   alignment = "Neutral Evil";

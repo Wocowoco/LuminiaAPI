@@ -39,7 +39,7 @@ npm install
 npm run build            # production build -> LuminiaWebsite/dist/
 ```
 
-The production Angular build prints budget warnings (component CSS > 2 kB, initial bundle > 1 MB). These are pre-existing and do not fail the build.
+The production Angular build prints budget warnings (component CSS > 6 kB, initial bundle > 1 MB). These are pre-existing and do not fail the build.
 
 ## Run locally
 
