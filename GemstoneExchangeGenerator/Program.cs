@@ -1,4 +1,5 @@
-﻿using LuminiaAPI.Dtos.GemstoneExchange;
+﻿using GemstoneExchangeGenerator.StockParameter;
+using LuminiaAPI.Dtos.GemstoneExchange;
 using LuminiaAPI.Enums;
 using System.Text.Json;
 
@@ -77,28 +78,19 @@ Console.WriteLine("Generating " + gemstoneId.ToString() + " data, starting from 
 
 while (true)
 {
-    /*
-     *       "gemstoneId": "Sapphire",
-      "minPrice": 40,
-      "maxPrice": 90,
-      "volatility": 0.02,
-      "protectionDistanceMin": 30,
-      "protectionDistanceMax": 30
-    */
     double price = startingPrice;
-    double minPrice = 40;
-    double maxPrice = 90;
-    double volatility = 0.04;
-    double protectionDistanceMin = 300;
-    double protectionDistanceMax = 30;
     double lowest = startingPrice;
     double highest = startingPrice;
     double protectionFactor = 0;
 
     var GemstoneExchangeList = new List<GemstoneExchangeDto>();
+    var currentDay = startDay;
+    var stockParameters = new StockParameters();
 
     for (int i = 0; i < amountOfDays; i++)
     {
+        stockParameters = Sapphire.GetStockParametersForDay(currentDay);
+
         // Generate next number for the stock
         var rng = new Random();
 
@@ -108,23 +100,23 @@ while (true)
         // Bias the downward direction to be smaller near minPrice
         if (direction < 0)
         {
-            protectionFactor = Math.Pow(Math.Max(0, price - minPrice) / protectionDistanceMin, 0.3);
+            protectionFactor = Math.Pow(Math.Max(0, price - stockParameters.minPrice) / stockParameters.protectionDistanceMin, 0.3);
             protectionFactor = Math.Clamp(protectionFactor, 0.1, 1.0);
             direction *= protectionFactor;
         }
         // Bias the upward direction to be smaller near maxPrice
         else
         {
-            protectionFactor = Math.Pow(Math.Max(0, maxPrice - price) / protectionDistanceMax, 0.3);
+            protectionFactor = Math.Pow(Math.Max(0, stockParameters.maxPrice - price) / stockParameters.protectionDistanceMax, 0.3);
             protectionFactor = Math.Clamp(protectionFactor, 0.1, 1.0);
             direction *= protectionFactor;
         }
 
         // Scale by volatility
-        double change = price * direction * volatility;
+        double change = price * direction * stockParameters.volatility;
 
-        // Ensure the price does not go below a set value
-        price = Math.Round(Math.Max(minPrice, price + change), 1);
+        // Set the new price
+        price = Math.Round(price + change, 1);
 
         //Check highest and lowest
         lowest = Math.Min(lowest, price);
@@ -148,9 +140,11 @@ while (true)
         GemstoneExchangeList.Add(new GemstoneExchangeDto
         {
             GemstoneId = gemstoneId,
-            Day = startDay + i,
+            Day = currentDay,
             Price = price
         });
+
+        currentDay++;
     }
 
     var json = JsonSerializer.Serialize(GemstoneExchangeList);
@@ -158,4 +152,5 @@ while (true)
     Console.WriteLine("Highest price: " + highest);
     Console.ReadLine();
     Console.Clear();
+    Console.WriteLine("---");
 }
