@@ -163,5 +163,5 @@
 }
 
 .spinner-color{
-  --mdc-circular-progress-active-indicator-color: #2C2B25;
+  --mat-progress-spinner-active-indicator-color: #2C2B25;
 }
