@@ -29,5 +29,6 @@
         Lumin = 25,
         Group = 26,
         Bank = 27,
+        LuanaAltar = 28,
     }
 }
