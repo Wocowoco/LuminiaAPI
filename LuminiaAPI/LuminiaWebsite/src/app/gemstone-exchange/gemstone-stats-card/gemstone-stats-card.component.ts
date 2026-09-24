@@ -35,6 +35,7 @@ export class GemstoneStatsCardComponent {
     }];
 
   selectedButton: number = -1;
+  chartView: [number, number] = [Math.min(350, window.innerWidth - 64), 200];
   name: string = 'Gemstone';
   currentPrice: number = 0.0;
   gemstoneId: number = 0;

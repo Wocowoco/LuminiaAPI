@@ -1,6 +1,7 @@
 export interface IDeityInfo {
   avatarUrl: string;
   iconUrl: string;
+  backgroundUrl: string;
   name: string;
   domains: string;
   pronoun: string;

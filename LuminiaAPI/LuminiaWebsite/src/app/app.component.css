@@ -2,7 +2,7 @@
   display: flex;
   flex-flow: column;
   height: 100%;
-  background-color: #fbfbf2;
+  background-color: var(--lum-paper);
 }
 
 .navbar{
@@ -11,17 +11,13 @@
   top: 0;
   left: 0;
   width: 100%;
-  max-height: 50px;
-  height: 50px;
-  overflow: visible;
+  height: var(--lum-nav-height);
   flex: 0 1 auto;
-  -webkit-box-shadow: 0px -12px 20px 11px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px -12px 20px 11px rgba(0,0,0,0.5);
-  box-shadow: 0px -12px 20px 11px rgba(0,0,0,0.5);
 }
 
 .content{
-  margin-top: 50px;
+  margin-top: var(--lum-nav-height);
   flex-grow: 1;
   overflow: auto;
+  scroll-behavior: smooth;
 }

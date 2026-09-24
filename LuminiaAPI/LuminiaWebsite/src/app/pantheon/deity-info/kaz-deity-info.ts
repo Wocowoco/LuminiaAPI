@@ -7,7 +7,7 @@ export class KazDeityInfo implements IDeityInfo{
   name = "Kaz";
   pronoun = "God";
   domains = "Wealth, Trade, Protection, Healing";
-  titles = ["Protector","Merchant"];
+  titles = ["Coinmaster", "The Golden Paw"];
   gender = "Male";
   race = "Tabaxi";
   alignment = "Lawful Good";

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { IDeityInfo } from '../deity-info.interface';
 import { CaraDeityInfo } from '../deity-info/cara-deity-info';
 import { FenlaDeityInfo } from '../deity-info/fenla-deity-info';
@@ -14,6 +14,11 @@ import { VaknorDeityInfo } from '../deity-info/vaknor-deity-info';
 import { VexDeityInfo } from '../deity-info/vex-deity-info';
 import { YuvicDeityInfo } from '../deity-info/yuvic-deity-info';
 
+interface Pantheon {
+  name: string;
+  tone: 'white' | 'grey' | 'black' | 'minor';
+  deities: IDeityInfo[];
+}
 
 @Component({
     selector: 'app-pantheon-page',
@@ -23,42 +28,38 @@ import { YuvicDeityInfo } from '../deity-info/yuvic-deity-info';
     standalone: false
 })
 
-export class PantheonPageComponent implements OnInit {
-  constructor() { }
-
-  whitePantheonInfo : IDeityInfo[] = [
-    new CaraDeityInfo(),
-    new FenlaDeityInfo(),
-    new KazDeityInfo(),
-    new YuvicDeityInfo(),
+export class PantheonPageComponent {
+  pantheons: Pantheon[] = [
+    {
+      name: 'White Pantheon',
+      tone: 'white',
+      deities: [new CaraDeityInfo(), new FenlaDeityInfo(), new KazDeityInfo(), new YuvicDeityInfo()],
+    },
+    {
+      name: 'Grey Pantheon',
+      tone: 'grey',
+      deities: [new AmataDeityInfo(), new AtamaDeityInfo(), new MirnaDeityInfo(), new TaoidesDeityInfo()],
+    },
+    {
+      name: 'Black Pantheon',
+      tone: 'black',
+      deities: [new KrigonDeityInfo(), new LokaineDeityInfo(), new VaknorDeityInfo(), new VexDeityInfo()],
+    },
+    {
+      name: 'Minor Deities',
+      tone: 'minor',
+      deities: [new LuanaDeityInfo()],
+    },
   ];
 
-  greyPantheonInfo : IDeityInfo[] = [
-    new AmataDeityInfo(),
-    new AtamaDeityInfo(),
-    new MirnaDeityInfo(),
-    new TaoidesDeityInfo(),
-  ];
-
-  blackPantheonInfo : IDeityInfo[] = [
-    new KrigonDeityInfo(),
-    new LokaineDeityInfo(),
-    new VaknorDeityInfo(),
-    new VexDeityInfo(),
-  ];
-
-  minorDeitiesInfo : IDeityInfo[] = [
-    new LuanaDeityInfo(),
-  ];
-
-  ngOnInit(): void {
+  domainsOf(info: IDeityInfo): string[] {
+    return info.domains.split(',').map(domain => domain.trim());
   }
 
   navigate(navigateTo: string): void {
     const element = document.getElementById(navigateTo);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
-
 }

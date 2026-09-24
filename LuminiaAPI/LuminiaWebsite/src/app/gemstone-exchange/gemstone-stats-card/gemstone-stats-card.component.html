@@ -1,39 +1,40 @@
 <mat-card appearance="outlined" class="gemstone-stats-card" [ngClass]="getCardColorByPercentage(percentageYesterday)">
   <div class="info-part">
     <div class="name-price">
-      <div>{{name}}</div>
-      <div>{{currentPrice}}</div>
+      <span class="gem-dot" [style.backgroundColor]="color"></span>
+      <div class="gem-name">{{name}}</div>
+      <div class="gem-price">{{currentPrice}} <span>gold</span></div>
     </div>
     <div class="price-compares">
-        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageYesterday)">
-          <div>Today</div>
-          <div>{{differenceYesterday}} ({{percentageYesterday.toFixed(2)}}%)</div>
-        </mat-card>
-        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageWeek)">
-          <div>Past week</div>
-          <div>{{differenceWeek}} ({{percentageWeek.toFixed(2)}}%)</div>
-        </mat-card>
-        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageQuarter)">
-          <div>Past quarter</div>
-          <div>{{differenceQuarter}} ({{percentageQuarter.toFixed(2)}}%)</div>
-        </mat-card>
-        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageYear)">
-          <div>Past year</div>
-          <div>{{differenceYear}} ({{percentageYear.toFixed(2)}}%)</div>
-        </mat-card>
-        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageFiveYear)">
-          <div>Past 5 years</div>
-          <div>{{differenceFiveYear}} ({{percentageFiveYear.toFixed(2)}}%)</div>
-        </mat-card>
-        <mat-card appearance="outlined" class="compare" [ngClass]="getPercentageClass(percentageTenYear)">
-          <div>Past 10 years</div>
-          <div>{{differenceTenYear}} ({{percentageTenYear.toFixed(2)}}%)</div>
-        </mat-card>
+        <div class="compare" [ngClass]="getPercentageClass(percentageYesterday)">
+          <div class="compare-label">Today</div>
+          <div class="compare-value">{{differenceYesterday}} ({{percentageYesterday.toFixed(2)}}%)</div>
+        </div>
+        <div class="compare" [ngClass]="getPercentageClass(percentageWeek)">
+          <div class="compare-label">Past week</div>
+          <div class="compare-value">{{differenceWeek}} ({{percentageWeek.toFixed(2)}}%)</div>
+        </div>
+        <div class="compare" [ngClass]="getPercentageClass(percentageQuarter)">
+          <div class="compare-label">Past quarter</div>
+          <div class="compare-value">{{differenceQuarter}} ({{percentageQuarter.toFixed(2)}}%)</div>
+        </div>
+        <div class="compare" [ngClass]="getPercentageClass(percentageYear)">
+          <div class="compare-label">Past year</div>
+          <div class="compare-value">{{differenceYear}} ({{percentageYear.toFixed(2)}}%)</div>
+        </div>
+        <div class="compare" [ngClass]="getPercentageClass(percentageFiveYear)">
+          <div class="compare-label">Past 5 years</div>
+          <div class="compare-value">{{differenceFiveYear}} ({{percentageFiveYear.toFixed(2)}}%)</div>
+        </div>
+        <div class="compare" [ngClass]="getPercentageClass(percentageTenYear)">
+          <div class="compare-label">Past 10 years</div>
+          <div class="compare-value">{{differenceTenYear}} ({{percentageTenYear.toFixed(2)}}%)</div>
+        </div>
     </div>
   </div>
   <div class="graph-part">
     <ngx-charts-line-chart
-      [view]="[350, 200]"
+      [view]="chartView"
       [scheme]="colorScheme"
       [results]="graphData"
       [gradient]="false"
@@ -59,14 +60,13 @@
         </div>
       </ng-template>
     </ngx-charts-line-chart>
-    <div class="all-graph-buttons">
-      <button mat-stroked-button class="graph-button" (click)="getGraphData(8)" [ngClass]="{'active': selectedButton === 8}">W</button>
-      <button mat-stroked-button class="graph-button" (click)="getGraphData(92)" [ngClass]="{'active': selectedButton === 92}">Q</button>
-      <button mat-stroked-button class="graph-button" (click)="getGraphData(365)" [ngClass]="{'active': selectedButton === 365}">Y</button>
-      <button mat-stroked-button class="graph-button" (click)="getGraphData(1821)" [ngClass]="{'active': selectedButton === 1821}">5Y</button>
-      <button mat-stroked-button class="graph-button" (click)="getGraphData(3641)" [ngClass]="{'active': selectedButton === 3641}">10Y</button>
-      <button mat-stroked-button class="graph-button" (click)="getGraphData(0)" [ngClass]="{'active': selectedButton === 0}">All</button>
+    <div class="segmented" role="group" aria-label="Graph range">
+      <button type="button" (click)="getGraphData(8)" [ngClass]="{'active': selectedButton === 8}">W</button>
+      <button type="button" (click)="getGraphData(92)" [ngClass]="{'active': selectedButton === 92}">Q</button>
+      <button type="button" (click)="getGraphData(365)" [ngClass]="{'active': selectedButton === 365}">Y</button>
+      <button type="button" (click)="getGraphData(1821)" [ngClass]="{'active': selectedButton === 1821}">5Y</button>
+      <button type="button" (click)="getGraphData(3641)" [ngClass]="{'active': selectedButton === 3641}">10Y</button>
+      <button type="button" (click)="getGraphData(0)" [ngClass]="{'active': selectedButton === 0}">All</button>
     </div>
   </div>
 </mat-card>
-

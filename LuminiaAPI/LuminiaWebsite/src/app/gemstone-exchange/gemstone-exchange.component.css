@@ -1,44 +1,51 @@
 .page{
   width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: stretch;
-	align-content: stretch;
+  padding-bottom: 32px;
   text-align: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  color: #2C2B25;
+  color: var(--lum-ink);
 }
 
 .gemstone-stats-div{
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr));
+  gap: 16px;
+  max-width: var(--lum-content-width);
+  margin: 0 auto;
+  padding: 32px 24px 0;
+  box-sizing: border-box;
+}
+
+.all-graph{
+  padding: 0 16px;
+}
+
+.segmented{
+  display: inline-flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  column-gap: 20px;
-  row-gap: 5px;
-}
-
-.all-graph-buttons{
-  margin: 10px;
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 5px;
+  margin-bottom: 16px;
+  padding: 4px;
+  border-radius: 12px;
+  background-color: rgba(90, 81, 82, 0.08);
 }
-
-.timeline-button{
-  width: 110px;
-  background-color: #F8F8F2;
-  color: #2C2B25;
-}
-
-.active{
-  background-color: #bdbbb0;
-  color: #2C2B25;
-}
+  .segmented button{
+    padding: 8px 16px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--lum-text-muted);
+    font: 600 14px var(--lum-font-body);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .segmented button:hover{
+    color: var(--lum-ink);
+  }
+  .segmented button.active{
+    background-color: var(--lum-surface);
+    color: var(--lum-ink);
+    box-shadow: var(--lum-shadow-sm);
+  }
 
 .loading{
   height: 100%;
@@ -50,34 +57,30 @@
 .loading-card{
   display: flex;
   justify-content: center;
-  flex-direction: row;
   align-items: center;
-  width: 250px;
-  height: 50px;
-  column-gap: 20px;
-  background-color: #FAFAF6;
-  padding: 10px;
-}
-
-.spinner-color{
-  --mat-progress-spinner-active-indicator-color: #2C2B25;
+  column-gap: 16px;
+  padding: 18px 24px;
+  font-weight: 500;
 }
 
 .error{
-  font-family: "Titan One";
-  font-weight: normal;
+  font-family: var(--lum-font-display);
   font-size: 32px;
   line-height: 40px;
   width: 100%;
   height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  flex-wrap: wrap;
-  color: #2C2B25;
+  color: var(--lum-ink);
   background-image: url("../../assets/images/decorations/not-found.png");
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@media (max-width: 600px) {
+  .gemstone-stats-div{
+    padding: 20px 12px 0;
+  }
 }

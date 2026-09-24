@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "LuminiaAPI/LuminiaWebsite", "start"],
       "port": 4200
+    },
+    {
+      "name": "website-live-api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "LuminiaAPI/LuminiaWebsite", "start", "--", "--configuration", "production", "--port", "4201"],
+      "port": 4201
     }
   ]
 }

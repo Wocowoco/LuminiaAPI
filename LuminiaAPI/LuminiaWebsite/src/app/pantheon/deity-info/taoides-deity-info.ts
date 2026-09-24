@@ -7,7 +7,7 @@ export class TaoidesDeityInfo implements IDeityInfo{
   name = "Taoides";
   pronoun = "Goddess";
   domains = "Storms, Water, Thunder, Sound, Lightning";
-  titles = ["Keeper of Tides"];
+  titles = ["Keeper of Tides", "The Stormcaller"];
   gender = "Female";
   race = "Triton/Merfolk";
   alignment = "Chaotic Neutral";

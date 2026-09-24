@@ -1,231 +1,330 @@
-@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+/* ------------- */
+/*  TONES        */
+/* ------------- */
+.tone-white {
+  --tone: #F5F4ED;
+  --prev: var(--lum-paper);
+  --card: #FFFFFB;
+}
+.tone-grey {
+  --tone: #E4E6E2;
+  --prev: #F5F4ED;
+  --card: #F1F2EF;
+}
+.tone-black {
+  --tone: #525252;
+  --prev: #E4E6E2;
+  --card: #454544;
+  --lum-text: var(--lum-cream);
+  --lum-text-muted: #B9B6AA;
+  --lum-border: rgba(247, 244, 234, 0.12);
+  color: var(--lum-cream);
+}
+.tone-minor {
+  --tone: var(--lum-cream);
+  --prev: #525252;
+  --card: #FBF9F1;
+}
 
-/* ------ */
-/*  DIVS  */
-/* ------ */
-
-.pantheon-page{
+.pantheon-page {
   width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: stretch;
-	align-content: stretch;
 }
 
-.pantheon-header{
-  padding-top: 35px;
-  color: #2C2B25;
-  padding-bottom: 35px;
-  clip-path: polygon(0 0, 100% 0%, 100% 80%, 0% 100%);
-  background-color: #BDBBB0;
-  text-align: center;
-  padding-left: 10px;
-  padding-right: 10px;
+/* ------------- */
+/*  OVERVIEW     */
+/* ------------- */
+.overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: var(--lum-content-width);
+  margin: 0 auto;
+  padding: 40px 24px 24px;
+  box-sizing: border-box;
 }
 
-.pantheon-summary{
+.overview-card {
+  padding: 20px 14px 14px;
+  border: 1px solid var(--lum-border);
+  border-radius: var(--lum-radius);
+  background-color: var(--card);
+  box-shadow: var(--lum-shadow-sm);
+}
+
+.overview-card .overview-title {
+  margin: 0 8px 12px;
+  font-size: 22px;
+  color: var(--lum-text);
+}
+
+.overview-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.overview-deity {
   display: flex;
-  align-items: stretch;
-  flex-wrap: wrap;
-  justify-content: center;
-  flex-direction: row;
-  padding-top: 45px;
-  padding-bottom: 45px;
-  clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--lum-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
-  .pantheon-summary img{
-    margin-left: 5px;
-    width: 25px;
-    height: 25px;
+  .overview-deity:hover {
+    background-color: rgba(90, 81, 82, 0.08);
+  }
+  .tone-black .overview-deity:hover {
+    background-color: rgba(247, 244, 234, 0.08);
   }
 
-.mat-mdc-card-header {
-  display: block;
-  text-align: center;
+.overview-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: rgba(90, 81, 82, 0.08);
 }
+  .tone-black .overview-icon {
+    background-color: #E9E6DA;
+  }
+  .overview-icon img {
+    width: 26px;
+    height: 26px;
+  }
 
-.pantheon-card {
-  width: 21%;
-  min-width: 220px;
-  margin: 5px 10px 5px 10px;
-}
-
-.pantheon-card-header {
-  font-family: "Titan One";
-  font-weight: normal;
-  font-size: 30px;
-  margin-bottom: 15px;
-  line-height: normal;
-}
-
-.pantheon-card-content {
+.overview-text {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  min-width: 0;
 }
 
-.white-pantheon{
-  background-color: #F8F8F2;
-  color: #2C2B25 !important;
+.overview-name {
+  font-weight: 600;
+  font-size: 15px;
 }
 
-.white-pantheon-summary{
-  background-color: #FAFAF6;
-  color: #2C2B25;
-}
-
-.grey-pantheon{
-  background-color: #DFE2DF;
-  color: #2C2B25 !important;
-}
-
-.grey-pantheon-summary{
-  background-color: #EAECEA;
-  color: #2C2B25;
-}
-
-.black-pantheon{
-  background-color: #525252;
-  color: #FBFBF2 !important;
-}
-
-.black-pantheon-summary,
-.black-pantheon-summary h2{
-  background-color: #666666;
-  color: #FBFBF2;
-}
-
-.minor-deities{
-  background-color: #F7F4EA;
-  color: #2C2B25 !important;
-}
-
-.minor-deities-summary{
-  background-color: #FAF8F1;
-  color: #2C2B25;
-}
-
-.mat-mdc-outlined-button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3px;
-}
-
-.patheon-button{
-  display: flex;
-  align-items: center;
-}
-
-.standard-to-white{
-  background: linear-gradient(180deg, rgba(251,251,242,1) 50%, rgba(248,248,242,1) 50%);
-}
-.white-to-gray{
-  background: linear-gradient(180deg, rgba(248,248,242,1) 50%, rgba(223,226,223,1) 50%);
-}
-.grey-to-black{
-  background: linear-gradient(180deg, rgba(223,226,223,1) 50%, rgba(82,82,82,1) 50%);
-}
-.black-to-minor{
-  background: linear-gradient(180deg, rgba(82,82,82,1) 50%, rgba(247,244,234,1) 50%);
-}
-
-.deity-display{
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  overflow-x: hidden;
-  max-width: 1350px;
+.overview-arrow {
   margin-left: auto;
-  margin-right: auto;
+  font-size: 12px;
+  color: var(--lum-text-muted);
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.2s ease, transform 0.2s var(--lum-ease);
+}
+  .overview-deity:hover .overview-arrow {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
+/* ------------- */
+/*  PANTHEONS    */
+/* ------------- */
+.pantheon {
+  padding-bottom: 48px;
+  /* Fade in from the previous pantheon behind the section title, so every deity sits on its own tone */
+  background: linear-gradient(180deg,
+    var(--prev, var(--tone)) 0,
+    color-mix(in srgb, var(--tone) 12%, var(--prev, var(--tone))) 50px,
+    color-mix(in srgb, var(--tone) 50%, var(--prev, var(--tone))) 100px,
+    color-mix(in srgb, var(--tone) 88%, var(--prev, var(--tone))) 150px,
+    var(--tone) 200px);
+}
+  .pantheon .sub-title-down {
+    padding-top: 150px;
+    color: var(--lum-text);
+  }
+  /* The first pantheon follows the overview on an almost identical tone, so it needs no fade room */
+  .tone-white.pantheon .sub-title-down {
+    padding-top: 64px;
+  }
+  .pantheon .sub-title-down h2 {
+    color: var(--lum-text);
+  }
+
+.deity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  grid-template-areas: "art panel";
+  align-items: center;
+  gap: 48px;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+  .deity-reversed {
+    grid-template-areas: "panel art";
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+
+.deity-art {
+  grid-area: art;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 100% auto;
 }
-  .deity-display-inverted{
-    flex-direction: row-reverse;
+  .deity-art img {
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    filter: drop-shadow(0 18px 30px rgba(20, 19, 16, 0.22));
   }
 
-.deity-display-column{
-  display: flex;
-  justify-content: center;
-  flex: 1;
+.deity-panel {
+  grid-area: panel;
+  padding: 32px;
+  border: 1px solid var(--lum-border);
+  border-radius: var(--lum-radius-lg);
+  background-color: color-mix(in srgb, var(--card) 88%, transparent);
+  box-shadow: var(--lum-shadow);
+  backdrop-filter: blur(6px);
+  color: var(--lum-text);
 }
 
-.deity-infobox{
+.deity-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  min-width: 350px;
-  padding-left: 10px;
-  padding-right: 10px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
- .deity-infobox > span{
-  margin-bottom: 25px;
-  font-size: 17px;
- }
 
-.deity-header{
-  width: 100%;
-  max-width: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Titan One";
+.deity-icon {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  padding: 8px;
+  border-radius: 16px;
+  background-color: rgba(90, 81, 82, 0.08);
+}
+  .tone-black .deity-icon {
+    background-color: #E9E6DA;
+  }
+
+.deity-kicker {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lum-text-muted);
+}
+
+.deity-header .deity-name {
+  margin: 0;
+  font-family: var(--lum-font-display);
   font-weight: normal;
-  line-height: normal;
-  margin-bottom: 5px;
+  font-size: clamp(30px, 4vw, 40px);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--lum-text);
 }
-  .deity-header h3{
-    margin-bottom: 0px;
-  }
-  .deity-header img{
-    margin-left: 15px;
-    width: 75px;
-    height: 75px;
-  }
 
-.deity-info-grid{
+.deity-panel h4 {
+  margin: 0 0 10px;
+  color: var(--lum-text-muted);
+}
+
+.deity-chips,
+.deity-titles {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
 }
 
-.deity-info-column{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+.deity-chips li {
+  padding: 5px 12px;
+  border: 1px solid rgba(90, 81, 82, 0.16);
+  border-radius: 999px;
+  background-color: rgba(90, 81, 82, 0.07);
+  font-size: 13px;
+  font-weight: 500;
 }
+  .tone-black .deity-chips li {
+    border-color: rgba(247, 244, 234, 0.16);
+    background-color: rgba(247, 244, 234, 0.08);
+  }
 
-.deity-info-column-data{
-  display: flex;
-  align-items: center;
-  text-align: left;
-  justify-content: center;
+.deity-titles li {
+  font-size: 17px;
+  font-style: italic;
 }
-  .deity-info-column-data h4,
-  .deity-info-column-data ul{
-    margin: 0px;
+  .deity-titles li + li::before {
+    content: "·";
+    margin-right: 8px;
+    font-style: normal;
+    color: var(--lum-text-muted);
   }
 
-  .deity-info-column-data ul{
-    padding-left: 30px;
+.deity-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--lum-border);
+  border-radius: var(--lum-radius);
+  background-color: var(--lum-border);
+}
+  .deity-stats div {
+    padding: 12px 14px;
+    background-color: var(--card);
+  }
+  .deity-stats dt {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--lum-text-muted);
+  }
+  .deity-stats dd {
+    margin: 4px 0 0;
+    font-size: 15px;
+    font-weight: 600;
   }
 
-  .deity-info-column-data span{
-    margin-left: 10px;
-    margin-top: 2px;
-  }
-
-.flip-horizontal{
+.flip-horizontal {
   transform: scaleX(-1);
+}
+
+@media (max-width: 820px) {
+  .deity,
+  .deity-reversed {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "art" "panel";
+    gap: 16px;
+    padding: 24px 16px;
+  }
+
+  .deity-art img {
+    max-width: 300px;
+  }
+
+  .deity-panel {
+    padding: 24px 20px;
+  }
+
+  .overview {
+    padding: 28px 16px 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .deity-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

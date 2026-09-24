@@ -7,7 +7,7 @@ export class LokaineDeityInfo implements IDeityInfo{
   name = "Lokaine";
   pronoun = "Goddess";
   domains = "Cold, Obsession, Loneliness";
-  titles = [];
+  titles = ["Her Cold Embrace", "The Frozen Heart"];
   gender = "Female";
   race = "Dragonborn";
   alignment = "Chaotic Evil";

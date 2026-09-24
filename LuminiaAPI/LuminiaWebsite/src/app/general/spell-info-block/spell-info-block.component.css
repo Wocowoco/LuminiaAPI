@@ -3,65 +3,60 @@
   max-width: 550px;
   min-width: 300px;
   height: 100%;
-  background-color: #FAFAF6;
+  padding: 8px 8px 16px;
+  text-align: left;
 }
 
 .mat-mdc-card-header{
   display: block;
+  padding-top: 20px;
   text-align: center;
 }
 .spell-header-text{
-  font-family: "Titan One";
-  font-weight: normal;
+  font-family: var(--lum-font-display);
   font-size: 30px;
-  margin-bottom: 15px;
-  line-height: normal;
-  color:#2C2B25;
-}
-
-.spell-content{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  margin-bottom: 16px;
+  line-height: 1.2;
+  color: var(--lum-ink);
 }
 
 .spell-properties{
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--lum-border);
+  border-radius: var(--lum-radius);
+  background-color: var(--lum-border);
 }
 
 .spell-property{
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  width: 100px;
-  height: 60px;
-  margin: 5px;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #BDBBB0;
-  border-color: #2C2B25;
-  border: 1px solid;
-  overflow: hidden;
+  padding: 10px 12px;
+  background-color: var(--lum-cream);
 }
 .spell-property-title{
-  font-family: "Titan One";
-  font-size: 15px;
-  margin-bottom: 5px;
-  line-height: normal;
-  color: #2C2B25;
+  margin-bottom: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lum-text-muted);
 }
-
-.damage-effect{
-  font-size: 13px;
+.spell-property-text{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--lum-ink);
 }
 
 .spell-description{
-  margin-top: 25px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-top: 20px;
+  padding: 0 4px;
+  line-height: 1.65;
+}
+
+@media (max-width: 520px) {
+  .spell-properties{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

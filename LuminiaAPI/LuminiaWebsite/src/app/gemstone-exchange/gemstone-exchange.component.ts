@@ -19,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 export class GemstoneExchangeComponent implements OnInit {
 
   legendPosition : LegendPosition = LegendPosition.Below;
-  view: [number, number] = [window.innerWidth * 0.95, window.innerHeight *0.55];
+  view: [number, number] = this.getChartView();
   lineChartData: GemstoneExchangeDataDto[] = [];
   priceHistoryData: GemstoneExchangeDataDto[] = [];
   weekLineChartData: GemstoneExchangeDataDto[] = [];
@@ -63,7 +63,12 @@ export class GemstoneExchangeComponent implements OnInit {
 
   @HostListener('window:resize')
   onResize() {
-    this.view = [window.innerWidth * 0.95, window.innerHeight * 0.55];
+    this.view = this.getChartView();
+  }
+
+  //Chart width follows the page, minus the side padding and the scrollbar of the content area
+  private getChartView(): [number, number] {
+    return [window.innerWidth - 64, window.innerHeight * 0.55];
   }
 
   async getGraphData(amountOfDays: number = 0, saveForGemstoneStats: boolean = false, setHasError: boolean = false) {

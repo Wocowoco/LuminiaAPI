@@ -4,7 +4,9 @@
   flex-wrap: wrap;
   height: 100%;
   gap: 15px;
-  background-color: antiquewhite;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  background-color: var(--lum-paper);
 }
 
 @media (max-width: 1100px)
@@ -24,10 +26,13 @@
     margin-top: 20px;
     width: 30vw;
     height: fit-content;
+    overflow: hidden;
   }
 
   .itemtablecard {
     width: 55vw;
+    height: fit-content;
+    overflow: hidden;
     margin-top: 20px;
     margin-bottom: 10px;
   }

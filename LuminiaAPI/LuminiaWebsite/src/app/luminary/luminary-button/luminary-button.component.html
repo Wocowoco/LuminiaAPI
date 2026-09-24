@@ -1,9 +1,13 @@
-<button mat-stroked-button disabled={{disabled}} (click)="handleClick()">
-      <div class="luminary-button" [ngClass]="{'disabled':disabled}" [style.backgroundImage]="'url(../../../assets/images/decorations/' + displayIconName + '.png)'">
-        <img mat-card-avatar src="../../../assets/images/luminary/{{displayIconName}}.png" alt="Icon of Luminary" class="luminary-icon">
-        <div>
-          <div class="luminary-title">{{displayName}}</div>
-          <div class="luminary-subtitle">{{displaySubTitle}}</div>
-        </div>
-      </div>
+<button type="button" class="luminary-button" [ngClass]="{'disabled':disabled}" [disabled]="disabled" (click)="handleClick()"
+        [style.backgroundImage]="'url(../../../assets/images/decorations/' + displayIconName + '.png)'">
+  <img src="../../../assets/images/luminary/{{displayIconName}}.png" alt="Icon of Luminary" class="luminary-icon">
+  <span class="luminary-text">
+    <span class="luminary-title">{{displayName}}</span>
+    @if (displaySubTitle) {
+      <span class="luminary-subtitle">{{displaySubTitle}}</span>
+    }
+  </span>
+  @if (!disabled) {
+    <i class="fa-solid fa-arrow-right luminary-arrow" aria-hidden="true"></i>
+  }
 </button>
