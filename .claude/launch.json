@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "LuminiaAPI", "--launch-profile", "LuminiaAPI"],
+      "port": 5276
+    },
+    {
+      "name": "website",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "LuminiaAPI/LuminiaWebsite", "start"],
+      "port": 4200
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(dotnet build:*)",
+      "PowerShell(dotnet restore:*)",
+      "PowerShell(dotnet --list-sdks)",
+      "PowerShell(npm run build:*)",
+      "PowerShell(npm test:*)",
+      "PowerShell(npx ng build:*)"
+    ]
+  }
+}
