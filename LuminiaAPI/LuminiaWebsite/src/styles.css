@@ -1,5 +1,5 @@
-@import url('~@angular/material/prebuilt-themes/deeppurple-amber.css');
-@import url('~leaflet/dist/leaflet.css');
+@import url('@angular/material/prebuilt-themes/deeppurple-amber.css');
+@import url('leaflet/dist/leaflet.css');
 
 html,
 body{
