@@ -133,8 +133,8 @@ hr{
 //       SNACKBAR         //
 //------------------------*/
 .error-snackbar {
-  --mat-snackbar-container-color: #F44336;
-  --mat-snackbar-supporting-text-color: #FCF6F0;
+  --mat-snack-bar-container-color: #F44336;
+  --mat-snack-bar-supporting-text-color: #FCF6F0;
   --mat-snack-bar-button-color: #FCF6F0;
 }
 
