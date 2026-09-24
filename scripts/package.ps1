@@ -38,7 +38,21 @@ if (-not (Test-Path (Join-Path $publishDir "wwwroot/index.html"))) {
 if (-not $NoZip) {
     $zip = Join-Path $artifacts "luminia-$version.zip"
     if (Test-Path $zip) { Remove-Item $zip -Force }
-    Compress-Archive -Path (Join-Path $publishDir "*") -DestinationPath $zip
+    # Build the zip by hand: Compress-Archive in Windows PowerShell 5.1 stores paths with
+    # backslashes, which breaks extraction on the host (Plesk). Zip entries need forward slashes.
+    Add-Type -AssemblyName System.IO.Compression
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $publishRoot = (Resolve-Path $publishDir).Path.TrimEnd('\') + '\'
+    $archive = [System.IO.Compression.ZipFile]::Open($zip, [System.IO.Compression.ZipArchiveMode]::Create)
+    try {
+        Get-ChildItem $publishDir -Recurse -File | ForEach-Object {
+            $entryName = $_.FullName.Substring($publishRoot.Length).Replace('\', '/')
+            [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($archive, $_.FullName, $entryName, [System.IO.Compression.CompressionLevel]::Optimal) | Out-Null
+        }
+    }
+    finally {
+        $archive.Dispose()
+    }
     Write-Host "Package: $zip"
 }
 Write-Host "Publish folder: $publishDir"
