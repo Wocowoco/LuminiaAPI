@@ -1,4 +1,4 @@
 {
-    "showLuminaries": false,
-    "showGemstoneExchange": false
+    "showLuminaries": true,
+    "showGemstoneExchange": true
 }
