@@ -4,7 +4,8 @@
 
 .DESCRIPTION
     Runs `dotnet publish` on LuminiaAPI in Release mode. The csproj's PublishRunWebpack target
-    runs `npm install` + `npm run build` in LuminiaWebsite and copies dist/** into wwwroot/.
+    runs `npm install` + `npm run build` in LuminiaWebsite and copies dist/** into wwwroot/
+    (except the map tile sets assets/map and assets/mapDM, which are deployed separately).
     The result is written to artifacts/publish and zipped to artifacts/luminia-<version>.zip,
     where <version> comes from LuminiaWebsite/src/assets/version.json.
 

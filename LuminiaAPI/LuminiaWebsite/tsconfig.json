@@ -2,7 +2,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "paths": {
+      "src/*": ["./src/*"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -12,15 +14,13 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "es2020",
+    "module": "es2022",
     "lib": [
       "es2020",
       "dom"

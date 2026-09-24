@@ -1,14 +1,16 @@
 import { CdkTable } from '@angular/cdk/table';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.service';
 import { Item } from '../../services/luminia-api/dtos/item.interface';
 import { ItemQueryFilter } from 'src/app/services/luminia-api/dtos/itemQueryFilter.interface';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.css']
+    selector: 'app-items',
+    templateUrl: './items.component.html',
+    styleUrls: ['./items.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class ItemsComponent implements OnInit {

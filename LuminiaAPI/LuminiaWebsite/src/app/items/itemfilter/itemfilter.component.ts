@@ -1,11 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ItemCategory } from 'src/app/services/luminia-api/dtos/item.interface';
 import { ItemQueryFilter } from 'src/app/services/luminia-api/dtos/itemQueryFilter.interface';
 
 @Component({
-  selector: 'app-itemfilter',
-  templateUrl: './itemfilter.component.html',
-  styleUrls: ['./itemfilter.component.css']
+    selector: 'app-itemfilter',
+    templateUrl: './itemfilter.component.html',
+    styleUrls: ['./itemfilter.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class ItemfilterComponent implements OnInit {

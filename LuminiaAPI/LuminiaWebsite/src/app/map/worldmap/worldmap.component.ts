@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatSidenav} from '@angular/material/sidenav';
 import * as L from 'leaflet';
 import 'leaflet-easybutton';
@@ -45,9 +45,11 @@ import { BankLayer } from '../maplayers/storeLayers/bank.maplayer';
 
 
 @Component({
-  selector: 'app-worldmap',
-  templateUrl: './worldmap.component.html',
-  styleUrls: ['./worldmap.component.css']
+    selector: 'app-worldmap',
+    templateUrl: './worldmap.component.html',
+    styleUrls: ['./worldmap.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class WorldmapComponent implements AfterViewInit, OnInit{
@@ -158,9 +160,17 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       maxNativeZoom:6,
     }).addTo(this.map);
 
-    L.easyButton('<i class="fa-solid fa-bars fa-lg filterIcon"></i>', () => {
-      this.sidenav!.toggle();
-    }).addTo(this.map).setPosition('topright');
+    // Use L.Control.EasyButton instead of L.easyButton: leaflet-easybutton adds easyButton to the global L
+    // after esbuild has snapshotted the leaflet exports, so it's missing in production builds.
+    new L.Control.EasyButton({
+      position: 'topright',
+      states: [{
+        stateName: 'default',
+        icon: '<i class="fa-solid fa-bars fa-lg filterIcon"></i>',
+        title: '',
+        onClick: () => this.sidenav!.toggle()
+      }]
+    }).addTo(this.map);
 
     //Draggable marker
     var blankIcon = L.icon({

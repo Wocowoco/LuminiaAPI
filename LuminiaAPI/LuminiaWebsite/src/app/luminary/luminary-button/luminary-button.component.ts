@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'luminary-button',
-  templateUrl: './luminary-button.component.html',
-  styleUrls: ['./luminary-button.component.css']
+    selector: 'luminary-button',
+    templateUrl: './luminary-button.component.html',
+    styleUrls: ['./luminary-button.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LuminaryButtonComponent implements OnInit {
 

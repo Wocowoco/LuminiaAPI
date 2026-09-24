@@ -1,6 +1,6 @@
 # LuminiaWebsite (Angular front-end)
 
-Angular 18 SPA using **NgModules** (not standalone components), Angular Material, Leaflet (world map), and `@swimlane/ngx-charts` (gemstone exchange graphs). Plain CSS, no SCSS.
+Angular 22 SPA using **NgModules** (not standalone components), Angular Material, Leaflet (world map), and `@swimlane/ngx-charts` (gemstone exchange graphs). Plain CSS, no SCSS.
 
 ## Commands (run from this folder)
 

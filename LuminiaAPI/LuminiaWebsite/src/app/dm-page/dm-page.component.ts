@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
 import { MapLayerEnum } from '../services/luminia-api/enums/maplayerenum';
 import { first, firstValueFrom } from 'rxjs';
@@ -6,9 +6,11 @@ import { MarkerDto } from '../services/luminia-api/dtos/markerdto.interface';
 import { DateFormatterService } from '../helpers/date-formatter.service';
 
 @Component({
-  selector: 'app-dm-page',
-  templateUrl: './dm-page.component.html',
-  styleUrls: ['./dm-page.component.css']
+    selector: 'app-dm-page',
+    templateUrl: './dm-page.component.html',
+    styleUrls: ['./dm-page.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DmPageComponent implements OnInit {
 
