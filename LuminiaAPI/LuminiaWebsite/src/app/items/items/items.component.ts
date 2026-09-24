@@ -6,9 +6,10 @@ import { Item } from '../../services/luminia-api/dtos/item.interface';
 import { ItemQueryFilter } from 'src/app/services/luminia-api/dtos/itemQueryFilter.interface';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.css']
+    selector: 'app-items',
+    templateUrl: './items.component.html',
+    styleUrls: ['./items.component.css'],
+    standalone: false
 })
 
 export class ItemsComponent implements OnInit {

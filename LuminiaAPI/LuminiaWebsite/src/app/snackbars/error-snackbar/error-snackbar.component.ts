@@ -5,11 +5,10 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef } from '@angular/
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-error-snackbar',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatSnackBarModule, MatIconModule],
-  templateUrl: './error-snackbar.component.html',
-  styleUrls: ['./error-snackbar.component.css']
+    selector: 'app-error-snackbar',
+    imports: [CommonModule, MatButtonModule, MatSnackBarModule, MatIconModule],
+    templateUrl: './error-snackbar.component.html',
+    styleUrls: ['./error-snackbar.component.css']
 })
 
 export class ErrorSnackbarComponent implements OnInit {

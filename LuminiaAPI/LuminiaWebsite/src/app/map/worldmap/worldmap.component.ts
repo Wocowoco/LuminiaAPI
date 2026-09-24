@@ -45,9 +45,10 @@ import { BankLayer } from '../maplayers/storeLayers/bank.maplayer';
 
 
 @Component({
-  selector: 'app-worldmap',
-  templateUrl: './worldmap.component.html',
-  styleUrls: ['./worldmap.component.css']
+    selector: 'app-worldmap',
+    templateUrl: './worldmap.component.html',
+    styleUrls: ['./worldmap.component.css'],
+    standalone: false
 })
 
 export class WorldmapComponent implements AfterViewInit, OnInit{

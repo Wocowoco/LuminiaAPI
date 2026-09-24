@@ -9,9 +9,10 @@ import { LuminiaApiService } from 'src/app/services/luminia-api/luminia-api.serv
 import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-snackbar.component';
 
 @Component({
-  selector: 'gemstone-stats-card',
-  templateUrl: './gemstone-stats-card.component.html',
-  styleUrl: './gemstone-stats-card.component.css'
+    selector: 'gemstone-stats-card',
+    templateUrl: './gemstone-stats-card.component.html',
+    styleUrl: './gemstone-stats-card.component.css',
+    standalone: false
 })
 export class GemstoneStatsCardComponent {
 

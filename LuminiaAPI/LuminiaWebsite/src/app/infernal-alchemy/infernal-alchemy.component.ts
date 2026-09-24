@@ -5,9 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
 
 @Component({
-  selector: 'app-infernal-alchemy',
-  templateUrl: './infernal-alchemy.component.html',
-  styleUrls: ['./infernal-alchemy.component.css']
+    selector: 'app-infernal-alchemy',
+    templateUrl: './infernal-alchemy.component.html',
+    styleUrls: ['./infernal-alchemy.component.css'],
+    standalone: false
 })
 export class InfernalAlchemyComponent implements OnInit {
 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-swirling-moon-page',
-  templateUrl: './swirling-moon-page.component.html',
-  styleUrls: ['./swirling-moon-page.component.css'],
+    selector: 'app-swirling-moon-page',
+    templateUrl: './swirling-moon-page.component.html',
+    styleUrls: ['./swirling-moon-page.component.css'],
+    standalone: false
 })
 export class SwirlingMoonPageComponent implements OnInit {
 

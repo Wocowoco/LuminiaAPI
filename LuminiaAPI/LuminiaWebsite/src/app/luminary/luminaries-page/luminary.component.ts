@@ -4,9 +4,10 @@ import { LuminaryService } from 'src/app/services/luminary-service/luminary.serv
 import { LuminaryVisibility } from '../luminary-visibility.enum';
 
 @Component({
-  selector: 'app-luminary',
-  templateUrl: './luminary.component.html',
-  styleUrls: ['./luminary.component.css'],
+    selector: 'app-luminary',
+    templateUrl: './luminary.component.html',
+    styleUrls: ['./luminary.component.css'],
+    standalone: false
 })
 export class LuminaryComponent implements OnInit {
 

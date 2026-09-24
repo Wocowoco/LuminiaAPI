@@ -16,9 +16,10 @@ import { YuvicDeityInfo } from '../deity-info/yuvic-deity-info';
 
 
 @Component({
-  selector: 'app-pantheon-page',
-  templateUrl: './pantheon-page.component.html',
-  styleUrls: ['./pantheon-page.component.css']
+    selector: 'app-pantheon-page',
+    templateUrl: './pantheon-page.component.html',
+    styleUrls: ['./pantheon-page.component.css'],
+    standalone: false
 })
 
 export class PantheonPageComponent implements OnInit {

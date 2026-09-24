@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'augment-rune-card',
-  templateUrl: './augment-rune-card.component.html',
-  styleUrls: ['./augment-rune-card.component.css']
+    selector: 'augment-rune-card',
+    templateUrl: './augment-rune-card.component.html',
+    styleUrls: ['./augment-rune-card.component.css'],
+    standalone: false
 })
 export class AugmentRuneCardComponent implements OnInit {
 

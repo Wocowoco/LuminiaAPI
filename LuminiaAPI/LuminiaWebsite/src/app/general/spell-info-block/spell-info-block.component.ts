@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'spell-info-block',
-  templateUrl: './spell-info-block.component.html',
-  styleUrls: ['./spell-info-block.component.css'],
+    selector: 'spell-info-block',
+    templateUrl: './spell-info-block.component.html',
+    styleUrls: ['./spell-info-block.component.css'],
+    standalone: false
 })
 
 export class SpellInfoBlockComponent implements OnInit {

@@ -10,9 +10,10 @@ import { DateFormatterService } from '../helpers/date-formatter.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-gemstone-exchange',
-  templateUrl: './gemstone-exchange.component.html',
-  styleUrls: ['./gemstone-exchange.component.css']
+    selector: 'app-gemstone-exchange',
+    templateUrl: './gemstone-exchange.component.html',
+    styleUrls: ['./gemstone-exchange.component.css'],
+    standalone: false
 })
 export class GemstoneExchangeComponent implements OnInit {
 

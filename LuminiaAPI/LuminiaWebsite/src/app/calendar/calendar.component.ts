@@ -7,9 +7,10 @@ import { CurrentDateDto } from '../services/luminia-api/dtos/currentDateDto.inte
 import { DateFormatterService } from '../helpers/date-formatter.service';
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+    selector: 'app-calendar',
+    templateUrl: './calendar.component.html',
+    styleUrls: ['./calendar.component.css'],
+    standalone: false
 })
 export class CalendarComponent implements OnInit, AfterViewInit {
 

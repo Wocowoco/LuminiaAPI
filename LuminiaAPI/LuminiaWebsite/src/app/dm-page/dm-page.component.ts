@@ -6,9 +6,10 @@ import { MarkerDto } from '../services/luminia-api/dtos/markerdto.interface';
 import { DateFormatterService } from '../helpers/date-formatter.service';
 
 @Component({
-  selector: 'app-dm-page',
-  templateUrl: './dm-page.component.html',
-  styleUrls: ['./dm-page.component.css']
+    selector: 'app-dm-page',
+    templateUrl: './dm-page.component.html',
+    styleUrls: ['./dm-page.component.css'],
+    standalone: false
 })
 export class DmPageComponent implements OnInit {
 
