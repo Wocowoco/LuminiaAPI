@@ -48,3 +48,4 @@ if (-not $DryRun) {
     [System.IO.File]::WriteAllText($versionFile, $updated)
 }
 Write-Output $new
+exit 0
