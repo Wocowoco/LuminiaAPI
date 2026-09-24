@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatSidenav} from '@angular/material/sidenav';
 import * as L from 'leaflet';
 import 'leaflet-easybutton';
@@ -48,6 +48,7 @@ import { BankLayer } from '../maplayers/storeLayers/bank.maplayer';
     selector: 'app-worldmap',
     templateUrl: './worldmap.component.html',
     styleUrls: ['./worldmap.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

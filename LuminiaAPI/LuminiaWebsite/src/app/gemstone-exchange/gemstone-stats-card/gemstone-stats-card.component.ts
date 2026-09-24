@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChange, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScaleType } from '@swimlane/ngx-charts';
 import { firstValueFrom } from 'rxjs';
@@ -12,6 +12,7 @@ import { ErrorSnackbarComponent } from 'src/app/snackbars/error-snackbar/error-s
     selector: 'gemstone-stats-card',
     templateUrl: './gemstone-stats-card.component.html',
     styleUrl: './gemstone-stats-card.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GemstoneStatsCardComponent {

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MapModule } from './map/map.module';
 import { HomepageModule } from './homepage/homepage.module';
 import { ItemsModule } from './items/items.module';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { PantheonModule } from './pantheon/pantheon.module';
 import { CommonModule } from '@angular/common';
 import { InfernalAlchemyModule } from './infernal-alchemy/infernal-alchemy.module';
@@ -43,7 +43,7 @@ import { GemstoneExchangeModule } from './gemstone-exchange/gemstone-exchange.mo
     NotFoundPageModule,
   ],
   providers: [
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withXhr(), withInterceptorsFromDi())
   ]
 })
 export class AppModule { }

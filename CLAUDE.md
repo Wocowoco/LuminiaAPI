@@ -6,7 +6,7 @@ Luminia is a companion website for a D&D campaign set in the world of Luminia: a
 
 ```
 LuminiaAPI.sln                  Solution: LuminiaAPI + GemstoneExchangeGenerator
-LuminiaAPI/                     ASP.NET Core 8 Web API (also hosts the built SPA)
+LuminiaAPI/                     ASP.NET Core 10 Web API (also hosts the built SPA)
   Controllers/                  REST controllers, all routed as api/[controller]
   Context/LuminiaContext.cs     EF Core DbContext (MySQL) + ILuminiaContext interface
   Entities/                     EF entities, all inherit EntityBase (ObjectId key + audit columns)
@@ -15,7 +15,7 @@ LuminiaAPI/                     ASP.NET Core 8 Web API (also hosts the built SPA
   Handlers/                     Business logic that doesn't belong in a controller
   Enums/                        Gemstone, MapLayer (mirrored in the Angular app)
   GemstoneExchangeSettings.json Per-gemstone price-simulation parameters, read at runtime
-  LuminiaWebsite/               Angular 18 front-end (see LuminiaAPI/LuminiaWebsite/CLAUDE.md)
+  LuminiaWebsite/               Angular 22 front-end (see LuminiaAPI/LuminiaWebsite/CLAUDE.md)
 GemstoneExchangeGenerator/      Console tool to generate/tune gemstone price series (dev-only)
 ```
 
@@ -23,8 +23,8 @@ Root-level `bin/` and `obj/` are stale leftovers from an old net6.0 build; ignor
 
 ## Tooling
 
-- .NET SDK 8+ (projects target `net8.0`)
-- Node.js + npm (Angular CLI 18 is a local devDependency; use `npx ng` or the npm scripts)
+- .NET SDK 10+ (projects target `net10.0`)
+- Node.js 22.22+ or 24.15+ and npm (Angular CLI 22 is a local devDependency; use `npx ng` or the npm scripts)
 - MySQL (EF Core via `MySql.EntityFrameworkCore`). There are **no EF migrations**; the schema is managed directly in the database.
 
 ## Build
@@ -69,7 +69,7 @@ dotnet publish LuminiaAPI/LuminiaAPI.csproj -c Release -o publish
 ./scripts/package.ps1
 ```
 
-Output: `LuminiaAPI.dll`/`.exe`, `appsettings.json`, `GemstoneExchangeSettings.json`, and `wwwroot/` holding the Angular app. It's framework-dependent, so the host needs the ASP.NET Core 8 runtime. A full publish takes about 3–4 minutes, mostly the Angular build.
+Output: `LuminiaAPI.dll`/`.exe`, `appsettings.json`, `GemstoneExchangeSettings.json`, and `wwwroot/` holding the Angular app. It's framework-dependent, so the host needs the ASP.NET Core 10 runtime. A full publish takes about 3–4 minutes, mostly the Angular build.
 
 ## Versioning
 

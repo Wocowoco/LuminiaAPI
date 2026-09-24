@@ -1,13 +1,13 @@
 # Luminia
 A project for all things Luminia related (API + Angular)
 
-- `LuminiaAPI/` - ASP.NET Core 8 Web API (MySQL via EF Core), also serves the built website
-- `LuminiaAPI/LuminiaWebsite/` - Angular 18 front-end
+- `LuminiaAPI/` - ASP.NET Core 10 Web API (MySQL via EF Core), also serves the built website
+- `LuminiaAPI/LuminiaWebsite/` - Angular 22 front-end
 - `GemstoneExchangeGenerator/` - console tool to generate gemstone exchange price data
 
 ## Getting started
 
-Requirements: .NET 8 SDK and Node.js.
+Requirements: .NET 10 SDK and Node.js.
 
 ```powershell
 # API - https://localhost:7276 (Swagger at /swagger)

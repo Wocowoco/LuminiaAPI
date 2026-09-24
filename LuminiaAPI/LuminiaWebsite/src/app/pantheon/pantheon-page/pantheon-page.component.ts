@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { IDeityInfo } from '../deity-info.interface';
 import { CaraDeityInfo } from '../deity-info/cara-deity-info';
 import { FenlaDeityInfo } from '../deity-info/fenla-deity-info';
@@ -19,6 +19,7 @@ import { YuvicDeityInfo } from '../deity-info/yuvic-deity-info';
     selector: 'app-pantheon-page',
     templateUrl: './pantheon-page.component.html',
     styleUrls: ['./pantheon-page.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 

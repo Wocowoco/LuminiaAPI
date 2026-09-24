@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { LuminaryService } from 'src/app/services/luminary-service/luminary.service';
 import { LuminaryVisibility } from '../luminary-visibility.enum';
@@ -7,6 +7,7 @@ import { LuminaryVisibility } from '../luminary-visibility.enum';
     selector: 'app-luminary',
     templateUrl: './luminary.component.html',
     styleUrls: ['./luminary.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LuminaryComponent implements OnInit {

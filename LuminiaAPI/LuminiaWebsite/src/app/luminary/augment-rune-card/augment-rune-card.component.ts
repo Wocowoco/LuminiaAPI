@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'augment-rune-card',
     templateUrl: './augment-rune-card.component.html',
     styleUrls: ['./augment-rune-card.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AugmentRuneCardComponent implements OnInit {

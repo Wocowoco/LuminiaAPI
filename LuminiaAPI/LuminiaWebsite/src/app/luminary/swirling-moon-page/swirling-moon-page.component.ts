@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-swirling-moon-page',
     templateUrl: './swirling-moon-page.component.html',
     styleUrls: ['./swirling-moon-page.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SwirlingMoonPageComponent implements OnInit {

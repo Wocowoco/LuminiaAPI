@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { LegendPosition, ScaleType } from '@swimlane/ngx-charts';
 import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
 import { GemstoneExchangeDataDto } from '../services/luminia-api/dtos/gemstoneExchangeData.interface';
@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'app-gemstone-exchange',
     templateUrl: './gemstone-exchange.component.html',
     styleUrls: ['./gemstone-exchange.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GemstoneExchangeComponent implements OnInit {
