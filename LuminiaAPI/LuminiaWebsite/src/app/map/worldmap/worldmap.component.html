@@ -1,13 +1,15 @@
 
- <div class="map-container">
+<div class="map-container">
   <mat-drawer-container hasBackdrop="false" class="map-container">
-     <!--Drawer content goes here-->
+    <!--Drawer content goes here-->
     <mat-drawer class="drawer" #sidePanel mode="side" position="end" id="sidePanel">
 
       <!-- Close toggle for small screens -->
-      <div *ngIf="isMobileView">
-        <button mat-stroked-button class="close-drawer-button" (click)="closeDrawer()">Close filters <i class="fa-solid fa-chevron-right"></i></button>
-      </div>
+      @if (isMobileView) {
+        <div>
+          <button mat-stroked-button class="close-drawer-button" (click)="closeDrawer()">Close filters <i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      }
 
       <div class="toggleAllLayers">
         <div class="toggleAllLayersButton" (click)="toggleAllLayers(true)">
@@ -19,19 +21,22 @@
       </div>
 
       <!-- Generate all layer toggles-->
-      <div *ngFor="let layer of allLayers" class="layerParentGroup">
-        <div (click)="layer.toggleActive()" class="toggle" [style.background-color]="layer.getBackgroundColor()">
-          <img class="icon" src="{{layer.iconUrl}}">
-          <p class="iconText">{{layer?.name}} ({{layer?.amount}})</p>
-        </div>
-
-        <div class="layerChildGroup">
-          <div (click)="childLayer.toggleActive()" class="toggle subtoggle" *ngFor="let childLayer of layer.childLayers" [style.background-color]="childLayer.getBackgroundColor()">
-            <img class="icon" src="{{childLayer.iconUrl}}">
-            <p class="iconText">{{childLayer?.name}} ({{childLayer?.amount}})</p>
+      @for (layer of allLayers; track layer) {
+        <div class="layerParentGroup">
+          <div (click)="layer.toggleActive()" class="toggle" [style.background-color]="layer.getBackgroundColor()">
+            <img class="icon" src="{{layer.iconUrl}}">
+            <p class="iconText">{{layer?.name}} ({{layer?.amount}})</p>
+          </div>
+          <div class="layerChildGroup">
+            @for (childLayer of layer.childLayers; track childLayer) {
+              <div (click)="childLayer.toggleActive()" class="toggle subtoggle" [style.background-color]="childLayer.getBackgroundColor()">
+                <img class="icon" src="{{childLayer.iconUrl}}">
+                <p class="iconText">{{childLayer?.name}} ({{childLayer?.amount}})</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
+      }
     </mat-drawer>
     <!--Map goes here-->
     <mat-drawer-content class="map-frame" >
@@ -39,5 +44,5 @@
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
- </div>
+</div>
 

@@ -111,10 +111,12 @@
     </div>
   </section>
   <div class="white-pantheon">
-    <div *ngFor="let info of whitePantheonInfo; let i = index; let last = last">
-      <ng-container [ngTemplateOutlet]="deityInfo"
+    @for (info of whitePantheonInfo; track info; let i = $index; let last = $last) {
+      <div>
+        <ng-container [ngTemplateOutlet]="deityInfo"
         [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
-    </div>
+      </div>
+    }
   </div>
 
   <!--GREY PANTHEON-->
@@ -124,10 +126,12 @@
     </div>
   </section>
   <div class="grey-pantheon">
-    <div *ngFor="let info of greyPantheonInfo; let i = index; let last = last">
-      <ng-container [ngTemplateOutlet]="deityInfo"
+    @for (info of greyPantheonInfo; track info; let i = $index; let last = $last) {
+      <div>
+        <ng-container [ngTemplateOutlet]="deityInfo"
         [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
-    </div>
+      </div>
+    }
   </div>
 
   <!--BLACK PANTHEON-->
@@ -137,10 +141,12 @@
     </div>
   </section>
   <div class="black-pantheon">
-    <div *ngFor="let info of blackPantheonInfo; let i = index; let last = last">
-      <ng-container [ngTemplateOutlet]="deityInfo"
+    @for (info of blackPantheonInfo; track info; let i = $index; let last = $last) {
+      <div>
+        <ng-container [ngTemplateOutlet]="deityInfo"
         [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
-    </div>
+      </div>
+    }
   </div>
 
   <!--MINOR DEITIES-->
@@ -150,10 +156,12 @@
     </div>
   </section>
   <div class="minor-deities">
-    <div *ngFor="let info of minorDeitiesInfo; let i = index; let last = last">
-      <ng-container [ngTemplateOutlet]="deityInfo"
+    @for (info of minorDeitiesInfo; track info; let i = $index; let last = $last) {
+      <div>
+        <ng-container [ngTemplateOutlet]="deityInfo"
         [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
-    </div>
+      </div>
+    }
   </div>
 </div>
 
@@ -167,16 +175,20 @@
       </div>
       <span>{{ info.pronoun }} of {{ info.domains }}</span>
       <div class="deity-info-grid">
-        <div class="deity-info-column" *ngIf="info.titles.length != 0">
-          <div class="deity-info-column-data">
-            <h4>Title(s)</h4>
-            <ul>
-              <li *ngFor="let title of info.titles">
-                {{ title }}
-              </li>
-            </ul>
+        @if (info.titles.length != 0) {
+          <div class="deity-info-column">
+            <div class="deity-info-column-data">
+              <h4>Title(s)</h4>
+              <ul>
+                @for (title of info.titles; track title) {
+                  <li>
+                    {{ title }}
+                  </li>
+                }
+              </ul>
+            </div>
           </div>
-        </div>
+        }
 
         <div class="deity-info-column">
           <div class="deity-info-column-data">
