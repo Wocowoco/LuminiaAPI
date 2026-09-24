@@ -16,6 +16,7 @@ import { CaraLayer } from '../maplayers/altarLayers/cara.maplayer';
 import { KazLayer } from '../maplayers/altarLayers/kaz.maplayer';
 import { KrigonLayer } from '../maplayers/altarLayers/krigon.maplayer';
 import { LokaineLayer } from '../maplayers/altarLayers/lokaine.maplayer';
+import { LuanaLayer } from '../maplayers/altarLayers/luana.maplayer';
 import { TaoidesLayer } from '../maplayers/altarLayers/taoides.maplayer';
 import { VaknorLayer } from '../maplayers/altarLayers/vaknor.maplayer';
 import { YuvicLayer } from '../maplayers/altarLayers/yuvic.maplayer';
@@ -259,6 +260,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       new KazLayer(this.map),
       new KrigonLayer(this.map),
       new LokaineLayer(this.map),
+      new LuanaLayer(this.map),
       new MirnaLayer(this.map),
       new TaoidesLayer(this.map),
       new VaknorLayer(this.map),

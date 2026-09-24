@@ -7,6 +7,7 @@ import { AtamaDeityInfo } from '../deity-info/atama-deity-info';
 import { KazDeityInfo } from '../deity-info/kaz-deity-info';
 import { KrigonDeityInfo } from '../deity-info/krigon-deity-info';
 import { LokaineDeityInfo } from '../deity-info/lokaine-deity-info';
+import { LuanaDeityInfo } from '../deity-info/luana-deity-info';
 import { MirnaDeityInfo } from '../deity-info/mirna-deity-info';
 import { TaoidesDeityInfo } from '../deity-info/taoides-deity-info';
 import { VaknorDeityInfo } from '../deity-info/vaknor-deity-info';
@@ -42,6 +43,10 @@ export class PantheonPageComponent implements OnInit {
     new LokaineDeityInfo(),
     new VaknorDeityInfo(),
     new VexDeityInfo(),
+  ];
+
+  minorDeitiesInfo : IDeityInfo[] = [
+    new LuanaDeityInfo(),
   ];
 
   ngOnInit(): void {

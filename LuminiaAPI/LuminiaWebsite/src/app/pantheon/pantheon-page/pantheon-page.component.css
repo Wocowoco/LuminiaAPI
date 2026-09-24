@@ -26,7 +26,7 @@
 
 .pantheon-summary{
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-wrap: wrap;
   justify-content: center;
   flex-direction: row;
@@ -46,9 +46,9 @@
 }
 
 .pantheon-card {
-  width: 26%;
-  min-width: 260px;
-  margin: 5px 15px 5px 15px;
+  width: 21%;
+  min-width: 220px;
+  margin: 5px 10px 5px 10px;
 }
 
 .pantheon-card-header {
@@ -96,6 +96,16 @@
   color: #FBFBF2;
 }
 
+.minor-deities{
+  background-color: #F7F4EA;
+  color: #2C2B25 !important;
+}
+
+.minor-deities-summary{
+  background-color: #FAF8F1;
+  color: #2C2B25;
+}
+
 .mat-mdc-outlined-button {
   display: flex;
   justify-content: center;
@@ -115,6 +125,9 @@
 }
 .grey-to-black{
   background: linear-gradient(180deg, rgba(223,226,223,1) 50%, rgba(82,82,82,1) 50%);
+}
+.black-to-minor{
+  background: linear-gradient(180deg, rgba(82,82,82,1) 50%, rgba(247,244,234,1) 50%);
 }
 
 .deity-display{

@@ -91,6 +91,17 @@
         </button>
       </mat-card-content>
     </mat-card>
+    <mat-card appearance="outlined" class="pantheon-card minor-deities-summary">
+      <mat-card-header class="pantheon-card-header">Minor Deities</mat-card-header>
+      <mat-card-content class="pantheon-card-content">
+        <button mat-stroked-button class="minor-deities" (click)="navigate('Luana')">
+          <div class="patheon-button">
+            Luana
+            <img src="../../../assets/images/pantheon/luana-icon.png">
+          </div>
+        </button>
+      </mat-card-content>
+    </mat-card>
   </div>
 
   <!--WHITE PANTHEON-->
@@ -127,6 +138,19 @@
   </section>
   <div class="black-pantheon">
     <div *ngFor="let info of blackPantheonInfo; let i = index; let last = last">
+      <ng-container [ngTemplateOutlet]="deityInfo"
+        [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
+    </div>
+  </div>
+
+  <!--MINOR DEITIES-->
+  <section class="black-to-minor">
+    <div class="sub-title-down">
+      <h2>Minor Deities</h2>
+    </div>
+  </section>
+  <div class="minor-deities">
+    <div *ngFor="let info of minorDeitiesInfo; let i = index; let last = last">
       <ng-container [ngTemplateOutlet]="deityInfo"
         [ngTemplateOutletContext]="{ info: info, index: i, last: last }"></ng-container>
     </div>
