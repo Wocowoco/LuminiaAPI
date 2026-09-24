@@ -61,7 +61,7 @@ The Angular app picks its API base URL from `environment.production` in `Luminia
 
 ## Package / deploy
 
-The API project serves the SPA. `dotnet publish` runs `npm install` and `npm run build` in `LuminiaWebsite`, then copies `dist/**` into `wwwroot/` of the publish output (see the `PublishRunWebpack` target in `LuminiaAPI.csproj`). `Program.cs` serves it with `UseStaticFiles()` and `MapFallbackToFile("index.html")`.
+The API project serves the SPA. `dotnet publish` runs `npm install` and `npm run build` in `LuminiaWebsite`, then copies `dist/**` into `wwwroot/` of the publish output, except the map tile sets `assets/map` and `assets/mapDM`, which are deployed to the server separately (see the `PublishRunWebpack` target in `LuminiaAPI.csproj`). `Program.cs` serves it with `UseStaticFiles()` and `MapFallbackToFile("index.html")`.
 
 ```powershell
 dotnet publish LuminiaAPI/LuminiaAPI.csproj -c Release -o publish
@@ -69,7 +69,7 @@ dotnet publish LuminiaAPI/LuminiaAPI.csproj -c Release -o publish
 ./scripts/package.ps1
 ```
 
-Output: `LuminiaAPI.dll`/`.exe`, `appsettings.json`, `GemstoneExchangeSettings.json`, and `wwwroot/` holding the Angular app. It's framework-dependent, so the host needs the ASP.NET Core 10 runtime. A full publish takes about 3–4 minutes, mostly the Angular build.
+Output: `LuminiaAPI.dll`/`.exe`, `appsettings.json`, `GemstoneExchangeSettings.json`, and `wwwroot/` holding the Angular app. It's framework-dependent, so the host needs the ASP.NET Core 10 runtime. A full publish takes about 1 minute, mostly `npm install`.
 
 ## Versioning
 

@@ -43,9 +43,9 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --" />
 
-    <!-- Include the newly-built files in the publish output -->
+    <!-- Include the newly-built files in the publish output. The map tile sets are deployed separately, so leave them out. -->
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" Exclude="$(SpaRoot)dist\assets\map\**; $(SpaRoot)dist\assets\mapDM\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
