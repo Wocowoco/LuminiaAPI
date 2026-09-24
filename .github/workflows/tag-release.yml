@@ -1,0 +1,31 @@
+# Creates the vX.Y.Z git tag once a version bump (made with the bump-version skill) lands on main.
+name: Tag release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - LuminiaAPI/LuminiaWebsite/src/assets/version.json
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Tag the merge commit with the new version
+        run: |
+          version=$(jq -r .version LuminiaAPI/LuminiaWebsite/src/assets/version.json)
+          tag="v$version"
+          if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
+            echo "Tag $tag already exists, nothing to do."
+            exit 0
+          fi
+          git tag "$tag" "$GITHUB_SHA"
+          git push origin "$tag"
+          echo "Created tag $tag on $GITHUB_SHA"

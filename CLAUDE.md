@@ -71,7 +71,11 @@ dotnet publish LuminiaAPI/LuminiaAPI.csproj -c Release -o publish
 
 Output: `LuminiaAPI.dll`/`.exe`, `appsettings.json`, `GemstoneExchangeSettings.json`, and `wwwroot/` holding the Angular app. It's framework-dependent, so the host needs the ASP.NET Core 8 runtime. A full publish takes about 3–4 minutes, mostly the Angular build.
 
-Before a release, bump `LuminiaWebsite/src/assets/version.json`; the navbar displays it.
+## Versioning
+
+The version lives in `LuminiaWebsite/src/assets/version.json` (the navbar displays it), with a matching `vX.Y.Z` git tag per release. Bump it with the `/bump-version` skill (`.claude/skills/bump-version`), which updates the file, commits and pushes the branch. Don't edit the version by hand, and don't create version tags on branches: the `Tag release` GitHub Action (`.github/workflows/tag-release.yml`) tags the merge commit once the bump lands on `main`.
+
+**Before creating a pull request, always ask the user (AskUserQuestion) whether to bump the version:** Major (e.g. 3.0.0), Minor (e.g. 2.2.0), Bugfix (e.g. 2.1.1), or No bump, with the real numbers computed from the current version. If they pick a bump, run the `bump-version` skill with that level before opening the PR.
 
 Stale config (don't rely on it): `Properties/PublishProfiles/FolderProfile.pubxml` still points at `net6.0`, and the `deploy` target in `angular.json` refers to `@angular/fire`, which isn't installed.
 
