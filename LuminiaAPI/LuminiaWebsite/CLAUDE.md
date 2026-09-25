@@ -24,7 +24,7 @@ Each feature is a folder with its own `*.module.ts` that declares its components
 | `/items` | `items/` | item list + filter |
 | `/pantheon` | `pantheon/` | one `deity-info/*.ts` data file per deity |
 | `/calendar` | `calendar/` | in-game date |
-| `/infernal-alchemy` | `infernal-alchemy/` | |
+| `/infernal-alchemy` | `infernal-alchemy/` | research tree layout in `research-tree/research-tree.data.ts`, unlocked nodes in `research-tree/research-progress.ts`; icons in `src/assets/images/infernal-alchemy/research/`; edit via the `research-tree` skill |
 | `/gemstone-exchange`, `/gemstone-exchange/:dmCode` | `gemstone-exchange/` | ngx-charts graphs |
 | `/luminaries`, `/luminaries/swirling-moon` | `luminary/` | visibility driven by `assets/luminary-settings.json` |
 | `/dm/:dmCode` | `dm-page/` | DM tools (set current date, map names, generate gemstone day) |
