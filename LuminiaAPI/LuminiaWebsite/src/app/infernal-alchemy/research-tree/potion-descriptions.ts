@@ -86,4 +86,20 @@ export const potionDescriptions: Record<string, PotionDescription> = {
     },
     // (Moroz will use Blueberries instead of Redberries for its Save DC upgrades.)
   },
+  'herbal-potion': {
+    rarity: 'uncommon',
+    text: 'When you drink this potion as a **bonus action, roll a d10** to determine the outcome of the potion.',
+    stats: {},
+    retail: 35,
+    ingredients: { 'silverdew': 1, 'leycap': 1, 'yellowleaf': 10 },
+  },
+  'bottled-moonlight': {
+    rarity: 'rare',
+    text: 'Can be used as a component for spells requiring **moonlight**. As an **action**, it can also be thrown up to **60ft**, '
+      + 'exploding in a burst of moonlight in a **5 foot radius sphere**, dealing **2d10 radiant damage** on a failed '
+      + '**DC12 Constitution saving throw**, or half as much on a successful one.',
+    stats: {},
+    retail: 175,
+    ingredients: { 'silverdew': 1, 'moonstone': 1, 'moonbloom': 1 },
+  },
 };

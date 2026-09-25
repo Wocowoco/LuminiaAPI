@@ -62,6 +62,7 @@ Node states on the page follow from the data: unlocked (gold), available (teal: 
 | Healing | 0 | `healing` (0,0) → `healing-1` → Greater Healing chain along row 0 |
 | Hybrid | 1-3 | `hybrid` (2,2) needs `healing-1` and `mana-1` (both via bus col 1); its branches use bus col 2.5 |
 | Mana | 4-7 | `mana` (0,4); `mana-*` down col 1; Greater Mana chain along row 4, then down col 3 |
+| Standalone potions | 8 | `herbal-potion` (0,8) and `bottled-moonlight` (2,8): potions without parents or upgrades |
 | Smoozies hub | 7-21 | root `smoozies` (0,14); bus col 1 feeds the Smoozi types in col 2 |
 | Bandera (fire) | 7-11 | `bandera` (2,9); bus col 3 → one branch per row, starting in col 4 |
 | Catapultable / +1 DC all | 11.5 / 16.5 | single nodes on the Smoozies bus |

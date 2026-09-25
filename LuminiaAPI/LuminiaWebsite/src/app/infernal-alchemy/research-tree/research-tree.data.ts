@@ -96,6 +96,10 @@ export const researchTree: ResearchNode[] = [
   { id: 'greater-mana-2', label: SLOT_2, icon: 'spellslot-2.jpg', col: 3, row: 5, cost: 3, effect: { slots2: 1 }, parents: ['greater-mana-1'] },
   { id: 'greater-mana-3', label: SLOT_2, icon: 'spellslot-2.jpg', col: 3, row: 6, cost: 4, effect: { slots2: 1 }, parents: ['greater-mana-2'] },
 
+  // Standalone potions (no upgrades)
+  { id: 'herbal-potion', label: 'Herbal Potion', icon: 'potion-herbal.png', col: 0, row: 8, major: true },
+  { id: 'bottled-moonlight', label: 'Bottled Moonlight', icon: 'potion-bottled-moonlight.png', col: 2, row: 8, major: true },
+
   // Smoozies
   { id: 'smoozies', label: 'Smoozies', icon: 'smoozies.png', col: 0, row: 14, major: true },
   { id: 'catapult', label: 'Catapultable Smoozies', icon: 'catapult.jpg', col: 2, row: 11.5, cost: 5, parents: [bus('smoozies', 1)] },

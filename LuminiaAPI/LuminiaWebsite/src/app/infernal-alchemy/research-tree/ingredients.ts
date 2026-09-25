@@ -7,10 +7,13 @@ export const ingredients: Record<string, { name: string, price: number }> = {
   'emberleaf': { name: 'Emberleaf', price: 25 },
   'leycap': { name: 'Leycap', price: 8 },
   'lingervine': { name: 'Lingervine', price: 20 },
+  'moonbloom': { name: 'Moonbloom', price: 75 },
+  'moonstone': { name: 'Moonstone', price: 10 },
   'redberry': { name: 'Redberry', price: 0.01 },
   'shatterbud': { name: 'Shatterbud', price: 5 },
   'silverdew': { name: 'Silverdew', price: 10 },
   'sunflower-oil': { name: 'Sunflower Oil', price: 0.5 },
+  'yellowleaf': { name: 'Yellowleaf', price: 0.01 },
 };
 
 /**
