@@ -24,13 +24,15 @@ Each feature is a folder with its own `*.module.ts` that declares its components
 | `/items` | `items/` | item list + filter |
 | `/pantheon` | `pantheon/` | one `deity-info/*.ts` data file per deity |
 | `/calendar` | `calendar/` | in-game date |
-| `/infernal-alchemy` | `infernal-alchemy/` | research tree layout in `research-tree/research-tree.data.ts`, unlocked nodes in `research-tree/research-progress.ts`; icons in `src/assets/images/infernal-alchemy/research/`; edit via the `research-tree` skill |
+| `/infernal-alchemy` | `infernal-alchemy/` | research tree layout in `research-tree/research-tree.data.ts`, unlocked nodes in the database (`luminia.alchemicalresearchtreeunlocks`, edited on the DM page); icons in `src/assets/images/infernal-alchemy/research/`; potion texts in `research-tree/potion-descriptions.ts`; edit via the `research-tree` skill |
 | `/gemstone-exchange`, `/gemstone-exchange/:dmCode` | `gemstone-exchange/` | ngx-charts graphs |
 | `/luminaries`, `/luminaries/swirling-moon` | `luminary/` | visibility driven by `assets/luminary-settings.json` |
 | `/dm/:dmCode` | `dm-page/` | DM tools (set current date, map names, generate gemstone day) |
 | `/404`, `**` | `not-found-page/` | must stay the last imported module in `app.module.ts` so the wildcard route matches last |
 
 Routes with `:dmCode` are protected by `guards/dm-check/DmCheckGuard`.
+
+Shared UI lives in `general/`, one module per component (import the module where you use it): `spell-info-block/` (spell stat block) and `rarity-card/` (`<app-rarity-card>`: the common/uncommon/rare/epic/legendary item card used for augment runes and potions; description as content, `card-footer` slot, size via `--rarity-card-max-width` / `--rarity-card-min-height`).
 
 ## Talking to the API
 

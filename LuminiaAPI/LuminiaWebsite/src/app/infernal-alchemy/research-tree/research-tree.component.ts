@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { GridPoint, ResearchNode, ResearchParent, researchTree } from './research-tree.data';
-import { unlockedResearch } from './research-progress';
+import { PotionView, describePotion, upgradeCosts } from './potions';
 
 type NodeState = 'unlocked' | 'available' | 'locked';
 type EdgeState = 'done' | 'open' | 'partial' | 'locked';
@@ -17,6 +17,10 @@ interface NodeView {
   labelY: number;
   icon: string;
   requires: string;
+  /** What the potion does, for potion nodes that have a description. */
+  potion: PotionView | null;
+  /** What an upgrade adds to brewing each potion (ingredients only, no prices). */
+  brewing: string[];
 }
 
 interface EdgeView {
@@ -67,6 +71,8 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
   width = 0;
   height = 0;
   selected: NodeView | null = null;
+  /** True until the unlocked nodes have been loaded. */
+  loading = true;
 
   private view = { x: 0, y: 0, k: 1 };
   private pointers = new Map<number, { x: number, y: number }>();
@@ -76,8 +82,16 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
   private userMoved = false;
   private resizeObserver?: ResizeObserver;
 
+  /** Ids of the unlocked nodes (from the database); null while they're still loading. */
+  @Input() set unlocked(value: ReadonlySet<string> | null) {
+    this.loading = value === null;
+    const selectedId = this.selected?.node.id;
+    this.build(value ?? new Set());
+    this.selected = this.nodes.find(n => n.node.id === selectedId) ?? null;
+  }
+
   constructor() {
-    this.build();
+    this.build(new Set());
   }
 
   ngAfterViewInit(): void {
@@ -92,9 +106,12 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
 
   // ---- Building the view model ----
 
-  private build(): void {
+  private build(unlocked: ReadonlySet<string>): void {
+    this.nodes = [];
+    this.edges = [];
+    this.badges = [];
+    this.arrows = [];
     const byId = new Map(researchTree.map(n => [n.id, n]));
-    const unlocked = new Set(unlockedResearch);
     const parentsOf = (n: ResearchNode) => (n.parents ?? []).map(p => typeof p === 'string' ? { from: p } as ResearchParent : p);
     const state = (n: ResearchNode): NodeState =>
       unlocked.has(n.id) ? 'unlocked'
@@ -117,7 +134,7 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
         const points = route(from, n, p).map(([c, r]) => [px(c), py(r)] as const);
         const edgeState: EdgeState = nodeState === 'unlocked' ? 'done'
           : unlocked.has(from.id) ? (nodeState === 'available' ? 'open' : 'partial') : 'locked';
-        this.edges.push({ d: 'M' + points.map(([x, y]) => `${x},${y}`).join(' L'), state: edgeState, secondary: i > 0 });
+        this.edges.push({ d: 'M' + points.map(([x, y]) => `${x},${y}`).join(' L'), state: edgeState, secondary: i > 0 && !p.thick });
 
         if (i === 0 && n.cost) {
           const [bx, by] = n.badge
@@ -136,13 +153,16 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
       }
 
       const labelLines = wrap(n.label, LABEL_CHARS);
+      const potion = n.major ? describePotion(n.id, unlocked) : null;
       // Relative to the node's centre: the label sits above it, growing upwards
       const top = -(n.major ? MAJOR / 2 : HEX_R) - 8;
       this.nodes.push({
         node: n, x, y, state: nodeState, labelLines,
         labelY: top - (labelLines.length - 1) * 11,
         icon: `assets/images/infernal-alchemy/research/${n.icon}`,
-        requires: parents.map(p => byId.get(p.from)?.label ?? p.from).join(' & ')
+        requires: parents.map(p => byId.get(p.from)?.label ?? p.from).join(' & '),
+        potion,
+        brewing: upgradeCosts(n)
       });
     }
 

@@ -1,0 +1,21 @@
+/**
+ * Brewing ingredients and their market price in gold, used for the potions' brewing costs
+ * (see `ingredients` in potion-descriptions.ts).
+ */
+export const ingredients: Record<string, { name: string, price: number }> = {
+  'blueberry': { name: 'Blueberry', price: 0.01 },
+  'emberleaf': { name: 'Emberleaf', price: 25 },
+  'leycap': { name: 'Leycap', price: 8 },
+  'lingervine': { name: 'Lingervine', price: 20 },
+  'redberry': { name: 'Redberry', price: 0.01 },
+  'shatterbud': { name: 'Shatterbud', price: 5 },
+  'silverdew': { name: 'Silverdew', price: 10 },
+  'sunflower-oil': { name: 'Sunflower Oil', price: 0.5 },
+};
+
+/**
+ * Buying the raw materials for a potion from the shop costs this times the potion's retail price.
+ * A potion's retail price is its base retail price plus the market price of the extra ingredients
+ * its unlocked upgrades need.
+ */
+export const SHOP_MODIFIER = 0.8;

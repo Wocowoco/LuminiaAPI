@@ -17,7 +17,10 @@
        (pointerdown)="onPointerDown($event)" (pointermove)="onPointerMove($event)"
        (pointerup)="onPointerUp($event)" (pointercancel)="onPointerUp($event)"
        (wheel)="onWheel($event)">
-    <svg class="tree" role="img" aria-label="Alchemical research tree">
+    @if (loading) {
+      <div class="loading" role="status">Loading research…</div>
+    }
+    <svg class="tree" [class.dimmed]="loading" role="img" aria-label="Alchemical research tree">
       <defs>
         <clipPath id="rt-hex" clipPathUnits="objectBoundingBox">
           <polygon points="0.5,0 0.933,0.25 0.933,0.75 0.5,1 0.067,0.75 0.067,0.25" />
@@ -79,7 +82,11 @@
         <div class="details-meta">
           @if (selected.node.cost) { <span>Cost: {{selected.node.cost}} Research {{selected.node.cost === 1 ? 'Point' : 'Points'}}</span> }
           @if (selected.requires) { <span>Requires: {{selected.requires}}</span> } @else { <span>Starting research</span> }
+          @for (line of selected.brewing; track $index) { <span class="brewing-cost">Brewing: {{line}}</span> }
         </div>
+        @if (selected.potion) {
+          <app-potion-text class="potion-text" [paragraphs]="selected.potion.paragraphs"></app-potion-text>
+        }
       </div>
     } @else {
       <p class="hint">Tap a node for details. Drag to move, pinch or use the buttons to zoom.</p>

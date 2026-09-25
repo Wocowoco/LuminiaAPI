@@ -1,0 +1,28 @@
+<mat-card appearance="outlined" class="card-group unlocks">
+  <mat-card-header class="card-header">Research unlocks</mat-card-header>
+  <mat-card-content>
+    <p class="intro">Tick the Alchemical Research Tree nodes the party has unlocked. Nodes with a warning are ticked while one of their parents isn't.</p>
+    <div class="groups">
+      @for (group of groups; track group.title) {
+        <fieldset>
+          <legend>{{group.title}}</legend>
+          @for (node of group.nodes; track node.id) {
+            <label [class.major]="node.major">
+              <input type="checkbox" [checked]="checked.has(node.id)" (change)="toggle(node.id, $any($event.target).checked)">
+              <span class="name">{{node.label}}</span>
+              <span class="id">{{node.id}}</span>
+              @if (missingParents(node); as missing) {
+                <span class="warning" [title]="'Needs: ' + missing">⚠ needs {{missing}}</span>
+              }
+            </label>
+          }
+        </fieldset>
+      }
+    </div>
+    <div class="actions">
+      <span class="status">{{dirty ? 'Unsaved changes' : status}}</span>
+      <button mat-stroked-button (click)="reset()" [disabled]="!dirty || saving">Reset</button>
+      <button mat-flat-button (click)="save()" [disabled]="!dirty || saving">Save</button>
+    </div>
+  </mat-card-content>
+</mat-card>

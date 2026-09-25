@@ -1,0 +1,62 @@
+<aside class="shop-info" aria-label="Buying materials from a store">
+  <div class="shop-badge">×{{shopModifier}}</div>
+  <p>
+    <strong>Brewing a potion.</strong> Gather the ingredients yourself, or skip ahead and buy the materials from a store
+    for <strong>{{shopModifier}} × the potion's retail price</strong>. Potion upgrades raise the retail price by the cost of the extra
+    ingredients they need.
+  </p>
+</aside>
+
+@if (loading) {
+  <p class="hint">Loading your potions…</p>
+} @else if (!potions.length) {
+  <p class="hint">No potions unlocked yet.</p>
+}
+
+<div class="cards">
+  @for (potion of potions; track potion.node.id) {
+    <app-rarity-card [rarity]="potion.rarity" [name]="potion.node.label" [icon]="potion.icon">
+      <app-potion-text [paragraphs]="potion.paragraphs"></app-potion-text>
+      <div card-footer class="footer">
+        <section class="brewing" aria-label="Brewing one potion">
+          <dl class="prices">
+            <div>
+              <dt>Retail price</dt>
+              <dd>
+                @if (potion.brewing.retailUpgraded) {
+                  <mark [title]="potion.brewing.retailTip">{{potion.brewing.retail}}</mark>
+                } @else {
+                  {{potion.brewing.retail}}
+                }
+              </dd>
+            </div>
+            <div>
+              <dt>Store materials</dt>
+              <dd>{{potion.brewing.store}}</dd>
+            </div>
+          </dl>
+          <div class="label">Ingredients per potion</div>
+          <ul class="ingredients">
+            @for (line of potion.brewing.ingredients; track line.name) {
+              <li>
+                @if (line.upgraded) {
+                  <mark [title]="line.tip ?? ''">{{line.amount}}×</mark>
+                } @else {
+                  <span class="amount">{{line.amount}}×</span>
+                }
+                {{line.name}}
+              </li>
+            }
+          </ul>
+        </section>
+        @if (potion.upgrades.length) {
+          <ul class="upgrades" aria-label="Unlocked upgrades">
+            @for (upgrade of potion.upgrades; track upgrade) {
+              <li>{{upgrade}}</li>
+            }
+          </ul>
+        }
+      </div>
+    </app-rarity-card>
+  }
+</div>

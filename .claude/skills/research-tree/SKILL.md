@@ -1,6 +1,6 @@
 ---
 name: research-tree
-description: Edit the Alchemical Research Tree on the Infernal Alchemy page - unlock or re-lock nodes, add upgrade nodes, add a new potion or Smoozi type (making room by shifting the layout), move or re-route nodes, and add icons. Use whenever the user wants to change what's in the research tree, what's unlocked, or how it's laid out.
+description: Edit the Alchemical Research Tree and the "Your Potions" descriptions on the Infernal Alchemy page - unlock or re-lock nodes, add upgrade nodes, add a new potion or Smoozi type (making room by shifting the layout), move or re-route nodes, add icons, and write or change what potions and upgrades do. Use whenever the user wants to change what's in the research tree, what's unlocked, how it's laid out, or a potion's description text.
 argument-hint: "[what to change, e.g. 'unlock bandera-fire-2' or 'add a Frost potion between Mana and Smoozies']"
 ---
 
@@ -11,18 +11,21 @@ The tree is static data compiled into the Angular app. Changes go live with the 
 | What | Where |
 |---|---|
 | Layout, nodes, costs, lines | `LuminiaAPI/LuminiaWebsite/src/app/infernal-alchemy/research-tree/research-tree.data.ts` |
-| Which nodes are unlocked | `LuminiaAPI/LuminiaWebsite/src/app/infernal-alchemy/research-tree/research-progress.ts` |
+| Which nodes are unlocked | **Database**, table `luminia.alchemicalresearchtreeunlocks` (one row per node id), via `GET`/`PUT api/InfernalAlchemy/research-unlocks`. The DM edits it on the DM page (`/dm/<code>`, "Research unlocks" card). Table script: `scripts/sql/research-unlocks.sql` |
+| What potions do: text, stats, rarity, retail price and recipe | `LuminiaAPI/LuminiaWebsite/src/app/infernal-alchemy/research-tree/potion-descriptions.ts` |
+| Ingredient prices and the shop modifier (0.8) | `LuminiaAPI/LuminiaWebsite/src/app/infernal-alchemy/research-tree/ingredients.ts` |
 | Node icons (96x96) | `LuminiaAPI/LuminiaWebsite/src/assets/images/infernal-alchemy/research/` |
-| Rendering (states, colours, pan/zoom) | `research-tree.component.{ts,html,css}` in the same folder; normally untouched |
+| Rendering | `research-tree.component.*` (tree), `potion-cards.component.*` and `potion-text.component.ts` (descriptions), `potions.ts` (applies upgrades to the text); normally untouched |
 | Helper scripts | `scripts/research-tree/` (below) |
 
 Always run the validator after an edit and fix what it reports:
 
 ```powershell
 node scripts/research-tree/validate.mjs
+node scripts/research-tree/validate.mjs --unlocked healing,healing-1,mana   # also check a list of unlocked ids
 ```
 
-It reports unknown or duplicate ids, two nodes on one cell, lines that run through another node, missing icons, unknown ids in the progress file, extra parents that aren't to the left of their node, and unlocked nodes whose parents aren't unlocked.
+It reports unknown or duplicate ids, two nodes on one cell, lines that run through another node, missing icons, unknown ids in the progress file, extra parents that aren't to the left of their node, and unlocked nodes whose parents aren't unlocked. For descriptions it reports unknown `{placeholders}`, upgrade stats a description doesn't use yet, unlocked potions without a description, and unlocked special upgrades that add nothing to the text.
 
 ## How the data works
 
@@ -36,7 +39,7 @@ Each node is one object in `researchTree`:
 - **`col` / `row`:** grid cell. Columns run to the right and rows run downwards. Halves are allowed (e.g. `row: 11.5`). One column is 104 SVG units and one row is 120.
 - **`parents`:** a node is unlockable once **all** parents are unlocked.
   - The **first** parent is the main line, and the node's `cost` badge is drawn on it.
-  - Any **extra** parents are the thin "also requires" lines. They always run **left to right**: the parent must be in a column to the left of the node. Use `{ from: 'id', via: [] }` for a straight diagonal.
+  - Any **extra** parents are the thin "also requires" lines. They always run **left to right**: the parent must be in a column to the left of the node. Use `{ from: 'id', via: [] }` for a straight diagonal. Add `thick: true` to an extra parent when it should be a full line instead (like Hybrid Potion's line from `mana-1`: it needs both potions' upgrades equally).
 - **Line routing** (per parent):
   - Default: straight if the node is in the same row or column as the parent, otherwise horizontal from the parent, then vertical into the node.
   - `bus('id', col)`: go right to column `col`, along it, then into the node. This is how hubs fan out: Smoozies uses bus column 1, Bandera uses 3, Hybrid uses 2.5.
@@ -45,8 +48,10 @@ Each node is one object in `researchTree`:
 - **`major: true`:** potions and Smoozi types, drawn as a large rounded square instead of a hexagon.
 - **`continues: true`:** draws an arrow after the node ("more to come").
 - **`badge: [c, r]`:** moves the cost badge. Use it when the default spot (the middle of the main line's last segment) lands on a junction or another badge.
+- **`effect: { stat: amount }`:** what the upgrade adds to its potion's description stats once unlocked, e.g. `{ damage: 1 }` (one extra damage die), `{ radius: 5 }`, `{ dc: 1 }`, `{ healing: 1 }`, `{ slots1: 1 }`, `{ lingering: 1 }`, `{ duration: 1 }`. The potion is the nearest `major` node up the chain of first parents. Under a group without its own description (Smoozies), the upgrade applies to every potion in the group, which is how "+1 Save DC to all Smoozies" works.
+- **`effectText`:** a sentence added to the potion's description once the upgrade is unlocked. Use it for special upgrades (Set targets on fire, Blindness, …). It can use the potion's `{stat}` placeholders and `**bold**`.
 - Shared labels use the constants at the top (`HEAL`, `SLOT_1`, `SLOT_2`, `RADIUS`, `LINGER`, `SAVE_DC`, `DURATION`). Add a constant when a new label repeats.
-- **Ids** are `<section>-<effect>[-<n>]`, e.g. `moroz-cold-3` or `halima-dc-b`. Ids are what the progress file references, so don't rename existing ids unless the progress file is updated too.
+- **Ids** are `<section>-<effect>[-<n>]`, e.g. `moroz-cold-3` or `halima-dc-b`. The database stores unlocks by id, so don't rename an existing id without giving the user the matching SQL, e.g. `UPDATE luminia.alchemicalresearchtreeunlocks SET NodeId = 'new-id' WHERE NodeId = 'old-id';`. Removing a node leaves a stale row, which the page ignores; give the `DELETE` too.
 
 Node states on the page follow from the data: unlocked (gold), available (teal: all parents unlocked), locked (grey). A dotted teal line means the parent is unlocked but the node still needs another parent.
 
@@ -76,15 +81,61 @@ Re-read the data file before relying on this table; it may have changed.
 
 ### Change what's unlocked
 
-Edit the `unlockedResearch` list in `research-progress.ts`: add ids to unlock, remove ids to re-lock. Many labels repeat ("+1 Save DC" appears 16 times), so if the user names a node by label, find the matching id by section and position. If it's still ambiguous, confirm with AskUserQuestion. Starting nodes (no cost) need to be listed too once the party has them. Run the validator: a warning that an unlocked node's parents aren't unlocked usually means an id was forgotten.
+Unlocks live in the production database, not in the code, so don't try to change them yourself. The DM ticks nodes on the DM page (`/dm/<code>` → "Research unlocks", then Save). If the user asks you to unlock something, point them there, or give them SQL for the MySQL database:
+
+```sql
+INSERT IGNORE INTO luminia.alchemicalresearchtreeunlocks (NodeId, CreationUser, CreationDate) VALUES ('bandera-fire-2', 'LuminiaDb', NOW());
+DELETE FROM luminia.alchemicalresearchtreeunlocks WHERE NodeId = 'bandera-fire-2';
+```
+
+Many labels repeat ("+1 Save DC" appears 16 times), so if the user names a node by label, find the matching id by section and position. If it's still ambiguous, confirm with AskUserQuestion. Starting nodes (no cost) need a row too once the party has them. To check a list of unlocked ids (e.g. from `SELECT NodeId FROM luminia.alchemicalresearchtreeunlocks`) against the tree, run the validator with `--unlocked id1,id2,...`. It warns about unlocked nodes whose parents aren't unlocked.
 
 ### Add upgrade nodes to an existing branch
 
 1. Pick a free cell. Usually that's the next column in the chain's row; for a new branch, a new row under the hub.
-2. Add the node object near its section, with the parents, cost and icon. Reuse an existing icon where the effect matches (list the icon folder).
+2. Add the node object near its section, with the parents, cost, icon and `effect` (or `effectText`) so it shows up in its potion's description. Reuse an existing icon where the effect matches (list the icon folder).
 3. If a chain continues past the node, move `continues: true` from the old last node to the new one.
 4. If there's no free row, shift the layout first (next task).
 5. Validate.
+
+### Write or change what a potion does
+
+Potion descriptions show in the "Your Potions" cards (every unlocked potion that has a description) and in the tree's details strip when a potion node is tapped. They live in `potion-descriptions.ts`, keyed by the potion's node id:
+
+```ts
+'bandera': {
+  rarity: 'uncommon',
+  text: 'As an **action**, you throw this potion ... dealing **{damage} fire damage** to all creatures '
+    + '**within {radius} of the impact**, or half as much on a successful **DC{dc} Dexterity saving throw**.',
+  stats: {
+    damage: { base: { dice: 1, sides: 6 } },    // dice stat: each +1 adds a die -> 2d6
+    radius: { base: 5, format: feet },           // number stat with a formatter -> "10ft"
+    dc: { base: 12 },                            // plain number -> "13"
+  },
+},
+```
+
+- The user usually pastes the text from Obsidian (`**bold**` and `<mark>` highlights). Keep their `**bold**`, drop the `<mark>` styling, and write the **base** (un-upgraded) values as `{stat}` placeholders. The page highlights values that upgrades raised on its own, with a tooltip giving the base value.
+- `rarity`: `common`, `uncommon`, `rare`, `epic` or `legendary`. It sets the card's colour and label (the shared `<app-rarity-card>` from `general/rarity-card/`). Ask the user if they didn't say.
+- Dice stats: `{ dice, sides, perDie? }`. `perDie: 1` gives "2d4+2" and grows to "3d4+3".
+- Number stats take an optional `format`, e.g. for units or plurals (see `slots1` on the Mana Potion).
+- Make sure the upgrade nodes carry matching `effect` names. The validator warns about stats that upgrades change but a description doesn't use yet (e.g. Bandera's `lingering`). Ask the user for the wording, then add a placeholder to the text, or an `effectText` on the upgrade.
+- Special upgrades without a number (Set targets on fire, Spiky Crystals, Berserk, …) get an `effectText` once the user supplies the rule text. Until then they show only as a chip on the potion's card.
+- If a potion that isn't unlocked yet gets a description, it only shows in the tree's details strip until it's unlocked.
+
+### Brewing costs (recipes, retail prices, ingredient prices)
+
+Each potion card shows, for **one** potion: its **retail price**, the price for **buying the materials from a store** (`SHOP_MODIFIER`, 0.8 in `ingredients.ts`, × retail), and the **ingredient list** (amounts only). Players either gather the ingredients themselves or skip ahead by buying from the store. Herb prices aren't shown; they only drive how much upgrades raise the retail price.
+
+The rules, all per potion:
+
+- `retail` is the base retail price. Each unlocked upgrade raises it by the market price of the extra ingredients it needs, so the shop price rises by 0.8 × that. Both prices on the card are rounded **up** to whole gold; the store price is 0.8 × the rounded retail price, rounded up again.
+- Tapping an upgrade node in the tree shows the ingredients it adds per potion (e.g. "+0.5× Emberleaf per potion"). The tree never shows gold prices; those are only on the potion cards.
+- `ingredients` is the base recipe for one potion. Potions brewed in pairs use halves (Bandera: 1 Oil + 1 Emberleaf + 1 Shatterbud make two, so 0.5 each).
+- `upgradeIngredients: { stat: { ingredient: amount } }`: extras per unlocked upgrade node that changes that stat. Bandera: `damage` +0.5 Emberleaf, `radius` +0.5 Shatterbud, `dc` +25 Redberry, `lingering` +1 Lingervine. The per-potion keying is how the same kind of upgrade can cost different things on different potions: Moroz's Save DC upgrades use Blueberries instead of Redberries.
+- Special upgrades without a stat put `ingredients: { ... }` on the node itself (Set targets on fire: +1 Emberleaf).
+- Ingredient ids and market prices live in `ingredients.ts`. Add new herbs there; the validator reports unknown ids.
+- Amounts raised by upgrades, and the upgraded retail price, get the gold highlight. Tooltips show the base values.
 
 ### Insert a new potion or Smoozi type (make room)
 

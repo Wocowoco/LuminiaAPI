@@ -2,6 +2,10 @@
 // (missing lines, overlapping nodes, missing icons). Exits with code 1 when there are errors.
 //
 //   node scripts/research-tree/validate.mjs
+//   node scripts/research-tree/validate.mjs --unlocked healing,healing-1,mana   # also check a list of unlocked ids
+//
+// Unlocked nodes live in the database (table luminia.alchemicalresearchtreeunlocks); pass their ids with --unlocked
+// to check them against the tree.
 //
 // Needs Node 22.18+ (imports the .ts data files directly).
 
@@ -14,7 +18,8 @@ const treeDir = join(root, 'LuminiaAPI/LuminiaWebsite/src/app/infernal-alchemy/r
 const iconDir = join(root, 'LuminiaAPI/LuminiaWebsite/src/assets/images/infernal-alchemy/research');
 
 const { researchTree } = await import(pathToFileURL(join(treeDir, 'research-tree.data.ts')).href);
-const { unlockedResearch } = await import(pathToFileURL(join(treeDir, 'research-progress.ts')).href);
+const unlockedArg = process.argv.indexOf('--unlocked');
+const unlockedResearch = unlockedArg >= 0 ? (process.argv[unlockedArg + 1] ?? '').split(',').map(s => s.trim()).filter(Boolean) : [];
 
 const errors = [];
 const warnings = [];
@@ -81,12 +86,83 @@ for (const n of researchTree) {
 
 // Unlocks
 const unlocked = new Set(unlockedResearch);
-if (unlocked.size !== unlockedResearch.length) warnings.push('research-progress.ts lists an id more than once');
+if (unlocked.size !== unlockedResearch.length) warnings.push('--unlocked lists an id more than once');
 for (const id of unlocked) {
   const n = byId.get(id);
-  if (!n) { errors.push(`research-progress.ts: unknown id "${id}"`); continue; }
+  if (!n) { errors.push(`--unlocked: unknown id "${id}"`); continue; }
   const missing = parentsOf(n).filter(p => !unlocked.has(p.from)).map(p => p.from);
   if (missing.length) warnings.push(`"${id}" is unlocked but its parent(s) ${missing.map(m => `"${m}"`).join(', ')} aren't`);
+}
+
+// Potion descriptions (keep potionsFor in sync with research-tree/potions.ts)
+const { potionDescriptions } = await import(pathToFileURL(join(treeDir, 'potion-descriptions.ts')).href);
+const firstParent = n => {
+  const p = n.parents?.[0];
+  return p === undefined ? undefined : byId.get(typeof p === 'string' ? p : p.from);
+};
+const majorAncestor = n => {
+  let p = firstParent(n);
+  while (p && !p.major) p = firstParent(p);
+  return p;
+};
+const potionsFor = n => {
+  if (n.major) return [];
+  const potion = majorAncestor(n);
+  if (!potion) return [];
+  if (potionDescriptions[potion.id]) return [potion.id];
+  const members = researchTree.filter(m => m.major && m.id !== potion.id && majorAncestor(m)?.id === potion.id);
+  return members.length ? members.map(m => m.id) : [potion.id];
+};
+const placeholders = text => [...text.matchAll(/\{(\w+)\}/g)].map(m => m[1]);
+const isGroup = n => !potionDescriptions[n.id] && researchTree.some(m => m.major && m.id !== n.id && majorAncestor(m)?.id === n.id);
+
+for (const [id, d] of Object.entries(potionDescriptions)) {
+  const n = byId.get(id);
+  if (!n) { errors.push(`potion-descriptions.ts: unknown node "${id}"`); continue; }
+  if (!n.major) errors.push(`potion-descriptions.ts: "${id}" isn't a potion (major) node`);
+  for (const p of placeholders(d.text)) {
+    if (!d.stats[p]) errors.push(`potion-descriptions.ts: "${id}" uses {${p}} but has no "${p}" stat`);
+  }
+}
+// Brewing ingredients
+const { ingredients } = await import(pathToFileURL(join(treeDir, 'ingredients.ts')).href);
+const checkIngredients = (where, recipe) => {
+  for (const [id, amount] of Object.entries(recipe ?? {})) {
+    if (!ingredients[id]) errors.push(`${where}: unknown ingredient "${id}" (add it to ingredients.ts)`);
+    if (!(amount > 0)) errors.push(`${where}: ingredient "${id}" needs a positive amount`);
+  }
+};
+for (const [id, d] of Object.entries(potionDescriptions)) {
+  if (!(d.retail > 0)) errors.push(`potion-descriptions.ts: "${id}" needs a retail price`);
+  checkIngredients(`potion-descriptions.ts "${id}" ingredients`, d.ingredients);
+  for (const [stat, recipe] of Object.entries(d.upgradeIngredients ?? {})) checkIngredients(`potion-descriptions.ts "${id}" upgradeIngredients.${stat}`, recipe);
+}
+for (const n of researchTree) checkIngredients(`"${n.id}" ingredients`, n.ingredients);
+for (const [id, i] of Object.entries(ingredients)) {
+  if (!(i.price >= 0)) errors.push(`ingredients.ts: "${id}" needs a price`);
+}
+
+const unusedStats = new Map();
+for (const n of researchTree) {
+  for (const potion of potionsFor(n)) {
+    const d = potionDescriptions[potion];
+    if (!d) continue;
+    for (const p of placeholders(n.effectText ?? '')) {
+      if (!d.stats[p]) errors.push(`"${n.id}": effectText uses {${p}} but "${potion}" has no "${p}" stat`);
+    }
+    for (const stat of Object.keys(n.effect ?? {})) {
+      if (!d.stats[stat]) unusedStats.set(`${potion}:${stat}`, [potion, stat]);
+    }
+  }
+}
+for (const [potion, stat] of unusedStats.values()) {
+  warnings.push(`Upgrades change "${stat}" for "${potion}", but its description text has no "${stat}" stat yet, so the change isn't shown in the text`);
+}
+for (const id of unlocked) {
+  const n = byId.get(id);
+  if (!n) continue;
+  if (n.major && !potionDescriptions[id] && !isGroup(n)) warnings.push(`"${id}" is unlocked but has no description in potion-descriptions.ts (no card shown)`);
+  if (!n.major && !n.effect && !n.effectText) warnings.push(`"${id}" is unlocked but has no effect or effectText, so it only shows as a chip on its potion's card`);
 }
 
 const cols = researchTree.map(n => n.col);

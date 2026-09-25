@@ -40,12 +40,14 @@
     </div>
   </div>
 </div>
-<div class="sub-title-down"><h2>Alchemical Research Tree</h2></div>
-<div class="page"><app-research-tree></app-research-tree></div>
-<div class="sub-title-up"><h2>Activities</h2></div>
+<div class="sub-title-down"><h2>Your Potions</h2></div>
+<div class="page"><app-potion-cards [unlocked]="researchUnlocks"></app-potion-cards></div>
+<div class="sub-title-up"><h2>Alchemical Research Tree</h2></div>
+<div class="page"><app-research-tree [unlocked]="researchUnlocks"></app-research-tree></div>
+<div class="sub-title-down"><h2>Activities</h2></div>
 <div class="page activities">
   <mat-card appearance="outlined" class="rolltable-card">
-    <mat-card-header class="rolltable-card-header">Monthly earnings</mat-card-header>
+    <mat-card-header class="rolltable-card-header">Quarterly earnings</mat-card-header>
     <mat-card-content class="card-content">
       <p>The DC is the sum of a Persuasion skill check and an Alchemical Supplies (Dex) skill check.</p>
       <div class="center-items">
@@ -63,7 +65,7 @@
         </table>
       </div>
       <p></p>
-      <p><i>These earnings are calculated at the first of each month.</i></p>
+      <p><i>These earnings are calculated every 30th day of a quarter<br>(days 30, 60 and 90).</i></p>
     </mat-card-content>
   </mat-card>
   <mat-card appearance="outlined" class="rolltable-card">

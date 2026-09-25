@@ -25,7 +25,7 @@ Root-level `bin/` and `obj/` are stale leftovers from an old net6.0 build; ignor
 
 - .NET SDK 10+ (projects target `net10.0`)
 - Node.js 22.22+ or 24.15+ and npm (Angular CLI 22 is a local devDependency; use `npx ng` or the npm scripts)
-- MySQL (EF Core via `MySql.EntityFrameworkCore`). There are **no EF migrations**; the schema is managed directly in the database.
+- MySQL (EF Core via `MySql.EntityFrameworkCore`). There are **no EF migrations**; the schema is managed directly in the database. Scripts for newer tables are in `scripts/sql/` (run by hand, safe to re-run).
 
 ## Build
 

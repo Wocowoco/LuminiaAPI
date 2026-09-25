@@ -50,6 +50,15 @@ export class LuminiaApiService {
     return this.http.get<InfernalAlchemyStatsDto>(this.LuminiaApiURL + "infernalalchemy");
   }
 
+  /** Ids of the unlocked Alchemical Research Tree nodes (see research-tree.data.ts). */
+  getResearchUnlocks() : Observable<string[]> {
+    return this.http.get<string[]>(this.LuminiaApiURL + "infernalalchemy/research-unlocks");
+  }
+
+  updateResearchUnlocks(nodeIds : string[]) : Observable<string[]> {
+    return this.http.put<string[]>(this.LuminiaApiURL + "infernalalchemy/research-unlocks", nodeIds);
+  }
+
   updateGroupPosition(positionX : number, positionY : number) {
     return this.http.patch(this.LuminiaApiURL + "markers/1/position?posX="+positionX+"&posY="+positionY, null);
   }
