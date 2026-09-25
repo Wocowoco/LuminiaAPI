@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfernalAlchemyComponent } from './infernal-alchemy.component';
+import { ResearchTreeComponent } from './research-tree/research-tree.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
@@ -12,7 +13,8 @@ const childRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    InfernalAlchemyComponent
+    InfernalAlchemyComponent,
+    ResearchTreeComponent
   ],
   imports: [
     CommonModule,
