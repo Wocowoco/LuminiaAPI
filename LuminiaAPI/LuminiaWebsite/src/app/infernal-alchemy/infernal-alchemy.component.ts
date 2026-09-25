@@ -37,6 +37,9 @@ export class InfernalAlchemyComponent implements OnInit {
   ];
   displayedColumns: string[] = ["dc", "effect"]
 
+  // Coin counts for the back-left, back-right and front stack of the budget illustration
+  coinStacks: number[][] = [17, 14, 4].map(count => Array.from({ length: count }, (_, i) => i));
+
   constructor(private luminiaApiService : LuminiaApiService, private snackBar: MatSnackBar) {
   }
 
