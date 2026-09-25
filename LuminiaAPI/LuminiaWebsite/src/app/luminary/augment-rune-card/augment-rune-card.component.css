@@ -1,57 +1,6 @@
 :host{
   display: block;
   height: 100%;
+  --rarity-card-max-width: 350px;
+  --rarity-card-min-height: 200px;
 }
-
-.augment-card{
-  --rarity: var(--lum-olive);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
-  min-height: 200px;
-  height: 100%;
-  width: 100%;
-  padding: 16px;
-  text-align: left;
-  border-color: color-mix(in srgb, var(--rarity) 35%, transparent);
-  background: linear-gradient(135deg, color-mix(in srgb, var(--rarity) 12%, var(--lum-surface)), var(--lum-surface) 60%);
-  box-shadow: inset 4px 0 0 var(--rarity), var(--lum-shadow-sm) !important;
-}
-
-.augment-icon{
-  width: 56px;
-  height: 56px;
-}
-
-.augment-header{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.augment-name{
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--lum-ink);
-}
-
-.augment-rarity{
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--rarity) 75%, var(--lum-ink));
-}
-
-.augment-description{
-  margin-top: 12px;
-  padding: 0px;
-  line-height: 1.55;
-}
-
-.uncommon{ --rarity: #556B2F; }
-.rare{ --rarity: #2536A8; }
-.epic{ --rarity: #6A1B9A; }
-.legendary{ --rarity: #D4A017; }

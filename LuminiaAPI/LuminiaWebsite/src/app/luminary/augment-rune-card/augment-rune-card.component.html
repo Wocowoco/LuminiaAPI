@@ -1,13 +1,3 @@
-<mat-card appearance="outlined" class="augment-card" [ngClass]="rarity">
-
-  <div class="augment-header">
-    <img src="../../../assets/images/luminary/{{iconName}}.png" alt="Augment Icon" class="augment-icon">
-    <div>
-      <div class="augment-rarity">{{rarity}}</div>
-      <div class="augment-name">{{augmentName}}</div>
-    </div>
-  </div>
-  <mat-card-content class="augment-description">
-    {{description}}
-  </mat-card-content>
-</mat-card>
+<app-rarity-card [rarity]="rarity" [name]="augmentName" [icon]="'assets/images/luminary/' + iconName + '.png'" iconAlt="Augment Icon">
+  {{description}}
+</app-rarity-card>

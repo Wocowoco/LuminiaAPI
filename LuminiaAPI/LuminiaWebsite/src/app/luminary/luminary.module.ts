@@ -8,6 +8,7 @@ import { SwirlingMoonPageComponent } from './swirling-moon-page/swirling-moon-pa
 import { SpellInfoBlockModule } from '../general/spell-info-block/spell-info-block.module';
 import { AugmentRuneCardComponent } from './augment-rune-card/augment-rune-card.component';
 import { MatCardModule } from '@angular/material/card';
+import { RarityCardModule } from '../general/rarity-card/rarity-card.module';
 
 const childRoutes: Routes = [
   {path:"luminaries", component: LuminaryComponent},
@@ -26,6 +27,7 @@ const childRoutes: Routes = [
     MatButtonModule,
     MatCardModule,
     SpellInfoBlockModule,
+    RarityCardModule,
     RouterModule.forChild(childRoutes),
   ],
   exports: [
