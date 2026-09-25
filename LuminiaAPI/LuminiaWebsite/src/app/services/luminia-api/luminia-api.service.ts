@@ -50,6 +50,10 @@ export class LuminiaApiService {
     return this.http.get<InfernalAlchemyStatsDto>(this.LuminiaApiURL + "infernalalchemy");
   }
 
+  updateInfernalAlchemyStats(stats : InfernalAlchemyStatsDto) : Observable<InfernalAlchemyStatsDto> {
+    return this.http.patch<InfernalAlchemyStatsDto>(this.LuminiaApiURL + "infernalalchemy", stats);
+  }
+
   /** Ids of the unlocked Alchemical Research Tree nodes (see research-tree.data.ts). */
   getResearchUnlocks() : Observable<string[]> {
     return this.http.get<string[]>(this.LuminiaApiURL + "infernalalchemy/research-unlocks");
