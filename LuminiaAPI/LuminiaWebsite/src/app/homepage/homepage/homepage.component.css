@@ -3,7 +3,22 @@
 }
 
 .hero {
-  padding: 72px 24px 56px;
+  padding: 40px 24px 48px;
+}
+.hero-logo {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin: 0 auto;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 .tagline {
   max-width: 560px;

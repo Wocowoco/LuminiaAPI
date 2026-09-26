@@ -19,10 +19,10 @@
 
 .brand-logo {
   display: block;
-  /* The image has a soft glow baked in; the negative margin keeps that padding from pushing the layout */
-  height: 56px;
+  /* The image is trimmed to its glow, so it needs no negative margin */
+  height: 54px;
   width: auto;
-  margin: 0 -10px;
+  margin: 0 0 0 -4px;
   filter: drop-shadow(0 0 0 rgba(247, 244, 234, 0));
   transition: transform 0.25s var(--lum-ease), filter 0.3s ease;
 }
@@ -35,7 +35,7 @@
 .version {
   /* Sits on the baseline of the LUMINIA lettering, kept faint on purpose */
   align-self: flex-end;
-  margin: 0 0 13px -6px;
+  margin: 0 0 15px 6px;
   font-size: 11px;
   font-weight: 500;
   line-height: 1;
