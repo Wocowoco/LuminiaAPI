@@ -116,7 +116,6 @@
 }
 /* Died during the story: a dagger after the name */
 .died-mark {
-  margin-left: 3px;
   /* A serif dagger reads as "died"; in Inter it looks like a plus sign */
   font-family: Georgia, "Times New Roman", serif;
   font-size: 15px;
