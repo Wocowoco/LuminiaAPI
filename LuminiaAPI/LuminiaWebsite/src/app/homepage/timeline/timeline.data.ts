@@ -55,6 +55,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
   {
     id: 'claws-call',
     type: 'oneshot',
+    label: 'Story Arc',
     title: "Claw's Call",
     season: 'Bloomen',
     startYear: 7342,
@@ -124,7 +125,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
   {
     id: 'gate-of-slithers',
     type: 'campaign',
-    label: 'Campaign 2',
+    label: 'Story Arc',
     title: 'Gate of Slithers',
     season: 'Sumsun',
     startYear: 7346,
