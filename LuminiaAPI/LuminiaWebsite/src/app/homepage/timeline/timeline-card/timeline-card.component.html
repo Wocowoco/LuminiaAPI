@@ -1,0 +1,57 @@
+@if (variant === 'alternate') {
+  <article class="card card-alternate" [attr.aria-label]="'Non-canon group of ' + entry.title">
+    <p class="alt-label"><i class="fa-solid fa-code-branch" aria-hidden="true"></i>Non-canon group</p>
+    <ng-container *ngTemplateOutlet="characterList"></ng-container>
+  </article>
+} @else {
+  <article class="card" [class]="'type-' + entry.type" [class.major]="isMajor">
+    <div class="badges">
+      <span class="badge">{{ label }}</span>
+      @if (entry.ongoing) {
+        <span class="badge badge-ongoing">Ongoing</span>
+      }
+    </div>
+    @if (entry.logoImage) {
+      <h3 class="visually-hidden">{{ entry.title }}</h3>
+      <img class="logo-image" [src]="entry.logoImage" alt="" loading="lazy">
+    } @else {
+      <h3 class="title">{{ entry.title }}</h3>
+    }
+    @if (entry.type !== 'event') {
+      <p class="real-life">
+        @if (entry.realLife) {
+          <span class="meta"><i class="fa-regular fa-calendar" aria-hidden="true"></i>{{ entry.realLife }}</span>
+        }
+        <span class="meta"><i class="fa-solid fa-dice-d20" aria-hidden="true"></i>{{ system }}</span>
+      </p>
+    }
+    <ng-container *ngTemplateOutlet="characterList"></ng-container>
+
+    @if (entry.type === 'event') {
+      <p class="summary">{{ entry.summary }}</p>
+    } @else {
+      <button type="button" class="story-toggle" (click)="toggleStory()"
+              [attr.aria-expanded]="isStoryOpen" [attr.aria-controls]="entry.id + '-story'">
+        {{ isStoryOpen ? 'Hide the story' : 'Read the story' }}
+        <i class="fa-solid fa-chevron-down" [class.open]="isStoryOpen" aria-hidden="true"></i>
+      </button>
+      <p class="summary" [id]="entry.id + '-story'" [hidden]="!isStoryOpen">{{ entry.summary }}</p>
+    }
+  </article>
+}
+
+<ng-template #characterList>
+  @if (characters.length) {
+    <ul class="characters" aria-label="Characters">
+      @for (character of characters; track character.name) {
+        <li class="character" [class.minor]="character.minor" [class.died]="character.died" [attr.title]="characterTitle(character)">
+          <!-- No whitespace between the name and the dagger, so it sits right against the name -->
+          {{ character.name }}@if (character.died) {<span class="died-mark" aria-hidden="true">†</span><span class="visually-hidden">(died)</span>}
+          @if (character.minor) {
+            <span class="visually-hidden">(minor character)</span>
+          }
+        </li>
+      }
+    </ul>
+  }
+</ng-template>

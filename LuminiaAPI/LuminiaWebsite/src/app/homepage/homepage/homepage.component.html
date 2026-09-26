@@ -1,1 +1,34 @@
-<p>homepage works!</p>
+<div class="homepage">
+  <header class="page-header hero">
+    <h1 class="hero-title">
+      <span class="visually-hidden">Welcome to Luminia</span>
+      <img class="hero-logo" src="assets/luminia-logo-hero.webp" alt="" width="1200" height="537">
+    </h1>
+    <p class="tagline">A world given a second chance, and the stories told in it.</p>
+    @if (todayLabel) {
+      <p class="today"><i class="fa-solid fa-calendar-day" aria-hidden="true"></i>Today in Luminia: <strong>{{ todayLabel }} AN</strong></p>
+    }
+  </header>
+
+  <section aria-labelledby="explore-title">
+    <div class="sub-title-down"><h2 id="explore-title">Explore</h2></div>
+    <nav class="explore-grid" aria-label="Site sections">
+      @for (link of exploreLinks; track link.route) {
+        <a class="explore-card" [routerLink]="link.route">
+          <span class="explore-icon"><i class="fa-solid {{ link.icon }}" aria-hidden="true"></i></span>
+          <span class="explore-text">
+            <span class="explore-title">{{ link.label }}</span>
+            <span class="explore-description">{{ link.description }}</span>
+          </span>
+          <i class="fa-solid fa-arrow-right explore-arrow" aria-hidden="true"></i>
+        </a>
+      }
+    </nav>
+  </section>
+
+  <section class="history" aria-labelledby="history-title">
+    <div class="sub-title-down"><h2 id="history-title">History of Luminia</h2></div>
+    <p class="intro">Every campaign and one-shot played in Luminia, from before The Nova to today.</p>
+    <app-timeline [currentYear]="currentYear" [todayLabel]="todayLabel"></app-timeline>
+  </section>
+</div>
