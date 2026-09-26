@@ -37,6 +37,9 @@
               <span class="season">{{ row.season }}</span>
             }
             <span class="year">{{ row.year }}</span>
+            @if (row.entry.location) {
+              <span class="place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>{{ row.entry.location }}</span>
+            }
           </div>
           <div class="spine"><span class="dot"></span></div>
           <app-timeline-card class="main" [entry]="row.entry" [characters]="row.characters"></app-timeline-card>
