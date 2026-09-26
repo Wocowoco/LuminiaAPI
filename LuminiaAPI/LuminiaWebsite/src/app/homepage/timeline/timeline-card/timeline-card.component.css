@@ -1,5 +1,7 @@
 :host {
   display: block;
+  /* Contains the absolutely positioned .visually-hidden text, which would otherwise stretch the page */
+  position: relative;
 }
 
 .card {
