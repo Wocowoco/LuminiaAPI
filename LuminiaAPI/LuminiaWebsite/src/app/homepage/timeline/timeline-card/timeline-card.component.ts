@@ -36,6 +36,11 @@ export class TimelineCardComponent {
     return this.entry.label ?? TYPE_LABELS[this.entry.type];
   }
 
+  characterTitle(character: TimelineCharacter): string | null {
+    const notes = [character.minor ? 'Minor character' : '', character.died ? 'Died during this story' : ''].filter(Boolean);
+    return notes.length ? notes.join(' · ') : null;
+  }
+
   toggleStory() {
     this.isStoryOpen = !this.isStoryOpen;
   }

@@ -25,7 +25,7 @@ export interface TimelineEntry {
   location?: string;
   /** Game system. Defaults to DEFAULT_GAME_SYSTEM for campaigns and one-shots. */
   system?: string;
-  /** Character names (never player names). Wrap a name in () for a minor character. Sorted automatically, minor ones last. */
+  /** Character names (never player names). Wrap a name in () for a minor character, prefix it with † if they died ("(†Name)" for both). Sorted automatically, minor ones last. */
   characters?: string[];
   /** The non-canon group that played the same story. Entries with this form the branching timeline. */
   alternateCharacters?: string[];
@@ -50,7 +50,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     endYear: 0,
     realLife: '2016–2020',
     location: 'Geondis',
-    characters: ['Cara', 'Varis', 'Balik Hrungnorsson', "Vak'Nor", 'Lily', 'Mino', '(Eynho)', 'Nova', 'Shadow', '(Anya)', '(Fasca)'],
+    characters: ['†Cara', 'Varis', 'Balik Hrungnorsson', "Vak'Nor", 'Lily', 'Mino', '(Eynho)', '†Nova', '†Shadow', '(Anya)', '(Fasca)'],
     summary: 'A group of adventurers called ViaNova, who, unbeknownst to them, set in motion everything that led to The Nova.',
   },
   {

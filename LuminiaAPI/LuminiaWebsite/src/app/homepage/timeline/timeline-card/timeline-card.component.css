@@ -114,6 +114,17 @@
   color: var(--lum-text-muted);
   background: transparent;
 }
+/* Died during the story: a dagger after the name */
+.died-mark {
+  margin-left: 3px;
+  /* A serif dagger reads as "died"; in Inter it looks like a plus sign */
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--lum-taupe);
+}
 .card-alternate .character { padding: 2px 8px; font-size: 12px; color: var(--lum-text-muted); background: transparent; }
 
 .story-toggle {

@@ -44,8 +44,12 @@
   @if (characters.length) {
     <ul class="characters" aria-label="Characters">
       @for (character of characters; track character.name) {
-        <li class="character" [class.minor]="character.minor" [attr.title]="character.minor ? 'Minor character' : null">
+        <li class="character" [class.minor]="character.minor" [class.died]="character.died" [attr.title]="characterTitle(character)">
           {{ character.name }}
+          @if (character.died) {
+            <span class="died-mark" aria-hidden="true">†</span>
+            <span class="visually-hidden">(died)</span>
+          }
           @if (character.minor) {
             <span class="visually-hidden">(minor character)</span>
           }

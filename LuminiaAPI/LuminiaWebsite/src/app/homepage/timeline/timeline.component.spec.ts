@@ -37,6 +37,11 @@ describe('TimelineComponent', () => {
     expect(viaNova.characters.filter(c => c.minor).map(c => c.name)).toEqual(['Anya', 'Eynho', 'Fasca']);
   });
 
+  it('should mark characters who died', () => {
+    const viaNova = entryRows().find(row => row.entry.id === 'vianova')!;
+    expect(viaNova.characters.filter(c => c.died).map(c => c.name)).toEqual(['Cara', 'Nova', 'Shadow']);
+  });
+
   it('should wrap the non-canon one-shots in a single fork', () => {
     expect(component.rows.filter(row => row.kind === 'fork').length).toBe(1);
     expect(component.rows.filter(row => row.kind === 'branch-end').length).toBe(1);

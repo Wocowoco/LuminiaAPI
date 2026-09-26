@@ -4,6 +4,8 @@ import { MAJOR_ENTRY_TYPES, SEASONS, TIMELINE_ENTRIES, TIMELINE_FALLBACK_CURRENT
 export interface TimelineCharacter {
   name: string;
   minor: boolean;
+  /** Died during this story. */
+  died: boolean;
 }
 
 export type TimelineRow =
@@ -32,12 +34,20 @@ export function formatYear(year: number): string {
   return year < 0 ? `${-year} PN` : `${year} AN`;
 }
 
-/** "(Name)" marks a minor character. Main characters first, then minor ones, each group alphabetical. */
+/** "(Name)" marks a minor character and "†Name" one who died ("(†Name)" for both). Main characters first, then minor ones, each group alphabetical. */
 function toCharacters(names: string[] = []): TimelineCharacter[] {
   return names
-    .map(name => {
-      const minor = /^\(.*\)$/.test(name.trim());
-      return { name: minor ? name.trim().slice(1, -1) : name.trim(), minor };
+    .map(raw => {
+      let name = raw.trim();
+      const minor = /^\(.*\)$/.test(name);
+      if (minor) {
+        name = name.slice(1, -1).trim();
+      }
+      const died = name.startsWith('†');
+      if (died) {
+        name = name.slice(1).trim();
+      }
+      return { name, minor, died };
     })
     .sort((a, b) => Number(a.minor) - Number(b.minor) || nameCollator.compare(a.name, b.name));
 }
