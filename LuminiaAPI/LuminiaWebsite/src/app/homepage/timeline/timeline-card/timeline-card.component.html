@@ -22,6 +22,9 @@
         @if (entry.realLife) {
           <span class="meta"><i class="fa-regular fa-calendar" aria-hidden="true"></i>{{ entry.realLife }}</span>
         }
+        @if (entry.location) {
+          <span class="meta"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>{{ entry.location }}</span>
+        }
         <span class="meta"><i class="fa-solid fa-dice-d20" aria-hidden="true"></i>{{ system }}</span>
       </p>
     }

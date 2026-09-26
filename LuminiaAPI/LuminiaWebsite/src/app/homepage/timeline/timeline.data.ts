@@ -21,6 +21,8 @@ export interface TimelineEntry {
   ongoing?: boolean;
   /** When it was played at the table, e.g. "2016–2020". */
   realLife?: string;
+  /** Where in Luminia the story took place, e.g. the continent. */
+  location?: string;
   /** Game system. Defaults to DEFAULT_GAME_SYSTEM for campaigns and one-shots. */
   system?: string;
   /** Character names (never player names). Wrap a name in () for a minor character. Sorted automatically, minor ones last. */
@@ -47,6 +49,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     startYear: -2,
     endYear: 0,
     realLife: '2016–2020',
+    location: 'Geondis',
     characters: ['Cara', 'Varis', 'Balik', "Vak'Nor", 'Lily', 'Mino', '(Eynho)', 'Nova', 'Shadow', '(Anya)', '(Fasca)'],
     summary: 'A group of adventurers called ViaNova, who, unbeknownst to them, set in motion everything that led to The Nova.',
   },
@@ -66,6 +69,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     season: 'Bloomen',
     startYear: 7342,
     realLife: '2025',
+    location: 'Norl',
     system: 'Daggerheart',
     characters: ['Atherius Piruatus', 'Cho', 'Lokbrok', 'Puddington', 'Sylvara'],
     summary: 'Novice hunters of The Claw, working their way up the ranks by hunting monsters.',
@@ -78,6 +82,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     season: 'Sumsun',
     startYear: 7344,
     realLife: '2021',
+    location: 'Norl',
     characters: ['Aubron', 'Bothor', 'Mander', 'Tandoril'],
     alternateCharacters: ['Bingo', 'Far', 'Jalin', 'Kiba', 'Samael'],
     summary: 'A basement infested with red jelly led a group of adventurers to clear out a cave full of the stuff, until the Riftwalkers stepped in.',
@@ -90,6 +95,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     season: 'Bloomen',
     startYear: 7345,
     realLife: '2021',
+    location: 'Norl',
     characters: ['Aubron', 'Kiba', 'Mander', 'Far'],
     alternateCharacters: ['Bingo', 'Chaverin', 'Elidlmoormo', 'Elwood', 'Jeff'],
     summary: 'Farmers around Zalias reported plant life getting a mind of its own, and even found an elf who had become part mushroom.',
@@ -102,6 +108,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     season: 'Sumsun',
     startYear: 7345,
     realLife: '2022',
+    location: 'Norl',
     characters: ['Aubron', 'Mander', 'Nexire', "X'eno"],
     alternateCharacters: ['Malachai', 'Pip', 'Tiny'],
     summary: "A mysterious force stopped the mining bots in mining site D5 near Valu'Tehas from working. "
@@ -115,6 +122,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     season: 'Frizwa',
     startYear: 7345,
     realLife: '2022',
+    location: 'Norl',
     characters: ['Aubron', 'Nexire', 'Ragnok', "X'eno"],
     alternateCharacters: ['Mander', 'Pip', 'Rabbit', 'Tiny'],
     summary: 'A package needed to be delivered in the Frozen Wastes of Aritunn. Because of the harsh weather, no one would take the job '
@@ -128,6 +136,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     season: 'Frizwa',
     startYear: 7345,
     realLife: '2022',
+    location: 'Norl',
     characters: ['Aubron', 'Nexire', 'Ragnok', "X'eno"],
     alternateCharacters: ['Mander', 'Pip', 'Rabbit', 'Tiny'],
     summary: "A farmer's sheep went missing, and travellers had seen shady people dragging sheep up Pantheon Peak. "
@@ -142,6 +151,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     startYear: 7346,
     ongoing: true,
     realLife: '2024–now',
+    location: 'Norl',
     characters: ['Aubron', "Kar'Chi", 'Nexire', 'Scrat', 'Ulfgar', '(Mackenzie)', '(Mander)'],
     summary: 'The Purple Bandits have started using a dangerous new poison that no one seems to know. '
       + 'Invitations to the Mizude Sumsun festival brought a group of adventurers together to get to the bottom of it.',
