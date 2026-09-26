@@ -151,18 +151,18 @@
   white-space: nowrap;
 }
 
-/* Painted logo artwork (transparent WebP) */
+/* Painted logo artwork (transparent WebP), centred so logos of different widths line up */
 .logo-image {
   display: block;
   width: 100%;
   max-width: 480px;
   height: auto;
-  margin: 10px 0 8px;
+  margin: 10px auto 8px;
 }
 /* One-shot titles are two-line wordmarks: cap by height so they all carry the same weight, with lettering about as large as the story-arc logos */
 .card:not(.major) .logo-image {
   width: auto;
   max-width: 100%;
   max-height: 140px;
-  margin: 8px 0 6px;
+  margin: 8px auto 6px;
 }
