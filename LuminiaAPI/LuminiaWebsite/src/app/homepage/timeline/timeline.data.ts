@@ -58,8 +58,8 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     type: 'event',
     title: 'The Nova',
     startYear: 0,
-    summary: 'The reshaping of the world as we know it. Almost no information survives from before The Nova, or about the event itself. '
-      + 'It is believed to have been the universe getting a second chance.',
+    summary: 'In one blinding instant, the world was unmade and forged anew. Almost nothing of what came before survived, '
+      + 'and even the event itself left barely a trace. Most believe The Nova was the universe granting itself a second chance.',
   },
   {
     id: 'call-of-the-claw',
