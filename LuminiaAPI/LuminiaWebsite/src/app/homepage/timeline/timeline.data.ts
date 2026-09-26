@@ -43,6 +43,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     type: 'campaign',
     label: 'Campaign 1',
     title: 'ViaNova',
+    logoImage: 'assets/images/timeline/vianova.webp',
     startYear: -2,
     endYear: 0,
     realLife: '2016–2020',
