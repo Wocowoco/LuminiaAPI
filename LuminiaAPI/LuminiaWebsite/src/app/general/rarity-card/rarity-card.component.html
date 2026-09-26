@@ -1,0 +1,15 @@
+<mat-card appearance="outlined" class="rarity-card" [ngClass]="rarity">
+  <div class="rarity-card-header">
+    @if (icon) {
+      <img [src]="icon" [alt]="iconAlt" class="rarity-card-icon">
+    }
+    <div>
+      <div class="rarity-card-rarity">{{rarity}}</div>
+      <div class="rarity-card-name">{{name}}</div>
+    </div>
+  </div>
+  <mat-card-content class="rarity-card-body">
+    <ng-content></ng-content>
+  </mat-card-content>
+  <ng-content select="[card-footer]"></ng-content>
+</mat-card>

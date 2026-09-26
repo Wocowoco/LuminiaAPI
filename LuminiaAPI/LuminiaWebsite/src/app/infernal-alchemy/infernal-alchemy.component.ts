@@ -16,6 +16,8 @@ export class InfernalAlchemyComponent implements OnInit {
   researchPoints : string = "-";
   researchPointsTotal : string = "-";
   budget : string = "---";
+  /** Unlocked research nodes, shared by the potion cards and the research tree; null while loading. */
+  researchUnlocks : ReadonlySet<string> | null = null;
 
   earningsData = [
     {range: "< 9", result: "-50 gold"},
@@ -37,11 +39,16 @@ export class InfernalAlchemyComponent implements OnInit {
   ];
   displayedColumns: string[] = ["dc", "effect"]
 
+  // Coin counts for the back-left, back-right and front stack of the budget illustration
+  coinStacks: number[][] = [17, 14, 4].map(count => Array.from({ length: count }, (_, i) => i));
+
   constructor(private luminiaApiService : LuminiaApiService, private snackBar: MatSnackBar) {
   }
 
 
   async ngOnInit(): Promise<void> {
+    this.loadResearchUnlocks();
+
     try {
       var infernalAlchemyStats$ = this.luminiaApiService.getInfernalAlchemyStats();
       var infernalAlchemyStatsDto = await firstValueFrom(infernalAlchemyStats$);
@@ -53,6 +60,19 @@ export class InfernalAlchemyComponent implements OnInit {
       this.snackBar.openFromComponent(ErrorSnackbarComponent, {
         panelClass: 'error-snackbar',
         data: "Infernal Alchemy data could not be loaded.",
+        duration: 10000
+      });
+    }
+  }
+
+  private async loadResearchUnlocks(): Promise<void> {
+    try {
+      this.researchUnlocks = new Set(await firstValueFrom(this.luminiaApiService.getResearchUnlocks()));
+    } catch {
+      this.researchUnlocks = new Set();
+      this.snackBar.openFromComponent(ErrorSnackbarComponent, {
+        panelClass: 'error-snackbar',
+        data: "Research progress could not be loaded.",
         duration: 10000
       });
     }

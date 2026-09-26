@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { ResearchUnlocksComponent } from './research-unlocks/research-unlocks.component';
+import { InfernalAlchemyStatsComponent } from './infernal-alchemy-stats/infernal-alchemy-stats.component';
 
 const routes: Routes = [
   { path:"dm/:dmCode", component: DmPageComponent, canActivate: [DmCheckGuard]}
@@ -15,7 +17,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    DmPageComponent
+    DmPageComponent,
+    ResearchUnlocksComponent,
+    InfernalAlchemyStatsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

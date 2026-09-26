@@ -1,0 +1,143 @@
+import type { Rarity } from '../../general/rarity-card/rarity-card.component';
+
+/**
+ * What each potion does, shown in the "Unlocked Potions" cards and when tapping a potion in the tree.
+ * Keyed by the potion's node id in research-tree.data.ts.
+ *
+ * `text` uses **bold** and {stat} placeholders. Each stat has a base value; unlocked upgrade nodes
+ * add to it through their `effect` (e.g. { damage: 1 }), and values above base are highlighted.
+ * A dice stat grows by whole dice: { dice: 2, sides: 4, perDie: 1 } is 2d4+2, one upgrade makes it 3d4+3.
+ */
+
+export interface DiceStat {
+  dice: number;
+  sides: number;
+  /** Flat bonus per die, e.g. 1 for 2d4+2. */
+  perDie?: number;
+}
+
+export interface PotionStat {
+  base: number | DiceStat;
+  /** How a plain number is written, e.g. 10 -> "10ft". Defaults to the number itself. */
+  format?: (value: number) => string;
+}
+
+export interface PotionDescription {
+  rarity: Rarity;
+  text: string;
+  stats: Record<string, PotionStat>;
+  /** Base retail price of one potion, in gold. */
+  retail: number;
+  /** Ingredients for one potion (ids from ingredients.ts); halves are fine for potions brewed in pairs. */
+  ingredients: Record<string, number>;
+  /**
+   * Extra ingredients per unlocked upgrade node that changes a stat, e.g. { damage: { emberleaf: 0.5 } }.
+   * Special upgrades without a stat use `ingredients` on the node itself (research-tree.data.ts).
+   */
+  upgradeIngredients?: Record<string, Record<string, number>>;
+}
+
+const feet = (value: number) => `${value}ft`;
+
+/** The thrown-Smoozi description; only the damage type differs between them. */
+const smooziText = (damageType: string) =>
+  'As an **action**, you throw this potion to a point within range **(30ft/60ft)**. The potion explodes on impact, '
+  + `dealing **{damage} ${damageType} damage** to all creatures **within {radius} of the impact**, `
+  + 'or half as much on a successful **DC{dc} Dexterity saving throw**.';
+
+export const potionDescriptions: Record<string, PotionDescription> = {
+  'healing': {
+    rarity: 'uncommon',
+    text: 'When you drink this potion, you regain **{healing} hitpoints**.',
+    stats: {
+      healing: { base: { dice: 2, sides: 4, perDie: 1 } },
+    },
+    retail: 50,
+    ingredients: { 'silverdew': 2, 'redberry': 50 },
+    upgradeIngredients: {
+      healing: { 'silverdew': 1 },
+    },
+  },
+  'mana': {
+    rarity: 'uncommon',
+    text: 'When you drink this potion, you regain **{slots1}**. This will only regenerate used spellslots, '
+      + 'and you can\'t go over your normal maximum amount of spellslots by drinking this potion.',
+    stats: {
+      slots1: { base: 1, format: n => `${n} level 1 ${n === 1 ? 'spellslot' : 'spellslots'}` },
+    },
+    retail: 35,
+    ingredients: { 'leycap': 2, 'blueberry': 50 },
+    upgradeIngredients: {
+      slots1: { 'leycap': 1 },
+    },
+  },
+  'bandera': {
+    rarity: 'uncommon',
+    text: smooziText('fire'),
+    stats: {
+      damage: { base: { dice: 1, sides: 6 } },
+      radius: { base: 5, format: feet },
+      dc: { base: 12 },
+    },
+    retail: 20,
+    // 1 Sunflower Oil per potion; 1 Emberleaf and 1 Shatterbud make two potions
+    ingredients: { 'sunflower-oil': 1, 'emberleaf': 0.5, 'shatterbud': 0.5 },
+    upgradeIngredients: {
+      damage: { 'emberleaf': 0.5 },
+      radius: { 'shatterbud': 0.5 },
+      dc: { 'redberry': 25 },
+      lingering: { 'lingervine': 1 },
+    },
+  },
+  'herbal-potion': {
+    rarity: 'uncommon',
+    text: 'When you drink this potion as a **bonus action, roll a d10** to determine the outcome of the potion.',
+    stats: {},
+    retail: 35,
+    ingredients: { 'silverdew': 1, 'leycap': 1, 'yellowleaf': 10 },
+  },
+  'bottled-moonlight': {
+    rarity: 'rare',
+    text: 'Can be used as a component for spells requiring **moonlight**. As an **action**, it can also be thrown up to **60ft**, '
+      + 'exploding in a burst of moonlight in a **5 foot radius sphere**, dealing **2d10 radiant damage** on a failed '
+      + '**DC12 Constitution saving throw**, or half as much on a successful one.',
+    stats: {},
+    retail: 175,
+    ingredients: { 'silverdew': 1, 'moonstone': 1, 'moonbloom': 1 },
+  },
+  'moroz': {
+    rarity: 'uncommon',
+    text: smooziText('cold'),
+    stats: {
+      damage: { base: { dice: 1, sides: 4 } },
+      radius: { base: 5, format: feet },
+      dc: { base: 12 },
+    },
+    retail: 20,
+    // 1 Sunflower Oil per potion; the herb and Shatterbud make two potions, like Bandera
+    ingredients: { 'sunflower-oil': 1, 'white-krolt': 0.5, 'shatterbud': 0.5 },
+    upgradeIngredients: {
+      damage: { 'white-krolt': 0.5 },
+      radius: { 'shatterbud': 0.5 },
+      dc: { 'snowberry': 25 },
+      lingering: { 'lingervine': 1 },
+    },
+  },
+  'halima': {
+    rarity: 'uncommon',
+    text: smooziText('psychic'),
+    stats: {
+      damage: { base: { dice: 1, sides: 8 } },
+      radius: { base: 5, format: feet },
+      dc: { base: 12 },
+    },
+    retail: 20,
+    // 1 Sunflower Oil per potion; the herb and Shatterbud make two potions, like Bandera
+    ingredients: { 'sunflower-oil': 1, 'void-mint': 0.5, 'shatterbud': 0.5 },
+    upgradeIngredients: {
+      damage: { 'void-mint': 0.5 },
+      radius: { 'shatterbud': 0.5 },
+      dc: { 'gloomberry': 25 },
+    },
+  },
+};

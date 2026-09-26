@@ -1,0 +1,26 @@
+<mat-card appearance="outlined" class="card-group">
+  <mat-card-header class="card-header">Infernal Alchemy</mat-card-header>
+  <mat-card-content class="card-content">
+    <form>
+      <mat-form-field class="input">
+        <mat-label>Gold budget</mat-label>
+        <input matInput type="number" step="1" [(ngModel)]="budget" name="budget" [disabled]="!loaded">
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>Research Points</mat-label>
+        <input matInput type="number" min="0" step="1" [(ngModel)]="researchPoints" name="researchPoints" [disabled]="!loaded">
+      </mat-form-field>
+      <mat-form-field class="input">
+        <mat-label>Total earned</mat-label>
+        <input matInput type="number" min="0" step="1" [(ngModel)]="researchPointsTotal" name="researchPointsTotal" [disabled]="!loaded">
+      </mat-form-field>
+    </form>
+    <p class="hint">Research Points are what's left to spend; the total counts every point ever earned.</p>
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="awardPoint()" [disabled]="!loaded || saving">+1 Research Point earned</button>
+      <button mat-stroked-button type="button" (click)="reset()" [disabled]="!dirty || saving">Reset</button>
+      <button mat-flat-button type="button" (click)="save()" [disabled]="!dirty || !valid || saving">Save</button>
+    </div>
+    <span class="status">{{dirty ? 'Unsaved changes' : status}}</span>
+  </mat-card-content>
+</mat-card>

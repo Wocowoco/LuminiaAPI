@@ -1,41 +1,53 @@
 <div class="page-header"><h1>Infernal Alchemy</h1></div>
-<div class="page">
-  <div class="potion-container">
+<div class="page stats">
+  <div class="stage potion">
+    <div class="glow"></div>
     <div class="potion-cork"></div>
     <div class="potion-neck"></div>
     <div class="potion-bottle">
-      <div class="potion-content">
-        <div class="potion-liquid"></div>
-        <div class="potion-liquid"></div>
-        <div class="potion-liquid"></div>
-        <div class="potion-liquid"></div>
-        <div class="potion-solidliquid"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-      </div>
+      <div class="wave wave-back"></div>
+      <div class="wave"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="glass"></div>
     </div>
-    <div class="research-points">Research Points: {{researchPoints}}</div>
-    <div class="research-points-total">Total: {{researchPointsTotal}}</div>
+    <div class="label potion-label">
+      <span class="label-value">{{researchPoints}}</span>
+      <span class="label-name">Research Points</span>
+      <span class="label-sub">Total: {{researchPointsTotal}}</span>
+    </div>
   </div>
-  <div class="coins-container">
-    <img src="../../../assets/images/infernal-alchemy/coins.png">
-    <div class="coins-total">Budget: {{budget}} gold</div>
-    <div class="coin-sparkle"></div>
-    <div class="coin-sparkle"></div>
-    <div class="coin-sparkle"></div>
-    <div class="coin-sparkle"></div>
-    <div class="coin-sparkle"></div>
+  <div class="stage coins">
+    <div class="glow"></div>
+    @for (stack of coinStacks; track $index) {
+      <div class="stack">
+        @for (coin of stack; track coin) {
+          <div class="coin"></div>
+        }
+      </div>
+    }
+    <div class="coin loose"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="label coin-label">
+      <span class="label-value">{{budget}}</span>
+      <span class="label-name">Gold budget</span>
+    </div>
   </div>
 </div>
-<div class="sub-title-down"><h2>Alchemical Research Tree</h2></div>
-<div class="page"><p>The full tree is a work in progress (check Discord for the picture).</p></div>
-<div class="sub-title-up"><h2>Activities</h2></div>
+<div class="sub-title-down"><h2>Unlocked Potions</h2></div>
+<div class="page"><app-potion-cards [unlocked]="researchUnlocks"></app-potion-cards></div>
+<div class="sub-title-up"><h2>Alchemical Research Tree</h2></div>
+<div class="page"><app-research-tree [unlocked]="researchUnlocks"></app-research-tree></div>
+<div class="sub-title-down"><h2>Activities</h2></div>
 <div class="page activities">
   <mat-card appearance="outlined" class="rolltable-card">
-    <mat-card-header class="rolltable-card-header">Monthly earnings</mat-card-header>
+    <mat-card-header class="rolltable-card-header">Quarterly earnings</mat-card-header>
     <mat-card-content class="card-content">
       <p>The DC is the sum of a Persuasion skill check and an Alchemical Supplies (Dex) skill check.</p>
       <div class="center-items">
@@ -53,7 +65,7 @@
         </table>
       </div>
       <p></p>
-      <p><i>These earnings are calculated at the first of each month.</i></p>
+      <p><i>These earnings are calculated every 30th day of a quarter<br>(days 30, 60 and 90).</i></p>
     </mat-card-content>
   </mat-card>
   <mat-card appearance="outlined" class="rolltable-card">

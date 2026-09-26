@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Rarity } from '../../general/rarity-card/rarity-card.component';
 
 @Component({
     selector: 'augment-rune-card',
@@ -12,7 +13,7 @@ export class AugmentRuneCardComponent implements OnInit {
   @Input() iconName: string = "locked";
   @Input() augmentName: string = "Undiscovered";
   @Input() description: string = "This augment is not yet discovered.";
-  @Input() rarity: string = "uncommon";
+  @Input() rarity: Rarity = "uncommon";
 
   constructor() { }
 

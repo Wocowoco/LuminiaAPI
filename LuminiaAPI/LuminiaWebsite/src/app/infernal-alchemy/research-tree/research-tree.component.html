@@ -1,0 +1,95 @@
+<div class="panel">
+  <div class="toolbar">
+    <ul class="legend">
+      <li><span class="swatch unlocked"></span>Unlocked</li>
+      <li><span class="swatch available"></span>Available</li>
+      <li><span class="swatch partial"></span>Needs another path</li>
+      <li><span class="swatch locked"></span>Locked</li>
+    </ul>
+    <div class="zoom">
+      <button type="button" (click)="zoomBy(1 / 1.25)" aria-label="Zoom out"><span class="material-icons">remove</span></button>
+      <button type="button" (click)="zoomBy(1.25)" aria-label="Zoom in"><span class="material-icons">add</span></button>
+      <button type="button" (click)="fit()" aria-label="Reset view"><span class="material-icons">fit_screen</span></button>
+    </div>
+  </div>
+
+  <div #viewport class="viewport"
+       (pointerdown)="onPointerDown($event)" (pointermove)="onPointerMove($event)"
+       (pointerup)="onPointerUp($event)" (pointercancel)="onPointerUp($event)"
+       (wheel)="onWheel($event)">
+    @if (loading) {
+      <div class="loading" role="status">Loading research…</div>
+    }
+    <svg class="tree" [class.dimmed]="loading" role="img" aria-label="Alchemical research tree">
+      <defs>
+        <clipPath id="rt-hex" clipPathUnits="objectBoundingBox">
+          <polygon points="0.5,0 0.933,0.25 0.933,0.75 0.5,1 0.067,0.75 0.067,0.25" />
+        </clipPath>
+        <clipPath id="rt-square" clipPathUnits="objectBoundingBox">
+          <rect width="1" height="1" rx="0.16" />
+        </clipPath>
+        <filter id="rt-muted">
+          <feColorMatrix type="saturate" values="0.1" />
+          <feComponentTransfer><feFuncR type="linear" slope="0.55" /><feFuncG type="linear" slope="0.55" /><feFuncB type="linear" slope="0.55" /></feComponentTransfer>
+        </filter>
+      </defs>
+      <g #world>
+        @for (edge of edges; track $index) {
+          @if (edge.state === 'partial') {
+            <path class="edge locked" [class.secondary]="edge.secondary" [attr.d]="edge.d" />
+          }
+          <path [class]="'edge ' + edge.state" [class.secondary]="edge.secondary" [attr.d]="edge.d" />
+        }
+        @for (arrow of arrows; track $index) {
+          <path [class]="'arrow ' + arrow.state" [attr.d]="arrow.d" />
+        }
+        @for (badge of badges; track $index) {
+          <g [class]="'badge ' + badge.state" [attr.transform]="'translate(' + badge.x + ',' + badge.y + ')'">
+            <circle r="10" />
+            <text dy="0.35em">{{badge.cost}}</text>
+          </g>
+        }
+        @for (view of nodes; track view.node.id) {
+          <g [class]="'node ' + view.state" [class.selected]="selected === view"
+             [attr.data-node]="view.node.id" [attr.transform]="'translate(' + view.x + ',' + view.y + ')'"
+             tabindex="0" role="button" [attr.aria-label]="view.node.label + ', ' + view.state"
+             (keydown)="onNodeKey($event, view)">
+            @if (view.node.major) {
+              <rect class="ring" [attr.x]="-major / 2 - 4" [attr.y]="-major / 2 - 4" [attr.width]="major + 8" [attr.height]="major + 8" rx="12" />
+              <image [attr.href]="view.icon" [attr.x]="-major / 2" [attr.y]="-major / 2" [attr.width]="major" [attr.height]="major"
+                     clip-path="url(#rt-square)" [attr.filter]="view.state === 'unlocked' ? null : 'url(#rt-muted)'" />
+            } @else {
+              <polygon class="ring" [attr.points]="hexPointsOuter" />
+              <image [attr.href]="view.icon" x="-24" y="-24" width="48" height="48"
+                     clip-path="url(#rt-hex)" [attr.filter]="view.state === 'unlocked' ? null : 'url(#rt-muted)'" />
+            }
+            <text class="label" [attr.y]="view.labelY">
+              @for (line of view.labelLines; track $index) {
+                <tspan x="0" [attr.dy]="$first ? 0 : 11">{{line}}</tspan>
+              }
+            </text>
+          </g>
+        }
+      </g>
+    </svg>
+  </div>
+
+  <div class="details" aria-live="polite">
+    @if (selected) {
+      <img [src]="selected.icon" alt="" [class.muted]="selected.state !== 'unlocked'">
+      <div>
+        <div class="details-title">{{selected.node.label}} <span [class]="'chip ' + selected.state">{{selected.state}}</span></div>
+        <div class="details-meta">
+          @if (selected.node.cost) { <span>Cost: {{selected.node.cost}} Research {{selected.node.cost === 1 ? 'Point' : 'Points'}}</span> }
+          @if (selected.requires) { <span>Requires: {{selected.requires}}</span> } @else { <span>Starting research</span> }
+          @for (line of selected.brewing; track $index) { <span class="brewing-cost">Brewing: {{line}}</span> }
+        </div>
+        @if (selected.potion) {
+          <app-potion-text class="potion-text" [paragraphs]="selected.potion.paragraphs"></app-potion-text>
+        }
+      </div>
+    } @else {
+      <p class="hint">Tap a node for details. Drag to move, pinch or use the buttons to zoom.</p>
+    }
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<aside class="shop-info" aria-label="Buying materials from a store">
+  <div class="shop-badge">×{{shopModifier}}</div>
+  <p>
+    Gather ingredients yourself, or skip ahead and buy the materials to brew a potion from a store
+    for <strong>{{shopModifier}} × the potion's retail price</strong>. Potion upgrades raise the retail price by the cost of the extra
+    ingredients they need.
+  </p>
+</aside>
+
+@if (loading) {
+  <p class="hint">Loading your potions…</p>
+} @else if (!cards.length) {
+  <p class="hint">No potions unlocked yet.</p>
+}
+
+<div class="cards">
+  @for (card of cards; track card.id) {
+    @let potion = card.view;
+    <app-rarity-card [rarity]="potion.rarity" [name]="potion.node.label" [icon]="potion.icon">
+      <app-potion-text [paragraphs]="potion.paragraphs"></app-potion-text>
+      <div card-footer class="footer">
+        <section class="brewing" aria-label="Brewing one potion">
+          <dl class="prices">
+            <div>
+              <dt>Retail price</dt>
+              <dd>
+                @if (potion.brewing.retailUpgraded) {
+                  <mark [title]="potion.brewing.retailTip">{{potion.brewing.retail}}</mark>
+                  <span class="base">base {{potion.brewing.retailBase}}</span>
+                } @else {
+                  {{potion.brewing.retail}}
+                }
+              </dd>
+            </div>
+            <div>
+              <dt>Store materials</dt>
+              <dd>{{potion.brewing.store}}</dd>
+            </div>
+          </dl>
+          <div class="label">Ingredients per potion</div>
+          <ul class="ingredients">
+            @for (line of potion.brewing.ingredients; track line.name) {
+              <li>
+                @if (line.upgraded) {
+                  <mark [title]="line.tip ?? ''">{{line.amount}}×</mark>
+                } @else {
+                  <span class="amount">{{line.amount}}×</span>
+                }
+                {{line.name}}
+              </li>
+            }
+          </ul>
+        </section>
+        @if (card.groups.length) {
+          <div class="upgrades-head">
+            <span class="label">Upgrades · tap to leave out</span>
+            @if (card.off.size) {
+              <button type="button" class="link" (click)="resetUpgrades(card)">All upgrades</button>
+            }
+          </div>
+          <ul class="upgrades" aria-label="Unlocked upgrades">
+            @for (group of card.groups; track group.label) {
+              @let on = active(card, group);
+              <li [class.off]="on === 0">
+                @if (group.ids.length === 1) {
+                  <button type="button" class="chip" [attr.aria-pressed]="on > 0" (click)="toggle(card, group)">{{group.label}}</button>
+                } @else {
+                  <span class="chip stepper">
+                    <button type="button" (click)="step(card, group, -1)" [disabled]="on === 0" [attr.aria-label]="'One fewer ' + group.label">−</button>
+                    <span>{{group.label}} ×{{on}}</span>
+                    <button type="button" (click)="step(card, group, 1)" [disabled]="on === group.ids.length" [attr.aria-label]="'One more ' + group.label">+</button>
+                  </span>
+                }
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    </app-rarity-card>
+  }
+</div>
