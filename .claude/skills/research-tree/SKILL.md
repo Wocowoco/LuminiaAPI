@@ -1,6 +1,6 @@
 ---
 name: research-tree
-description: Edit the Alchemical Research Tree and the "Your Potions" descriptions on the Infernal Alchemy page - unlock or re-lock nodes, add upgrade nodes, add a new potion or Smoozi type (making room by shifting the layout), move or re-route nodes, add icons, and write or change what potions and upgrades do. Use whenever the user wants to change what's in the research tree, what's unlocked, how it's laid out, or a potion's description text.
+description: Edit the Alchemical Research Tree and the "Unlocked Potions" descriptions on the Infernal Alchemy page - unlock or re-lock nodes, add upgrade nodes, add a new potion or Smoozi type (making room by shifting the layout), move or re-route nodes, add icons, and write or change what potions and upgrades do. Use whenever the user wants to change what's in the research tree, what's unlocked, how it's laid out, or a potion's description text.
 argument-hint: "[what to change, e.g. 'unlock bandera-fire-2' or 'add a Frost potion between Mana and Smoozies']"
 ---
 
@@ -101,7 +101,7 @@ Many labels repeat ("+1 Save DC" appears 16 times), so if the user names a node 
 
 ### Write or change what a potion does
 
-Potion descriptions show in the "Your Potions" cards (every unlocked potion that has a description) and in the tree's details strip when a potion node is tapped. They live in `potion-descriptions.ts`, keyed by the potion's node id:
+Potion descriptions show in the "Unlocked Potions" cards (every unlocked potion that has a description) and in the tree's details strip when a potion node is tapped. They live in `potion-descriptions.ts`, keyed by the potion's node id:
 
 ```ts
 'bandera': {
@@ -118,6 +118,7 @@ Potion descriptions show in the "Your Potions" cards (every unlocked potion that
 
 - The user usually pastes the text from Obsidian (`**bold**` and `<mark>` highlights). Keep their `**bold**`, drop the `<mark>` styling, and write the **base** (un-upgraded) values as `{stat}` placeholders. The page highlights values that upgrades raised on its own, with a tooltip giving the base value.
 - `rarity`: `common`, `uncommon`, `rare`, `epic` or `legendary`. It sets the card's colour and label (the shared `<app-rarity-card>` from `general/rarity-card/`). Ask the user if they didn't say.
+- The thrown Smoozis (Bandera, Moroz, Halima) share one text template, `smooziText(damageType)`, so a wording change applies to all three. Moroz uses White Krolt and Halima Void Mint where Bandera uses Emberleaf, and their Save DC upgrades use Snowberry and Gloomberry instead of Redberry.
 - Dice stats: `{ dice, sides, perDie? }`. `perDie: 1` gives "2d4+2" and grows to "3d4+3".
 - Number stats take an optional `format`, e.g. for units or plurals (see `slots1` on the Mana Potion).
 - Make sure the upgrade nodes carry matching `effect` names. The validator warns about stats that upgrades change but a description doesn't use yet (e.g. Bandera's `lingering`). Ask the user for the wording, then add a placeholder to the text, or an `effectText` on the upgrade.
@@ -132,10 +133,11 @@ The rules, all per potion:
 
 - `retail` is the base retail price. Each unlocked upgrade raises it by the market price of the extra ingredients it needs, so the shop price rises by 0.8 × that. Both prices on the card are rounded **up** to whole gold; the store price is 0.8 × the rounded retail price, rounded up again.
 - Tapping an upgrade node in the tree shows the ingredients it adds per potion (e.g. "+0.5× Emberleaf per potion"). The tree never shows gold prices; those are only on the potion cards.
-- `ingredients` is the base recipe for one potion. Potions brewed in pairs use halves (Bandera: 1 Oil + 1 Emberleaf + 1 Shatterbud make two, so 0.5 each).
+- `ingredients` is the base recipe for one potion. Halves are fine for ingredients shared by two potions (the Smoozis: 1 Sunflower Oil each, plus 0.5 of their herb and 0.5 Shatterbud).
 - `upgradeIngredients: { stat: { ingredient: amount } }`: extras per unlocked upgrade node that changes that stat. Bandera: `damage` +0.5 Emberleaf, `radius` +0.5 Shatterbud, `dc` +25 Redberry, `lingering` +1 Lingervine. The per-potion keying is how the same kind of upgrade can cost different things on different potions: Moroz's Save DC upgrades use Blueberries instead of Redberries.
 - Special upgrades without a stat put `ingredients: { ... }` on the node itself (Set targets on fire: +1 Emberleaf).
 - Ingredient ids and market prices live in `ingredients.ts`. Add new herbs there; the validator reports unknown ids.
+- On the cards, players can tap upgrade chips to leave upgrades out (repeated ones like "+1d6 fire damage ×2" get −/+ steppers). The description, prices and ingredients then show the potion brewed with just the selected upgrades. This is view-only and never saved.
 - Amounts raised by upgrades, and the upgraded retail price, get the gold highlight. Tooltips show the base values.
 
 ### Insert a new potion or Smoozi type (make room)

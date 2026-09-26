@@ -16,9 +16,15 @@ export interface PotionView {
   rarity: Rarity;
   icon: string;
   paragraphs: DescriptionPart[][];
-  /** Unlocked upgrades, grouped by label, e.g. "+1d6 fire damage ×2". */
-  upgrades: string[];
+  /** The upgrades applied to this view, grouped by label in tree order (ids of the nodes behind each label). */
+  upgradeGroups: UpgradeGroup[];
   brewing: BrewingView;
+}
+
+/** Upgrades with the same label, e.g. both "+1d6 fire damage" nodes. */
+export interface UpgradeGroup {
+  label: string;
+  ids: string[];
 }
 
 export interface IngredientLine {
@@ -33,6 +39,8 @@ export interface IngredientLine {
 export interface BrewingView {
   retail: string;
   retailUpgraded: boolean;
+  /** The base retail price before upgrades, e.g. "20g". */
+  retailBase: string;
   retailTip: string;
   /** Buying the materials from a store: SHOP_MODIFIER x retail. */
   store: string;
@@ -98,7 +106,7 @@ export function describePotion(id: string, unlocked: ReadonlySet<string>): Potio
     rarity: description.rarity,
     icon: `assets/images/infernal-alchemy/research/${node.icon}`,
     paragraphs,
-    upgrades: group(upgrades.map(u => u.label)),
+    upgradeGroups: groupNodes(upgrades),
     brewing: brewing(id, upgrades),
   };
 }
@@ -119,6 +127,12 @@ function format(def: PotionStat, extra: number): string {
   const d: DiceStat = def.base;
   const dice = d.dice + extra;
   return d.perDie ? `${dice}d${d.sides}+${dice * d.perDie}` : `${dice}d${d.sides}`;
+}
+
+function groupNodes(nodes: ResearchNode[]): UpgradeGroup[] {
+  const groups = new Map<string, string[]>();
+  for (const n of nodes) groups.set(n.label, [...(groups.get(n.label) ?? []), n.id]);
+  return [...groups].map(([label, ids]) => ({ label, ids }));
 }
 
 function group(labels: string[]): string[] {
@@ -180,6 +194,7 @@ function brewing(id: string, upgrades: ResearchNode[]): BrewingView {
   return {
     retail: gold(retail),
     retailUpgraded: extraCost > 0.001,
+    retailBase: gold(description.retail),
     retailTip: `Base ${gold(description.retail)} + ${gold(extraCost)} for the upgrades' extra ingredients`
       + (retail - exact > 0.001 ? ', rounded up' : ''),
     store: gold(roundUp(retail * SHOP_MODIFIER)),

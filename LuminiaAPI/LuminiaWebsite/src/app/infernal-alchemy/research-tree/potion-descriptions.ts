@@ -1,7 +1,7 @@
 import type { Rarity } from '../../general/rarity-card/rarity-card.component';
 
 /**
- * What each potion does, shown in the "Your potions" cards and when tapping a potion in the tree.
+ * What each potion does, shown in the "Unlocked Potions" cards and when tapping a potion in the tree.
  * Keyed by the potion's node id in research-tree.data.ts.
  *
  * `text` uses **bold** and {stat} placeholders. Each stat has a base value; unlocked upgrade nodes
@@ -39,6 +39,12 @@ export interface PotionDescription {
 
 const feet = (value: number) => `${value}ft`;
 
+/** The thrown-Smoozi description; only the damage type differs between them. */
+const smooziText = (damageType: string) =>
+  'As an **action**, you throw this potion to a point within range **(30ft/60ft)**. The potion explodes on impact, '
+  + `dealing **{damage} ${damageType} damage** to all creatures **within {radius} of the impact**, `
+  + 'or half as much on a successful **DC{dc} Dexterity saving throw**.';
+
 export const potionDescriptions: Record<string, PotionDescription> = {
   'healing': {
     rarity: 'uncommon',
@@ -67,24 +73,21 @@ export const potionDescriptions: Record<string, PotionDescription> = {
   },
   'bandera': {
     rarity: 'uncommon',
-    text: 'As an **action**, you throw this potion to a point within range **(30ft/60ft)**. The potion explodes on impact, '
-      + 'dealing **{damage} fire damage** to all creatures **within {radius} of the impact**, '
-      + 'or half as much on a successful **DC{dc} Dexterity saving throw**.',
+    text: smooziText('fire'),
     stats: {
       damage: { base: { dice: 1, sides: 6 } },
       radius: { base: 5, format: feet },
       dc: { base: 12 },
     },
     retail: 20,
-    // Brewed in pairs: 1 Sunflower Oil, 1 Emberleaf and 1 Shatterbud make two potions
-    ingredients: { 'sunflower-oil': 0.5, 'emberleaf': 0.5, 'shatterbud': 0.5 },
+    // 1 Sunflower Oil per potion; 1 Emberleaf and 1 Shatterbud make two potions
+    ingredients: { 'sunflower-oil': 1, 'emberleaf': 0.5, 'shatterbud': 0.5 },
     upgradeIngredients: {
       damage: { 'emberleaf': 0.5 },
       radius: { 'shatterbud': 0.5 },
       dc: { 'redberry': 25 },
       lingering: { 'lingervine': 1 },
     },
-    // (Moroz will use Blueberries instead of Redberries for its Save DC upgrades.)
   },
   'herbal-potion': {
     rarity: 'uncommon',
@@ -101,5 +104,40 @@ export const potionDescriptions: Record<string, PotionDescription> = {
     stats: {},
     retail: 175,
     ingredients: { 'silverdew': 1, 'moonstone': 1, 'moonbloom': 1 },
+  },
+  'moroz': {
+    rarity: 'uncommon',
+    text: smooziText('cold'),
+    stats: {
+      damage: { base: { dice: 1, sides: 4 } },
+      radius: { base: 5, format: feet },
+      dc: { base: 12 },
+    },
+    retail: 20,
+    // 1 Sunflower Oil per potion; the herb and Shatterbud make two potions, like Bandera
+    ingredients: { 'sunflower-oil': 1, 'white-krolt': 0.5, 'shatterbud': 0.5 },
+    upgradeIngredients: {
+      damage: { 'white-krolt': 0.5 },
+      radius: { 'shatterbud': 0.5 },
+      dc: { 'snowberry': 25 },
+      lingering: { 'lingervine': 1 },
+    },
+  },
+  'halima': {
+    rarity: 'uncommon',
+    text: smooziText('psychic'),
+    stats: {
+      damage: { base: { dice: 1, sides: 8 } },
+      radius: { base: 5, format: feet },
+      dc: { base: 12 },
+    },
+    retail: 20,
+    // 1 Sunflower Oil per potion; the herb and Shatterbud make two potions, like Bandera
+    ingredients: { 'sunflower-oil': 1, 'void-mint': 0.5, 'shatterbud': 0.5 },
+    upgradeIngredients: {
+      damage: { 'void-mint': 0.5 },
+      radius: { 'shatterbud': 0.5 },
+      dc: { 'gloomberry': 25 },
+    },
   },
 };

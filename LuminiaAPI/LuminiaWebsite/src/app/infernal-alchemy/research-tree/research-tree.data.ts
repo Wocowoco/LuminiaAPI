@@ -151,7 +151,7 @@ export const researchTree: ResearchNode[] = [
               { from: 'moroz-dc-b', via: [[6, 13.6]] }] },
 
   // Halima Smoozi (psychic)
-  { id: 'halima', label: 'Halima Smoozi', icon: 'smoozi-halima.png', col: 2, row: 19, cost: 5, parents: [bus('smoozies', 1)], major: true },
+  { id: 'halima', label: 'Halima Smoozi', icon: 'smoozi-halima.png', col: 2, row: 19, cost: 4, parents: [bus('smoozies', 1)], major: true },
   { id: 'halima-deafness', label: 'Deafness', icon: 'deafness.jpg', col: 3, row: 19, cost: 1, parents: ['halima'] },
   { id: 'halima-dc-top', label: SAVE_DC, icon: 'save-dc.jpg', col: 3, row: 17, cost: 1, effect: { dc: 1 }, parents: ['halima-deafness'], badge: [3, 17.5] },
   { id: 'halima-duration-a', label: DURATION, icon: 'duration.jpg', col: 4, row: 18, cost: 1, effect: { duration: 1 }, parents: [bus('halima-deafness', 3)] },
