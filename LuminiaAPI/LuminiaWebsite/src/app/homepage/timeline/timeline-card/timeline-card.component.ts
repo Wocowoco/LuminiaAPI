@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { TimelineEntry } from '../timeline.data';
+import { DEFAULT_GAME_SYSTEM, TimelineEntry } from '../timeline.data';
 import { TimelineCharacter } from '../timeline.component';
 
 const TYPE_LABELS: Record<TimelineEntry['type'], string> = {
@@ -24,6 +24,10 @@ export class TimelineCardComponent {
   @Input() variant: 'default' | 'alternate' = 'default';
 
   public isStoryOpen: boolean = false;
+
+  public get system(): string {
+    return this.entry.system ?? DEFAULT_GAME_SYSTEM;
+  }
 
   public get label(): string {
     return this.entry.label ?? TYPE_LABELS[this.entry.type];

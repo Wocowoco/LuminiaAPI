@@ -16,7 +16,9 @@ export interface TimelineEntry {
   ongoing?: boolean;
   /** When it was played at the table, e.g. "2016–2020". */
   realLife?: string;
-  /** Character names (never player names). Wrap a name in () for a minor character. Sorted automatically. */
+  /** Game system. Defaults to DEFAULT_GAME_SYSTEM for campaigns and one-shots. */
+  system?: string;
+  /** Character names (never player names). Wrap a name in () for a minor character. Sorted automatically, minor ones last. */
   characters?: string[];
   /** The non-canon group that played the same story. Entries with this form the branching timeline. */
   alternateCharacters?: string[];
@@ -27,6 +29,7 @@ export interface TimelineEntry {
 export const TIMELINE_START_YEAR = -100;
 /** Used for the "Now" marker when the current date can't be loaded. */
 export const TIMELINE_FALLBACK_CURRENT_YEAR = 7346;
+export const DEFAULT_GAME_SYSTEM = 'D&D 5e';
 
 // Entries are sorted by year and season; entries in the same season keep this order.
 export const TIMELINE_ENTRIES: TimelineEntry[] = [
@@ -56,6 +59,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     season: 'Bloomen',
     startYear: 7342,
     realLife: '2025',
+    system: 'Daggerheart',
     characters: ['Atherius Piruatus', 'Cho', 'Lokbrok', 'Puddington', 'Sylvara'],
     summary: 'Novice hunters of The Claw, working their way up the ranks by hunting monsters.',
   },

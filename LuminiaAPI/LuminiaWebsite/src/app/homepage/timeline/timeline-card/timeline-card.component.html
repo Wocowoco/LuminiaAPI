@@ -15,8 +15,13 @@
       }
     </div>
     <h3 class="title">{{ entry.title }}</h3>
-    @if (entry.realLife) {
-      <p class="real-life"><i class="fa-solid fa-dice-d20" aria-hidden="true"></i>Played {{ entry.realLife }}</p>
+    @if (entry.type !== 'event') {
+      <p class="real-life">
+        @if (entry.realLife) {
+          <span class="meta"><i class="fa-regular fa-calendar" aria-hidden="true"></i>{{ entry.realLife }}</span>
+        }
+        <span class="meta"><i class="fa-solid fa-dice-d20" aria-hidden="true"></i>{{ system }}</span>
+      </p>
     }
     <ng-container *ngTemplateOutlet="characterList"></ng-container>
 

@@ -32,14 +32,14 @@ export function formatYear(year: number): string {
   return year < 0 ? `${-year} PN` : `${year} AN`;
 }
 
-/** "(Name)" marks a minor character. Always sorted alphabetically. */
+/** "(Name)" marks a minor character. Main characters first, then minor ones, each group alphabetical. */
 function toCharacters(names: string[] = []): TimelineCharacter[] {
   return names
     .map(name => {
       const minor = /^\(.*\)$/.test(name.trim());
       return { name: minor ? name.trim().slice(1, -1) : name.trim(), minor };
     })
-    .sort((a, b) => nameCollator.compare(a.name, b.name));
+    .sort((a, b) => Number(a.minor) - Number(b.minor) || nameCollator.compare(a.name, b.name));
 }
 
 function seasonIndex(entry: TimelineEntry): number {

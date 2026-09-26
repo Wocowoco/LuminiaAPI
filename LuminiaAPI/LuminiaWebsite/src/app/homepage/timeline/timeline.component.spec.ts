@@ -30,12 +30,11 @@ describe('TimelineComponent', () => {
     expect(formatYear(7346)).toBe('7346 AN');
   });
 
-  it('should sort characters alphabetically and mark minor ones', () => {
+  it('should list main characters alphabetically, then minor characters alphabetically', () => {
     const viaNova = entryRows().find(row => row.entry.id === 'vianova')!;
-    const names = viaNova.characters.map(c => c.name);
-    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
-    expect(viaNova.characters.find(c => c.name === 'Eynho')?.minor).toBeTrue();
-    expect(viaNova.characters.find(c => c.name === 'Cara')?.minor).toBeFalse();
+    expect(viaNova.characters.map(c => c.name)).toEqual(
+      ['Balik', 'Cara', 'Lily', 'Mino', 'Nova', 'Shadow', "Vak'Nor", 'Varis', 'Anya', 'Eynho', 'Fasca']);
+    expect(viaNova.characters.filter(c => c.minor).map(c => c.name)).toEqual(['Anya', 'Eynho', 'Fasca']);
   });
 
   it('should wrap the non-canon one-shots in a single fork', () => {

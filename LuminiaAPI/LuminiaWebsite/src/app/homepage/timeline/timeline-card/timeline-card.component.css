@@ -76,11 +76,17 @@
 
 .real-life {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  flex-wrap: wrap;
+  gap: 4px 16px;
   margin: 0;
   font-size: 13px;
   color: var(--lum-text-muted);
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .characters {

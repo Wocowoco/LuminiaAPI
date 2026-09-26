@@ -4,43 +4,6 @@
   display: block;
 }
 
-/* Legend */
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 20px;
-  margin: 0 0 32px;
-  padding: 0;
-  list-style: none;
-  font-size: 13px;
-  color: var(--lum-text-muted);
-}
-  .legend li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-.key {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
-.key-campaign { width: 16px; height: 16px; background: var(--lum-taupe); border: 3px solid var(--lum-cream); box-shadow: 0 0 0 1px var(--lum-taupe); }
-.key-oneshot { background: var(--lum-surface); border: 2px solid var(--lum-olive); }
-.key-event { background: var(--lum-ink); box-shadow: 0 0 0 3px rgba(233, 196, 106, 0.55); }
-.key-minor {
-  width: auto;
-  height: auto;
-  padding: 1px 8px;
-  border: 1px dashed var(--lum-stone);
-  border-radius: 999px;
-  font-style: italic;
-  font-size: 12px;
-}
-.key-branch { width: 22px; height: 0; border-radius: 0; border-top: 2px dashed var(--branch); }
-
 /* Grid: date | spine | card | branch | alternate card */
 .timeline {
   margin: 0;
