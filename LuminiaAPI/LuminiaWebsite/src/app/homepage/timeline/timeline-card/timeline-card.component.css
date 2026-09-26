@@ -148,3 +148,12 @@
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* Painted logo artwork (transparent WebP) */
+.logo-image {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  margin: 10px 0 8px;
+}

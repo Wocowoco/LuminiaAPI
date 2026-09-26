@@ -12,6 +12,8 @@ export interface TimelineEntry {
   /** Badge text, e.g. "Campaign 1". Defaults to the type ("Story Arc", "One-shot", "World event"). */
   label?: string;
   title: string;
+  /** Logo artwork (transparent WebP, ~1200px wide) in assets/images/timeline/, shown in place of the title. */
+  logoImage?: string;
   season?: Season;
   /** Negative = PN (Pre-Nova), 0 = The Nova, positive = AN (After Nova). */
   startYear: number;
@@ -56,9 +58,10 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
       + 'It is believed to have been the universe getting a second chance.',
   },
   {
-    id: 'claws-call',
+    id: 'call-of-the-claw',
     type: 'story-arc',
-    title: "Claw's Call",
+    title: 'Call of the Claw',
+    logoImage: 'assets/images/timeline/call-of-the-claw.webp',
     season: 'Bloomen',
     startYear: 7342,
     realLife: '2025',
@@ -128,6 +131,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     id: 'gate-of-slithers',
     type: 'story-arc',
     title: 'Gate of Slithers',
+    logoImage: 'assets/images/timeline/gate-of-slithers.webp',
     season: 'Sumsun',
     startYear: 7346,
     ongoing: true,
