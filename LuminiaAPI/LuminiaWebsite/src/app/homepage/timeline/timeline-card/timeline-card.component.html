@@ -7,9 +7,6 @@
   <article class="card" [class]="'type-' + entry.type">
     <div class="badges">
       <span class="badge">{{ label }}</span>
-      @if (canon) {
-        <span class="badge badge-canon">Canon</span>
-      }
       @if (entry.ongoing) {
         <span class="badge badge-ongoing">Ongoing</span>
       }

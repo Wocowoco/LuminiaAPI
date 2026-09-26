@@ -62,7 +62,6 @@
   color: var(--lum-taupe);
   background: var(--lum-cream);
 }
-.badge-canon { color: var(--lum-paper); background: var(--lum-olive); }
 .badge-ongoing { color: #2F5D3A; background: #DDEBD9; }
 
 .title {
@@ -113,7 +112,7 @@
   color: var(--lum-text-muted);
   background: transparent;
 }
-.card-alternate .character { color: var(--lum-text-muted); background: transparent; }
+.card-alternate .character { padding: 2px 8px; font-size: 12px; color: var(--lum-text-muted); background: transparent; }
 
 .story-toggle {
   display: inline-flex;

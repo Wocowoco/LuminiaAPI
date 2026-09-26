@@ -20,7 +20,7 @@
           <div class="fork-curve" aria-hidden="true"></div>
           <p class="note fork-note">
             <i class="fa-solid fa-code-branch" aria-hidden="true"></i>
-            The timeline splits. Two groups played these one-shots; only one story became canon.
+            The timeline splits: these one-shots were also played by a second group, whose story isn't canon.
           </p>
         </li>
       }
@@ -39,7 +39,7 @@
             <span class="year">{{ row.year }}</span>
           </div>
           <div class="spine"><span class="dot"></span></div>
-          <app-timeline-card class="main" [entry]="row.entry" [characters]="row.characters" [canon]="!!row.alternate"></app-timeline-card>
+          <app-timeline-card class="main" [entry]="row.entry" [characters]="row.characters"></app-timeline-card>
           @if (row.alternate) {
             <div class="branch"><span class="dot"></span></div>
             <app-timeline-card class="alt" [entry]="row.entry" [characters]="row.alternate" variant="alternate"></app-timeline-card>

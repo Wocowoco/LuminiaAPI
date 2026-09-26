@@ -18,8 +18,6 @@ const TYPE_LABELS: Record<TimelineEntry['type'], string> = {
 export class TimelineCardComponent {
   @Input({ required: true }) entry!: TimelineEntry;
   @Input() characters: TimelineCharacter[] = [];
-  /** Marks the canon group where the timeline branches. */
-  @Input() canon: boolean = false;
   /** 'alternate' shows only the non-canon group of a branching entry. */
   @Input() variant: 'default' | 'alternate' = 'default';
 
