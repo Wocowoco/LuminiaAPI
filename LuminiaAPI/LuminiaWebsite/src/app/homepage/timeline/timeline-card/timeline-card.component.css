@@ -157,3 +157,10 @@
   height: auto;
   margin: 10px 0 8px;
 }
+/* One-shot titles are compact two-line wordmarks: cap by height so they all carry the same weight */
+.card:not(.major) .logo-image {
+  width: auto;
+  max-width: 100%;
+  max-height: 76px;
+  margin: 8px 0 6px;
+}
