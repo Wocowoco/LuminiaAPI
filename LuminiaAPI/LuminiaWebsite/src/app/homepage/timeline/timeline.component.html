@@ -1,0 +1,64 @@
+<ul class="legend" aria-label="Legend">
+  <li><span class="key key-campaign"></span>Campaign</li>
+  <li><span class="key key-oneshot"></span>One-shot</li>
+  <li><span class="key key-event"></span>World event</li>
+  <li><span class="key key-minor">Name</span>Minor character</li>
+  <li><span class="key key-branch"></span>Non-canon group</li>
+</ul>
+
+<ol class="timeline">
+  @for (row of rows; track $index) {
+    @switch (row.kind) {
+      @case ('start') {
+        <li class="row row-start">
+          <div class="date"><span class="year">{{ row.year }}</span></div>
+          <div class="spine"><span class="cap"></span></div>
+          <p class="note">The timeline begins</p>
+        </li>
+      }
+      @case ('gap') {
+        <li class="row row-gap">
+          <div class="spine"></div>
+          <p class="note"><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>{{ row.years | number }} years pass</p>
+        </li>
+      }
+      @case ('fork') {
+        <li class="row row-fork">
+          <div class="spine"></div>
+          <div class="fork-curve" aria-hidden="true"></div>
+          <p class="note fork-note">
+            <i class="fa-solid fa-code-branch" aria-hidden="true"></i>
+            The timeline splits. Two groups played these one-shots; only one story became canon.
+          </p>
+        </li>
+      }
+      @case ('branch-end') {
+        <li class="row row-branch-end" aria-hidden="true">
+          <div class="spine"></div>
+          <div class="branch branch-fade"></div>
+        </li>
+      }
+      @case ('entry') {
+        <li class="row row-entry" [class]="'type-' + row.entry.type" [class.in-branch]="!!row.alternate">
+          <div class="date">
+            @if (row.season) {
+              <span class="season">{{ row.season }}</span>
+            }
+            <span class="year">{{ row.year }}</span>
+          </div>
+          <div class="spine"><span class="dot"></span></div>
+          <app-timeline-card class="main" [entry]="row.entry" [characters]="row.characters" [canon]="!!row.alternate"></app-timeline-card>
+          @if (row.alternate) {
+            <div class="branch"><span class="dot"></span></div>
+            <app-timeline-card class="alt" [entry]="row.entry" [characters]="row.alternate" variant="alternate"></app-timeline-card>
+          }
+        </li>
+      }
+    }
+  }
+  <li class="row row-now">
+    <div class="date"><span class="season">Today</span><span class="year">{{ nowYear }}</span></div>
+    <div class="spine"><span class="dot"></span></div>
+    <p class="note">{{ todayLabel ? todayLabel + ' AN. ' : '' }}The story continues&hellip;</p>
+  </li>
+</ol>

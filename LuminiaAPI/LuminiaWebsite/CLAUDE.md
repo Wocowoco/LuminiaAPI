@@ -19,7 +19,7 @@ Each feature is a folder with its own `*.module.ts` that declares its components
 
 | Route | Feature folder | Notes |
 |---|---|---|
-| `/` → `/map` | `homepage/` | redirect only |
+| `/` | `homepage/` | landing page: explore cards (Infernal Alchemy is linked here only, not in the navbar) and the "History of Luminia" timeline. Timeline entries (campaigns, one-shots, world events, characters, summaries) live in `timeline/timeline.data.ts`; years are signed (negative = PN, 0 = The Nova, positive = AN), `(Name)` marks a minor character, characters are sorted automatically, and `alternateCharacters` puts an entry on the non-canon branch |
 | `/map`, `/map/:dmCode` | `map/` | Leaflet map; tiles in `src/assets/map/{z}/{x}/{y}.png`; one layer class per marker type in `map/maplayers/` |
 | `/items` | `items/` | item list + filter |
 | `/pantheon` | `pantheon/` | one `deity-info/*.ts` data file per deity |

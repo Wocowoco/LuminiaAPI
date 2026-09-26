@@ -1,0 +1,49 @@
+@if (variant === 'alternate') {
+  <article class="card card-alternate" [attr.aria-label]="'Non-canon group of ' + entry.title">
+    <p class="alt-label"><i class="fa-solid fa-code-branch" aria-hidden="true"></i>Non-canon group</p>
+    <ng-container *ngTemplateOutlet="characterList"></ng-container>
+  </article>
+} @else {
+  <article class="card" [class]="'type-' + entry.type">
+    <div class="badges">
+      <span class="badge">{{ label }}</span>
+      @if (canon) {
+        <span class="badge badge-canon">Canon</span>
+      }
+      @if (entry.ongoing) {
+        <span class="badge badge-ongoing">Ongoing</span>
+      }
+    </div>
+    <h3 class="title">{{ entry.title }}</h3>
+    @if (entry.realLife) {
+      <p class="real-life"><i class="fa-solid fa-dice-d20" aria-hidden="true"></i>Played {{ entry.realLife }}</p>
+    }
+    <ng-container *ngTemplateOutlet="characterList"></ng-container>
+
+    @if (entry.type === 'event') {
+      <p class="summary">{{ entry.summary }}</p>
+    } @else {
+      <button type="button" class="story-toggle" (click)="toggleStory()"
+              [attr.aria-expanded]="isStoryOpen" [attr.aria-controls]="entry.id + '-story'">
+        {{ isStoryOpen ? 'Hide the story' : 'Read the story' }}
+        <i class="fa-solid fa-chevron-down" [class.open]="isStoryOpen" aria-hidden="true"></i>
+      </button>
+      <p class="summary" [id]="entry.id + '-story'" [hidden]="!isStoryOpen">{{ entry.summary }}</p>
+    }
+  </article>
+}
+
+<ng-template #characterList>
+  @if (characters.length) {
+    <ul class="characters" aria-label="Characters">
+      @for (character of characters; track character.name) {
+        <li class="character" [class.minor]="character.minor" [attr.title]="character.minor ? 'Minor character' : null">
+          {{ character.name }}
+          @if (character.minor) {
+            <span class="visually-hidden">(minor character)</span>
+          }
+        </li>
+      }
+    </ul>
+  }
+</ng-template>
