@@ -33,7 +33,7 @@ describe('TimelineComponent', () => {
   it('should list main characters alphabetically, then minor characters alphabetically', () => {
     const viaNova = entryRows().find(row => row.entry.id === 'vianova')!;
     expect(viaNova.characters.map(c => c.name)).toEqual(
-      ['Balik', 'Cara', 'Lily', 'Mino', 'Nova', 'Shadow', "Vak'Nor", 'Varis', 'Anya', 'Eynho', 'Fasca']);
+      ['Balik Hrungnorsson', 'Cara', 'Lily', 'Mino', 'Nova', 'Shadow', "Vak'Nor", 'Varis', 'Anya', 'Eynho', 'Fasca']);
     expect(viaNova.characters.filter(c => c.minor).map(c => c.name)).toEqual(['Anya', 'Eynho', 'Fasca']);
   });
 

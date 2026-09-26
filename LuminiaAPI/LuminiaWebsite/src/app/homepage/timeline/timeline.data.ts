@@ -50,7 +50,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     endYear: 0,
     realLife: '2016–2020',
     location: 'Geondis',
-    characters: ['Cara', 'Varis', 'Balik', "Vak'Nor", 'Lily', 'Mino', '(Eynho)', 'Nova', 'Shadow', '(Anya)', '(Fasca)'],
+    characters: ['Cara', 'Varis', 'Balik Hrungnorsson', "Vak'Nor", 'Lily', 'Mino', '(Eynho)', 'Nova', 'Shadow', '(Anya)', '(Fasca)'],
     summary: 'A group of adventurers called ViaNova, who, unbeknownst to them, set in motion everything that led to The Nova.',
   },
   {
@@ -152,7 +152,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
     ongoing: true,
     realLife: '2024–now',
     location: 'Norl',
-    characters: ['Aubron', "Kar'Chi", 'Nexire', 'Scrat', 'Ulfgar', '(Mackenzie)', '(Mander)'],
+    characters: ['Aubron Bronzbow', "Kar'Chi Gogdavn", 'Nexire', 'Scrat', 'Ulfgar', '(Mackenzie Vertez)', '(Mander Moon)'],
     summary: 'The Purple Bandits have started using a dangerous new poison that no one seems to know. '
       + 'Invitations to the Mizude Sumsun festival brought a group of adventurers together to get to the bottom of it.',
   },
