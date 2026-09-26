@@ -31,7 +31,7 @@
         </li>
       }
       @case ('entry') {
-        <li class="row row-entry" [class]="'type-' + row.entry.type" [class.in-branch]="!!row.alternate">
+        <li class="row row-entry" [class]="'type-' + row.entry.type" [class.major]="isMajor(row.entry)" [class.in-branch]="!!row.alternate">
           <div class="date">
             @if (row.season) {
               <span class="season">{{ row.season }}</span>

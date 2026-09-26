@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { SEASONS, TIMELINE_ENTRIES, TIMELINE_FALLBACK_CURRENT_YEAR, TIMELINE_START_YEAR, TimelineEntry } from './timeline.data';
+import { MAJOR_ENTRY_TYPES, SEASONS, TIMELINE_ENTRIES, TIMELINE_FALLBACK_CURRENT_YEAR, TIMELINE_START_YEAR, TimelineEntry } from './timeline.data';
 
 export interface TimelineCharacter {
   name: string;
@@ -58,6 +58,10 @@ export class TimelineComponent {
   @Input() todayLabel: string = '';
 
   public readonly rows: TimelineRow[] = TimelineComponent.buildRows(TIMELINE_ENTRIES);
+
+  isMajor(entry: TimelineEntry): boolean {
+    return MAJOR_ENTRY_TYPES.includes(entry.type);
+  }
 
   public get nowYear(): string {
     return formatYear(this.currentYear);

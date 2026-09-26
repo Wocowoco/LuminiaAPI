@@ -68,7 +68,7 @@
   background: var(--lum-surface);
   border: 2px solid var(--lum-olive);
 }
-.type-campaign > .spine .dot {
+.major > .spine .dot {
   width: 18px;
   height: 18px;
   top: 20px;
@@ -186,7 +186,7 @@
     border-left: 2px dashed var(--branch);
   }
   .dot { top: 18px; }
-  .type-campaign > .spine .dot,
+  .major > .spine .dot,
   .type-event > .spine .dot { top: 15px; }
   .branch,
   .fork-curve,

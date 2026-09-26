@@ -1,12 +1,15 @@
-export type TimelineEntryType = 'campaign' | 'oneshot' | 'event';
+export type TimelineEntryType = 'campaign' | 'story-arc' | 'oneshot' | 'event';
 export type Season = 'Bloomen' | 'Sumsun' | 'Leaflet' | 'Frizwa';
 
 export const SEASONS: Season[] = ['Bloomen', 'Sumsun', 'Leaflet', 'Frizwa'];
 
+/** Campaigns and story arcs (the newer campaigns) get the large card and dot. */
+export const MAJOR_ENTRY_TYPES: TimelineEntryType[] = ['campaign', 'story-arc'];
+
 export interface TimelineEntry {
   id: string;
   type: TimelineEntryType;
-  /** Badge text, e.g. "Campaign 2". Defaults to the type ("One-shot", "World event"). */
+  /** Badge text, e.g. "Campaign 1". Defaults to the type ("Story Arc", "One-shot", "World event"). */
   label?: string;
   title: string;
   season?: Season;
@@ -54,8 +57,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
   },
   {
     id: 'claws-call',
-    type: 'oneshot',
-    label: 'Story Arc',
+    type: 'story-arc',
     title: "Claw's Call",
     season: 'Bloomen',
     startYear: 7342,
@@ -124,8 +126,7 @@ export const TIMELINE_ENTRIES: TimelineEntry[] = [
   },
   {
     id: 'gate-of-slithers',
-    type: 'campaign',
-    label: 'Story Arc',
+    type: 'story-arc',
     title: 'Gate of Slithers',
     season: 'Sumsun',
     startYear: 7346,

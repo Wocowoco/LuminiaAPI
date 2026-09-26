@@ -4,7 +4,7 @@
     <ng-container *ngTemplateOutlet="characterList"></ng-container>
   </article>
 } @else {
-  <article class="card" [class]="'type-' + entry.type">
+  <article class="card" [class]="'type-' + entry.type" [class.major]="isMajor">
     <div class="badges">
       <span class="badge">{{ label }}</span>
       @if (entry.ongoing) {

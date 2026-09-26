@@ -9,7 +9,7 @@
   background: var(--lum-surface);
   box-shadow: var(--lum-shadow-sm);
 }
-.card.type-campaign {
+.card.major {
   padding: 20px 24px 18px;
   border-left: 4px solid var(--lum-taupe);
   box-shadow: var(--lum-shadow);
@@ -71,7 +71,7 @@
   line-height: 1.25;
   color: var(--lum-ink);
 }
-.type-campaign .title { font-size: 24px; }
+.major .title { font-size: 24px; }
 
 .real-life {
   display: flex;
