@@ -12,10 +12,10 @@
       }
     </div>
     @if (entry.logoImage) {
-      <h3 class="visually-hidden">{{ entry.title }}</h3>
+      <h4 class="visually-hidden">{{ entry.title }}</h4>
       <img class="logo-image" [src]="entry.logoImage" alt="" loading="lazy">
     } @else {
-      <h3 class="title">{{ entry.title }}</h3>
+      <h4 class="title">{{ entry.title }}</h4>
     }
     @if (entry.type !== 'event') {
       <p class="real-life">
