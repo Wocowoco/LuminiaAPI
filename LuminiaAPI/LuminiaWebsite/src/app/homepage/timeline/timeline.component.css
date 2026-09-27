@@ -108,6 +108,86 @@
   padding-bottom: 28px;
 }
 
+/* Filter: same look as the segmented control on the gemstone exchange */
+.toolbar { display: flex; justify-content: center; margin-bottom: 20px; }
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: 4px;
+  border-radius: 12px;
+  background: rgba(90, 81, 82, 0.08);
+}
+  .segmented button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--lum-text-muted);
+    font: 600 14px var(--lum-font-body);
+    cursor: pointer;
+  }
+  .segmented button:hover { color: var(--lum-ink); }
+  .segmented button.active { background: var(--lum-surface); color: var(--lum-ink); box-shadow: var(--lum-shadow-sm); }
+
+/* Age headers: a chapter band across the timeline */
+.age-marker {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--lum-taupe);
+  box-shadow: 0 0 0 4px var(--lum-paper);
+}
+.age {
+  grid-column: 3 / 6;
+  margin: 0 0 28px;
+  padding: 8px 0 12px;
+  border-bottom: 1px solid var(--lum-border);
+}
+.age-heading { margin: 0; }
+.age-toggle {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.age-meta {
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lum-text-muted);
+}
+.age-name {
+  grid-row: 2;
+  font-family: var(--lum-font-display);
+  font-size: 24px;
+  font-weight: normal;
+  color: var(--lum-taupe);
+}
+.age-chevron {
+  grid-row: 1 / 3;
+  grid-column: 2;
+  align-self: center;
+  color: var(--lum-olive);
+  transition: transform 0.2s var(--lum-ease);
+}
+.collapsed .age-chevron { transform: rotate(-90deg); }
+.age-toggle:hover .age-name { color: var(--lum-ink); }
+.age-tagline,
+.age-hidden { margin: 4px 0 0; font-size: 14px; color: var(--lum-text-muted); }
+.age-hidden { font-style: italic; }
+
 /* Start, gap, fork and now markers */
 .note {
   grid-column: 3 / 6;
@@ -188,7 +268,10 @@
   .spine { grid-column: 1; grid-row: 1 / span 3; }
   .main,
   .in-branch .main,
-  .note { grid-column: 2; }
+  .note,
+  .age { grid-column: 2; }
+  .age-marker { top: 14px; }
+  .age-name { font-size: 20px; }
   .main { grid-row: 2; }
   .in-branch .main { padding-bottom: 10px; }
   .alt {
