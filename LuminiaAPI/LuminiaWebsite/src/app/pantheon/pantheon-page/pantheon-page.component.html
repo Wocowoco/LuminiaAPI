@@ -58,7 +58,15 @@
               <h4>{{ info.titles.length == 1 ? 'Title' : 'Titles' }}</h4>
               <ul class="deity-titles">
                 @for (title of info.titles; track title) {
-                  <li>{{ title }}</li>
+                  <li>
+                    @for (part of titleParts(info, title); track $index) {
+                      @if (part.secretKey) {
+                        <app-secret [secretKey]="part.secretKey">{{ part.text }}</app-secret>
+                      } @else {
+                        {{ part.text }}
+                      }
+                    }
+                  </li>
                 }
               </ul>
             }

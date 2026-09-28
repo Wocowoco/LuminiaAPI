@@ -5,6 +5,7 @@ import { MatCard, MatCardModule } from '@angular/material/card';
 import { RouterModule, Routes } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { SecretModule } from '../general/secret/secret.module';
 
 const childRoutes: Routes = [
   {path:"pantheon", component: PantheonPageComponent }
@@ -18,6 +19,7 @@ const childRoutes: Routes = [
     CommonModule,
     MatCardModule,
     MatButtonModule,
+    SecretModule,
     RouterModule.forChild(childRoutes),
   ]
 })

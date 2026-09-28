@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 # Ignore appsettings
 appsettings.json
+# Local secrets (Discord webhook URL), deployed with the app but never committed
+appsettings.Secrets.json

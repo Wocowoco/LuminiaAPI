@@ -8,6 +8,7 @@ export class LuanaDeityInfo implements IDeityInfo{
   pronoun = "Goddess";
   domains = "Moonlight, Night, Transformation, Guidance";
   titles = ["Lady Moon", "Keeper of Secrets"];
+  secrets = { "Secrets": "luana-weapon" };
   gender = "Female";
   race = "Drow";
   alignment = "Chaotic Neutral";

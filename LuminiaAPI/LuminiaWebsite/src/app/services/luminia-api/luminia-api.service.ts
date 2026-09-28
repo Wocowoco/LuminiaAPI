@@ -9,6 +9,7 @@ import { InfernalAlchemyStatsDto } from './dtos/infernalAlchemyStatsDto.interfac
 import { CurrentDateDto } from './dtos/currentDateDto.interface';
 import { MapNameDto } from './dtos/mapNameDto.interface';
 import { GemstoneExchangeDataDto } from './dtos/gemstoneExchangeData.interface';
+import { SecretAttemptDto, SecretAttemptResultDto, SecretDto } from './dtos/secretDto.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -126,5 +127,19 @@ export class LuminiaApiService {
 
   updateGemstoneExchange(day: number) {
     return this.http.post<number>(this.LuminiaApiURL+"gemstoneexchanges/"+ day, null);
+  }
+
+  getSecret(secretKey: string) : Observable<SecretDto> {
+    return this.http.get<SecretDto>(this.LuminiaApiURL + "secrets/" + encodeURIComponent(secretKey));
+  }
+
+  /** Answers a secret; the first correct answer claims it. Rate limited per IP (HTTP 429). */
+  attemptSecret(secretKey: string, attempt: SecretAttemptDto) : Observable<SecretAttemptResultDto> {
+    return this.http.post<SecretAttemptResultDto>(this.LuminiaApiURL + "secrets/" + encodeURIComponent(secretKey) + "/attempt", attempt);
+  }
+
+  /** Checks whether a walked path (pages joined by " > ") is a path secret's path, without solving it. */
+  walkSecret(secretKey: string, path: string) : Observable<SecretAttemptResultDto> {
+    return this.http.post<SecretAttemptResultDto>(this.LuminiaApiURL + "secrets/" + encodeURIComponent(secretKey) + "/walk", { name: '', answer: path });
   }
 }

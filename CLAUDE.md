@@ -86,6 +86,7 @@ Stale config (don't rely on it): `Properties/PublishProfiles/FolderProfile.pubxm
 - Mapping goes in an AutoMapper `Profile` under `Mappers/`. Profiles are discovered via `AddAutoMapper(typeof(Program))`.
 - Namespaces: older files use block-scoped `namespace X { }`, newer ones file-scoped `namespace X;`. Follow the surrounding file.
 - "Player vs DM" visibility is a `showAll` query flag. Players see data only up to the in-game `CurrentDate.DayNumber`; DM views pass `showAll=true` to see generated future data.
+- Secrets (hidden puzzles, `SecretsController`, table `luminia.secrets`): riddles, answers and rewards live only in the database, never in the Angular code, so players can't read them from the bundle. The SQL that creates and fills the table (`scripts/sql/secrets.sql`) is deliberately kept out of git because it holds the answers. Answers are compared ignoring case and punctuation; the first correct answer claims the reward via a conditional UPDATE. `Kind = 'path'` secrets are solved by visiting pages in order (`Answer` like `404 > map > calendar`). Solves are posted to Discord through a webhook whose URL is in the git-ignored `appsettings.Secrets.json` (published with the app; notifications are skipped without it).
 - `Gemstone` and `MapLayer` enums are duplicated in `LuminiaWebsite/src/app/services/luminia-api/enums/`. Keep both sides in sync.
 
 ## Known issues (don't "fix" these without asking)

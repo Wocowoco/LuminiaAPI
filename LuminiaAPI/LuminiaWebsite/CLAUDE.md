@@ -32,7 +32,7 @@ Each feature is a folder with its own `*.module.ts` that declares its components
 
 Routes with `:dmCode` are protected by `guards/dm-check/DmCheckGuard`.
 
-Shared UI lives in `general/`, one module per component (import the module where you use it): `spell-info-block/` (spell stat block) and `rarity-card/` (`<app-rarity-card>`: the common/uncommon/rare/epic/legendary item card used for augment runes and potions; description as content, `card-footer` slot, size via `--rarity-card-max-width` / `--rarity-card-min-height`).
+Shared UI lives in `general/`, one module per component (import the module where you use it): `spell-info-block/` (spell stat block) and `rarity-card/` (`<app-rarity-card>`: the common/uncommon/rare/epic/legendary item card used for augment runes and potions; description as content, `card-footer` slot, size via `--rarity-card-max-width` / `--rarity-card-min-height`), and `secret/` (`<app-secret secretKey="...">word</app-secret>`: turns a word into a hidden puzzle that opens the secret's popup; `SecretPathService` records visited pages for path secrets once a player has opened their directions).
 
 ## Talking to the API
 
