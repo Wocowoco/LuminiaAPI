@@ -12,6 +12,7 @@ namespace LuminiaAPI.Context
         public DbSet<MapName> MapName { get; set; }
         public DbSet<GemstoneExchange> GemstoneExchange { get; set; }
         public DbSet<ResearchUnlock> ResearchUnlock { get; set; }
+        public DbSet<Secret> Secret { get; set; }
 
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
@@ -33,6 +34,7 @@ namespace LuminiaAPI.Context
         public DbSet<MapName> MapName { get; set; }
         public DbSet<GemstoneExchange> GemstoneExchange { get; set; }
         public DbSet<ResearchUnlock> ResearchUnlock { get; set; }
+        public DbSet<Secret> Secret { get; set; }
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

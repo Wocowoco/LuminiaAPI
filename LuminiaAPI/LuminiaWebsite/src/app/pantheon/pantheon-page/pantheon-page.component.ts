@@ -52,6 +52,20 @@ export class PantheonPageComponent {
     },
   ];
 
+  /** Splits a title into plain text and the words that hide a secret (see IDeityInfo.secrets). */
+  titleParts(info: IDeityInfo, title: string): { text: string; secretKey?: string }[] {
+    const words = Object.keys(info.secrets ?? {});
+    if (words.length == 0) {
+      return [{ text: title }];
+    }
+
+    const escaped = words.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    return title
+      .split(new RegExp(`(${escaped.join('|')})`))
+      .filter(text => text.length > 0)
+      .map(text => ({ text, secretKey: info.secrets![text] }));
+  }
+
   domainsOf(info: IDeityInfo): string[] {
     return info.domains.split(',').map(domain => domain.trim());
   }
