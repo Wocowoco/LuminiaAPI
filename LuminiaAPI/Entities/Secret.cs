@@ -23,6 +23,8 @@ public class Secret
     /// <summary>
     /// "answer": players type the answer. "path": players walk it, by visiting pages in order;
     /// Answer then holds the pages separated by '>', e.g. "404 > pantheon > calendar".
+    /// "sequence": like a path, but players click things on a page in order (e.g. research tree nodes);
+    /// Answer then holds the clicked ids separated by '>', e.g. "healing > mana > healing".
     /// </summary>
     [MaxLength(16)]
     public string Kind { get; set; } = SecretKinds.Answer;
@@ -40,13 +42,17 @@ public class Secret
     public string? ClaimedBy { get; set; }
     public DateTime? ClaimedDate { get; set; }
 
-    /// <summary>Number of pages in a path secret's path, or null for other secrets.</summary>
+    /// <summary>Number of steps in a path or sequence secret, or null for other secrets.</summary>
     [NotMapped]
-    public int? PathLength => Kind == SecretKinds.Path ? Answer.Split('>').Length : null;
+    public int? PathLength => SecretKinds.IsWalked(Kind) ? Answer.Split('>').Length : null;
 }
 
 public static class SecretKinds
 {
     public const string Answer = "answer";
     public const string Path = "path";
+    public const string Sequence = "sequence";
+
+    /// <summary>Whether players solve this kind by doing steps in order (checked through the walk endpoint) instead of typing an answer.</summary>
+    public static bool IsWalked(string kind) => kind == Path || kind == Sequence;
 }

@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { GridPoint, ResearchNode, ResearchParent, researchTree } from './research-tree.data';
 import { PotionView, describePotion, upgradeCosts } from './potions';
+import { SecretPathService } from '../../general/secret/secret-path.service';
 
 type NodeState = 'unlocked' | 'available' | 'locked';
 type EdgeState = 'done' | 'open' | 'partial' | 'locked';
@@ -90,7 +91,7 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
     this.selected = this.nodes.find(n => n.node.id === selectedId) ?? null;
   }
 
-  constructor() {
+  constructor(private secretPathService: SecretPathService) {
     this.build(new Set());
   }
 
@@ -181,8 +182,14 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
   onNodeKey(event: KeyboardEvent, view: NodeView): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      this.select(view);
+      this.tap(view);
     }
+  }
+
+  /** A node was clicked or tapped: select it, and count it as a step for sequence puzzles. */
+  private tap(view: NodeView): void {
+    this.select(view);
+    this.secretPathService.step(view.node.id);
   }
 
   // ---- Pan & zoom ----
@@ -234,7 +241,11 @@ export class ResearchTreeComponent implements AfterViewInit, OnDestroy {
       if (event.type === 'pointerup' && this.moved < 6) {
         const id = this.downTarget?.closest('[data-node]')?.getAttribute('data-node');
         const hit = id ? this.nodes.find(n => n.node.id === id) ?? null : null;
-        if (hit || this.selected) this.select(hit ?? this.selected);
+        if (hit) {
+          this.tap(hit);
+        } else if (this.selected) {
+          this.select(this.selected);
+        }
       }
     } else {
       this.startGesture();

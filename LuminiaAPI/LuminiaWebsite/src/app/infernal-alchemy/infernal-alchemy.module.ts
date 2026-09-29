@@ -5,6 +5,7 @@ import { ResearchTreeComponent } from './research-tree/research-tree.component';
 import { PotionCardsComponent } from './research-tree/potion-cards.component';
 import { PotionTextComponent } from './research-tree/potion-text.component';
 import { RarityCardModule } from '../general/rarity-card/rarity-card.module';
+import { SecretModule } from '../general/secret/secret.module';
 import { RouterModule, Routes } from '@angular/router';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
@@ -27,7 +28,8 @@ const childRoutes: Routes = [
     MatGridListModule,
     MatTableModule,
     MatCardModule,
-    RarityCardModule
+    RarityCardModule,
+    SecretModule
   ]
 })
 export class InfernalAlchemyModule { }

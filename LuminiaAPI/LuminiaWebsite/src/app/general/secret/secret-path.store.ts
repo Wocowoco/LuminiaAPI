@@ -1,33 +1,39 @@
 /**
- * Browser-side bookkeeping for path secrets (secrets solved by visiting pages in order):
- * which ones this player has started (read the directions of), and which pages they visited.
+ * Browser-side bookkeeping for secrets solved by doing steps in order: path secrets (visiting pages)
+ * and sequence secrets (clicking things on a page). Tracks which ones this player has started
+ * (read the directions of), and which pages they visited.
  * Storage can be unavailable (private windows, blocked site data), so every access is guarded.
  */
 
-const ACTIVE_KEY = 'luminia-secret-paths';
+export type WalkedKind = 'path' | 'sequence';
+
+const ACTIVE_KEYS: Record<WalkedKind, string> = {
+  path: 'luminia-secret-paths',
+  sequence: 'luminia-secret-sequences',
+};
 const VISITED_KEY = 'luminia-secret-visited';
 const MAX_VISITED = 20;
 
-/** Path secrets this player has started, as secretKey -> number of pages in the path. */
-export function activePathSecrets(): Record<string, number> {
+/** Secrets of this kind the player has started, as secretKey -> number of steps. */
+export function activeSecrets(kind: WalkedKind): Record<string, number> {
   try {
-    return JSON.parse(localStorage.getItem(ACTIVE_KEY) ?? '{}');
+    return JSON.parse(localStorage.getItem(ACTIVE_KEYS[kind]) ?? '{}');
   } catch {
     return {};
   }
 }
 
-export function activatePathSecret(secretKey: string, pathLength: number): void {
+export function activateSecret(kind: WalkedKind, secretKey: string, length: number): void {
   try {
-    localStorage.setItem(ACTIVE_KEY, JSON.stringify({ ...activePathSecrets(), [secretKey]: pathLength }));
+    localStorage.setItem(ACTIVE_KEYS[kind], JSON.stringify({ ...activeSecrets(kind), [secretKey]: length }));
   } catch { }
 }
 
-export function deactivatePathSecret(secretKey: string): void {
+export function deactivateSecret(kind: WalkedKind, secretKey: string): void {
   try {
-    const active = activePathSecrets();
+    const active = activeSecrets(kind);
     delete active[secretKey];
-    localStorage.setItem(ACTIVE_KEY, JSON.stringify(active));
+    localStorage.setItem(ACTIVE_KEYS[kind], JSON.stringify(active));
   } catch { }
 }
 

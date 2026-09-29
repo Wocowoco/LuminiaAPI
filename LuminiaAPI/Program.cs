@@ -7,9 +7,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Settings that must stay out of git (e.g. the Discord webhook URL). The file is git-ignored but published with the app.
-builder.Configuration.AddJsonFile("appsettings.Secrets.json", optional: true, reloadOnChange: true);
-
 // Add services to the container.
 builder.Services.AddTransient<ILuminiaContext, LuminiaContext>();
 builder.Services.AddTransient<ICreateGemstoneExchangesHandler, CreateGemstoneExchangesHandler>();
@@ -33,7 +30,7 @@ builder.Services.AddRateLimiter(options =>
         RateLimitPartition.GetFixedWindowLimiter(
             context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
             _ => new FixedWindowRateLimiterOptions { PermitLimit = 5, Window = TimeSpan.FromMinutes(1) }));
-    // Path secrets are checked on every page visit once a player has read the directions, so allow more
+    // Path and sequence secrets are checked on every page visit or click once a player has read the directions, so allow more
     options.AddPolicy(SecretsController.WalkRateLimitPolicy, context =>
         RateLimitPartition.GetFixedWindowLimiter(
             context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
