@@ -11,7 +11,7 @@ public interface ISecretClaimedNotifier
 
 /// <summary>
 /// Posts a message to a Discord channel through a webhook when a secret is claimed.
-/// The webhook URL is read from "Discord:SecretsWebhookUrl" (in the git-ignored appsettings.Secrets.json);
+/// The webhook URL is read from "Discord:SecretsWebhookUrl" (appsettings.json, or appsettings.Development.json locally);
 /// without it, nothing is sent.
 /// </summary>
 public class SecretClaimedNotifier

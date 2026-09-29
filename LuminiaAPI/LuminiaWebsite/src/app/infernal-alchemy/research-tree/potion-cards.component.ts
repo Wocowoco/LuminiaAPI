@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { PotionView, UpgradeGroup, describePotion, describeUnlockedPotions } from './potions';
 import { SHOP_MODIFIER } from './ingredients';
+import { SecretPathService } from '../../general/secret/secret-path.service';
 
 interface PotionCard {
   id: string;
@@ -29,6 +30,8 @@ export class PotionCardsComponent {
   loading = true;
   private unlockedIds: ReadonlySet<string> = new Set();
 
+  constructor(private secretPathService: SecretPathService) { }
+
   /** Ids of the unlocked research nodes (from the database); null while they're still loading. */
   @Input() set unlocked(value: ReadonlySet<string> | null) {
     this.loading = value === null;
@@ -39,6 +42,12 @@ export class PotionCardsComponent {
       off: new Set<string>(),
       view,
     }));
+  }
+
+  /** Clicking a card (not one of its buttons) counts as a step for sequence puzzles, just like its research tree node. */
+  onCardClick(event: MouseEvent, card: PotionCard): void {
+    if ((event.target as Element).closest('button')) return;
+    this.secretPathService.step(card.id);
   }
 
   /** How many upgrades of a group are selected. */

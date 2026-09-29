@@ -116,9 +116,9 @@ public class SecretsController
     }
 
     /// <summary>
-    /// Checks whether the last pages a player visited are a path secret's path, without claiming it:
-    /// the website asks this on every page visit once a player has read the directions, and only
-    /// then asks for their name and calls <see cref="AttemptSecretAsync"/> with the same path.
+    /// Checks whether the last pages a player visited (or, for a sequence secret, the last things they clicked)
+    /// are the secret's path, without claiming it: the website asks this on every step once a player has read
+    /// the directions, and only then asks for their name and calls <see cref="AttemptSecretAsync"/> with the same path.
     /// </summary>
     [HttpPost("{secretKey}/walk")]
     [EnableRateLimiting(WalkRateLimitPolicy)]
@@ -133,7 +133,8 @@ public class SecretsController
             return BadRequest("Path must be 1-200 characters long.");
         }
 
-        var secret = _luminiaContext.Secret.AsNoTracking().SingleOrDefault(s => s.SecretKey == secretKey && s.Kind == SecretKinds.Path);
+        var secret = _luminiaContext.Secret.AsNoTracking()
+            .SingleOrDefault(s => s.SecretKey == secretKey && (s.Kind == SecretKinds.Path || s.Kind == SecretKinds.Sequence));
         if (secret == null)
         {
             return NotFound();

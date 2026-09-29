@@ -16,7 +16,7 @@
 <div class="cards">
   @for (card of cards; track card.id) {
     @let potion = card.view;
-    <app-rarity-card [rarity]="potion.rarity" [name]="potion.node.label" [icon]="potion.icon">
+    <app-rarity-card [rarity]="potion.rarity" [name]="potion.node.label" [icon]="potion.icon" (click)="onCardClick($event, card)">
       <app-potion-text [paragraphs]="potion.paragraphs"></app-potion-text>
       <div card-footer class="footer">
         <section class="brewing" aria-label="Brewing one potion">

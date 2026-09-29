@@ -4,41 +4,50 @@ import { MatDialog } from '@angular/material/dialog';
 import { filter, firstValueFrom } from 'rxjs';
 import { LuminiaApiService } from '../../services/luminia-api/luminia-api.service';
 import { openSecretDialog } from './secret-dialog/secret-dialog.component';
-import { activePathSecrets, deactivatePathSecret, pageOf, recordVisit } from './secret-path.store';
+import { WalkedKind, activeSecrets, deactivateSecret, pageOf, recordVisit } from './secret-path.store';
+
+const MAX_STEPS = 20;
 
 /**
- * Watches which pages a player visits. For every path secret they've started (read the directions of),
- * it asks the API whether their last pages are the path, and opens the secret's popup when they are.
- * The path itself only lives in the database.
+ * Watches which pages a player visits (path secrets) and what they click (sequence secrets, see {@link step}).
+ * For every such secret they've started (read the directions of), it asks the API whether their last steps
+ * are the answer, and opens the secret's popup when they are. The answer itself only lives in the database.
  */
 @Injectable({
   providedIn: 'root'
 })
 export class SecretPathService {
 
+  /** Things clicked in this tab, oldest first. Unlike pages, clicking the same thing twice counts twice. */
+  private steps: string[] = [];
+
   constructor(router: Router, private luminiaApiService: LuminiaApiService, private dialog: MatDialog) {
     router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
-      .subscribe(event => this.visit(event.urlAfterRedirects));
+      .subscribe(event => this.check('path', recordVisit(pageOf(event.urlAfterRedirects))));
   }
 
-  private async visit(url: string): Promise<void> {
-    const visited = recordVisit(pageOf(url));
+  /** Records a click for sequence secrets, e.g. `step('healing')` when a research tree node is tapped. */
+  step(id: string): void {
+    this.steps = [...this.steps, id].slice(-MAX_STEPS);
+    this.check('sequence', this.steps);
+  }
 
-    for (const [secretKey, pathLength] of Object.entries(activePathSecrets())) {
-      if (visited.length < pathLength) continue;
+  private async check(kind: WalkedKind, trail: string[]): Promise<void> {
+    for (const [secretKey, length] of Object.entries(activeSecrets(kind))) {
+      if (trail.length < length) continue;
 
-      const walkedPath = visited.slice(-pathLength).join(' > ');
+      const walkedPath = trail.slice(-length).join(' > ');
       try {
         const result = await firstValueFrom(this.luminiaApiService.walkSecret(secretKey, walkedPath));
         if (result.correct) {
-          deactivatePathSecret(secretKey);
+          deactivateSecret(kind, secretKey);
           openSecretDialog(this.dialog, { secretKey, walkedPath });
         }
       } catch (error) {
-        // A secret that no longer exists shouldn't be checked forever; anything else (offline, rate limit) is retried on the next page
+        // A secret that no longer exists shouldn't be checked forever; anything else (offline, rate limit) is retried on the next step
         if ((error as { status?: number }).status === 404) {
-          deactivatePathSecret(secretKey);
+          deactivateSecret(kind, secretKey);
         }
       }
     }
