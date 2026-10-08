@@ -116,6 +116,22 @@
   border: 3px solid var(--lum-ink);
   border-radius: 7px 7px 4px 4px;
   background: linear-gradient(90deg, #7a5534, #b88a5c 45%, #8a6440);
+  /* A button (it hides a puzzle), so undo the button defaults; it only gives itself away by wiggling loose on hover */
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.3s var(--lum-ease);
+}
+  .potion-cork:hover,
+  .potion-cork:focus-visible {
+    transform: translateY(-4px) rotate(-6deg);
+  }
+  .potion-cork:focus-visible {
+    outline: 1px dashed var(--lum-ink);
+    outline-offset: 3px;
+  }
+
+@media (prefers-reduced-motion: reduce) {
+  .potion-cork { transition: none; }
 }
 
 .potion-neck {

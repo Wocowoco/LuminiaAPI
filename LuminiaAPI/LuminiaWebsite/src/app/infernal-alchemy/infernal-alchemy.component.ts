@@ -3,6 +3,8 @@ import { LuminiaApiService } from '../services/luminia-api/luminia-api.service';
 import { firstValueFrom } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from '../snackbars/error-snackbar/error-snackbar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { openSecretDialog } from '../general/secret/secret-dialog/secret-dialog.component';
 
 @Component({
     selector: 'app-infernal-alchemy',
@@ -42,7 +44,12 @@ export class InfernalAlchemyComponent implements OnInit {
   // Coin counts for the back-left, back-right and front stack of the budget illustration
   coinStacks: number[][] = [17, 14, 4].map(count => Array.from({ length: count }, (_, i) => i));
 
-  constructor(private luminiaApiService : LuminiaApiService, private snackBar: MatSnackBar) {
+  constructor(private luminiaApiService : LuminiaApiService, private snackBar: MatSnackBar, private dialog: MatDialog) {
+  }
+
+  /** The cork of the Research Points bottle hides a puzzle (secret "alchemy-cork" in luminia.secrets). */
+  openCork(): void {
+    openSecretDialog(this.dialog, { secretKey: 'alchemy-cork' });
   }
 
 
