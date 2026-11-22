@@ -99,6 +99,7 @@ export const researchTree: ResearchNode[] = [
   // Standalone potions (no upgrades)
   { id: 'herbal-potion', label: 'Herbal Potion', icon: 'potion-herbal.png', col: 0, row: 8, major: true },
   { id: 'bottled-moonlight', label: 'Bottled Moonlight', icon: 'potion-bottled-moonlight.png', col: 2, row: 8, major: true },
+  { id: 'luck-serum', label: 'Luck Serum', icon: 'potion-luck.png', col: 0, row: 9, major: true },
 
   // Smoozies
   { id: 'smoozies', label: 'Smoozies', icon: 'smoozies.png', col: 0, row: 14, major: true },

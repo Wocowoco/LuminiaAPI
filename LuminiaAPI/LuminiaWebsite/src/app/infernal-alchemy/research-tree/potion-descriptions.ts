@@ -4,8 +4,8 @@ import type { Rarity } from '../../general/rarity-card/rarity-card.component';
  * What each potion does, shown in the "Unlocked Potions" cards and when tapping a potion in the tree.
  * Keyed by the potion's node id in research-tree.data.ts.
  *
- * `text` uses **bold** and {stat} placeholders. Each stat has a base value; unlocked upgrade nodes
- * add to it through their `effect` (e.g. { damage: 1 }), and values above base are highlighted.
+ * `text` uses **bold** and {stat} placeholders; '\n\n' starts a new paragraph.
+ * Each stat has a base value; unlocked upgrade nodes add to it through their `effect` (e.g. { damage: 1 }), and values above base are highlighted.
  * A dice stat grows by whole dice: { dice: 2, sides: 4, perDie: 1 } is 2d4+2, one upgrade makes it 3d4+3.
  */
 
@@ -104,6 +104,16 @@ export const potionDescriptions: Record<string, PotionDescription> = {
     stats: {},
     retail: 175,
     ingredients: { 'silverdew': 1, 'moonstone': 1, 'moonbloom': 1 },
+  },
+  'luck-serum': {
+    rarity: 'rare',
+    text: 'When you drink this potion as a **bonus action**, you gain **3 luck points**.'
+      + '\n\nWhenever you make an **attack roll, an ability check or a saving throw**, or an **attack roll is made against you**, '
+      + 'you can spend one luck point to **roll an additional d20**. **You choose which d20 to use.**'
+      + '\n\nLeftover luck points **fade** after a **long rest**. Drinking another before then gives **no further luck points**.',
+    stats: {},
+    retail: 250,
+    ingredients: { 'coinleaf': 2, 'citrine': 1, 'yellowleaf': 25 },
   },
   'moroz': {
     rarity: 'uncommon',
