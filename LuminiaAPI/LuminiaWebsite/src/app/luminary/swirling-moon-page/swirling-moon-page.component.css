@@ -195,3 +195,78 @@
 spell-info-block{
   scroll-margin-top: 16px;
 }
+
+/* Augment rune sockets on the staff */
+.sockets{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-basis: 100%;
+}
+
+.socket{
+  --rarity: var(--lum-olive);
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 2px dashed color-mix(in srgb, #A67C00 60%, transparent);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(44, 43, 37, 0.18), rgba(44, 43, 37, 0.04) 70%);
+  box-shadow: inset 0 3px 8px rgba(44, 43, 37, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s var(--lum-ease), box-shadow 0.2s var(--lum-ease);
+}
+  .socket:hover{
+    transform: scale(1.06);
+  }
+  .socket:focus-visible{
+    outline: 2px solid var(--lum-taupe);
+    outline-offset: 3px;
+  }
+  .socket.filled{
+    border: 2px solid var(--rarity);
+    background: radial-gradient(circle, color-mix(in srgb, var(--rarity) 25%, var(--lum-surface)), var(--lum-surface) 75%);
+    box-shadow: inset 0 2px 6px rgba(44, 43, 37, 0.25), 0 0 14px color-mix(in srgb, var(--rarity) 55%, transparent);
+  }
+  .socket.uncommon{ --rarity: #556B2F; }
+  .socket.rare{ --rarity: #2536A8; }
+  .socket.epic{ --rarity: #6A1B9A; }
+  .socket.legendary{ --rarity: #D4A017; }
+
+.socket-icon{
+  width: 46px;
+  height: 46px;
+}
+
+/* Text added by a slotted rune */
+.highlight{
+  color: #6A1B9A;
+}
+
+.rune-footer{
+  gap: 8px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+augment-rune-card.slotted{
+  border-radius: var(--lum-radius);
+  box-shadow: 0 0 0 2px #C9A227, 0 6px 18px rgba(201, 162, 39, 0.3);
+}
+
+#augment-runes{
+  scroll-margin-top: 16px;
+}
+
+.socket.locked{
+  border-style: solid;
+  border-color: var(--lum-stone);
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+  .socket.locked:hover{
+    transform: none;
+  }

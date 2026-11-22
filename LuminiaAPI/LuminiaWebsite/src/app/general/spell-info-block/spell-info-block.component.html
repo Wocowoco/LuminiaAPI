@@ -7,35 +7,35 @@
         <div class="spell-properties">
           <div class="spell-property">
             <div class="spell-property-title">Level</div>
-            <div class="spell-property-text">{{level}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('level')">{{level}}</div>
           </div>
           <div class="spell-property">
             <div class="spell-property-title">Cast Time</div>
-            <div class="spell-property-text">{{castTime}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('castTime')">{{castTime}}</div>
           </div>
           <div class="spell-property">
             <div class="spell-property-title">Range</div>
-            <div class="spell-property-text">{{range}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('range')">{{range}}</div>
           </div>
           <div class="spell-property">
             <div class="spell-property-title">Components</div>
-            <div class="spell-property-text">{{components}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('components')">{{components}}</div>
           </div>
           <div class="spell-property">
             <div class="spell-property-title">Duration</div>
-            <div class="spell-property-text">{{duration}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('duration')">{{duration}}</div>
           </div>
           <div class="spell-property">
             <div class="spell-property-title">School</div>
-            <div class="spell-property-text">{{school}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('school')">{{school}}</div>
           </div>
           <div class="spell-property">
             <div class="spell-property-title">Attack/Save</div>
-            <div class="spell-property-text">{{attack}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('attack')">{{attack}}</div>
           </div>
           <div class="spell-property">
             <div class="spell-property-title damage-effect">Damage/Effect</div>
-            <div class="spell-property-text">{{damage}}</div>
+            <div class="spell-property-text" [class.highlight]="highlighted.includes('damage')">{{damage}}</div>
           </div>
         </div>
         <div class="spell-description" [innerHTML]="spellText"></div>

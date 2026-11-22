@@ -22,6 +22,8 @@ export class SpellInfoBlockComponent implements OnInit {
   @Input() attack: string = '---';
   @Input() damage: string = '---';
   @Input() spellText: string = 'No description available.';
+  /** Properties to mark as changed (e.g. by an augment rune): castTime, range, components, damage, ... */
+  @Input() highlighted: string[] = [];
 
   ngOnInit(): void {
   }

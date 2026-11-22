@@ -90,7 +90,7 @@ export function describePotion(id: string, unlocked: ReadonlySet<string>): Potio
     }
   }
 
-  const texts = [description.text, ...upgrades.map(u => u.effectText).filter((t): t is string => !!t)];
+  const texts = [...description.text.split('\n\n'), ...upgrades.map(u => u.effectText).filter((t): t is string => !!t)];
   const paragraphs = texts.map(text => parse(text, stat => {
     const def = description.stats[stat];
     if (!def) return null;

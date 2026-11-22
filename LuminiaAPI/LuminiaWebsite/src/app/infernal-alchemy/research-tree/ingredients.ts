@@ -4,6 +4,8 @@
  */
 export const ingredients: Record<string, { name: string, price: number }> = {
   'blueberry': { name: 'Blueberry', price: 0.01 },
+  'citrine': { name: 'Citrine (powdered)', price: 25 },
+  'coinleaf': { name: 'Coinleaf', price: 55 },
   'emberleaf': { name: 'Emberleaf', price: 25 },
   'gloomberry': { name: 'Gloomberry', price: 0.01 },
   'leycap': { name: 'Leycap', price: 8 },

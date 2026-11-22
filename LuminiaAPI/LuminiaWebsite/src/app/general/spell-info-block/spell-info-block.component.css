@@ -60,3 +60,16 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Text changed by an augment rune; the description's spans come in through innerHTML */
+.spell-property-text.highlight{
+  width: fit-content;
+}
+.spell-property-text.highlight,
+.spell-description ::ng-deep .highlight{
+  color: #6A1B9A;
+  background-color: color-mix(in srgb, #6A1B9A 8%, transparent);
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
