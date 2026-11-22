@@ -26,7 +26,7 @@ Each feature is a folder with its own `*.module.ts` that declares its components
 | `/calendar` | `calendar/` | in-game date |
 | `/infernal-alchemy` | `infernal-alchemy/` | research tree layout in `research-tree/research-tree.data.ts`, unlocked nodes in the database (`luminia.alchemicalresearchtreeunlocks`, edited on the DM page); icons in `src/assets/images/infernal-alchemy/research/`; potion texts in `research-tree/potion-descriptions.ts`; edit via the `research-tree` skill |
 | `/gemstone-exchange`, `/gemstone-exchange/:dmCode` | `gemstone-exchange/` | ngx-charts graphs |
-| `/luminaries`, `/luminaries/swirling-moon` | `luminary/` | visibility driven by `assets/luminary-settings.json` |
+| `/luminaries`, `/luminaries/swirling-moon` | `luminary/` | visibility driven by `assets/luminary-settings.json`; Swirling Moon's augment runes in `swirling-moon-page/augment-runes.data.ts`, what each slotted rune changes in the spell texts in `buildDescriptions()` of the page; the 3 sockets are saved in the browser only (localStorage), not in the database; `LOCKED_SOCKETS` and `DEFAULT_SOCKETS` in that data file set which sockets are locked and what a new player starts with, and runes with a `stackedDescription` (Missmatch) can fill more than one socket |
 | `/dm/:dmCode` | `dm-page/` | DM tools (set current date, map names, generate gemstone day) |
 | `/404`, `**` | `not-found-page/` | must stay the last imported module in `app.module.ts` so the wildcard route matches last |
 

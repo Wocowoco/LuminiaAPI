@@ -1,3 +1,6 @@
 <app-rarity-card [rarity]="rarity" [name]="augmentName" [icon]="'assets/images/luminary/' + iconName + '.png'" iconAlt="Augment Icon">
   {{description}}
+  <ng-container ngProjectAs="[card-footer]">
+    <ng-content select="[card-footer]"></ng-content>
+  </ng-container>
 </app-rarity-card>
