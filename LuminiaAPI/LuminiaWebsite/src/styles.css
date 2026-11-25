@@ -320,6 +320,18 @@ hr {
   cursor: grab;
 }
 
+/* World map: region names on the Regions overlay */
+.region-label span {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  color: #fbfbf2;
+  font: 700 15px var(--lum-font-body);
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 3px #2c2b25, 0 0 6px #2c2b25, 0 1px 2px #2c2b25;
+  pointer-events: none;
+}
+
 
 /*------------------------//
 //       TOOLTIPS         //

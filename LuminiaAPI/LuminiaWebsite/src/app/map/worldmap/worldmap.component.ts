@@ -44,8 +44,9 @@ import { MapLayerEnum } from 'src/app/services/luminia-api/enums/maplayerenum';
 import { BankLayer } from '../maplayers/storeLayers/bank.maplayer';
 import { HEX_KM, HexGridLayer, TRAVEL_PACES, TravelPace } from '../maplayers/hexgrid.layer';
 import { TravelRangeLayer } from '../maplayers/travel-range.layer';
+import { RegionsOverlayLayer } from '../maplayers/regions-overlay.layer';
 
-const TRAVEL_STORAGE_KEY = 'luminia.map.travel';
+const OVERLAYS_STORAGE_KEY = 'luminia.map.overlays';
 
 
 @Component({
@@ -74,6 +75,8 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   public hexPace : TravelPace = TRAVEL_PACES[1];
   private travelRange! : TravelRangeLayer;
   public showTravelRange = false;
+  private regionsOverlay! : RegionsOverlayLayer;
+  public showRegions = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
@@ -284,19 +287,28 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
     this.travelRange.update(center, this.hexPace.kmPerDay, this.showTravelRange);
   }
 
-  // The hex grid and day's travel ring are off by default. What a player turns on, and the pace,
-  // is remembered per browser; the map works the same without it.
+  public toggleRegions() : void {
+    this.showRegions = !this.showRegions;
+    this.regionsOverlay.setVisible(this.showRegions);
+    this.saveTravelSettings();
+  }
+
+  // The regions overlay, hex grid and day's travel ring are off by default. What a player turns on,
+  // and the pace, is remembered per browser; the map works the same without it.
   private initTravelLayers() : void {
     try {
-      const saved = JSON.parse(localStorage.getItem(TRAVEL_STORAGE_KEY) ?? 'null');
+      const saved = JSON.parse(localStorage.getItem(OVERLAYS_STORAGE_KEY) ?? 'null');
       const pace = TRAVEL_PACES.find(p => p.name === saved?.pace);
       if (pace) {
         this.hexPace = pace;
       }
+      this.showRegions = saved?.regions === true;
       this.showHexGrid = saved?.grid === true;
       this.showTravelRange = saved?.range === true;
     } catch { }
     this.travelRange = new TravelRangeLayer(this.map);
+    this.regionsOverlay = new RegionsOverlayLayer(this.map);
+    this.regionsOverlay.setVisible(this.showRegions);
     if (this.showHexGrid) {
       this.hexGrid.addTo(this.map);
     }
@@ -304,7 +316,9 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
 
   private saveTravelSettings() : void {
     try {
-      localStorage.setItem(TRAVEL_STORAGE_KEY, JSON.stringify({ grid: this.showHexGrid, range: this.showTravelRange, pace: this.hexPace.name }));
+      localStorage.setItem(OVERLAYS_STORAGE_KEY, JSON.stringify({
+        regions: this.showRegions, grid: this.showHexGrid, range: this.showTravelRange, pace: this.hexPace.name,
+      }));
     } catch { }
   }
 

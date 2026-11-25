@@ -22,8 +22,12 @@
         </button>
       </div>
 
-      <!-- Travel: 10 km hex grid, and a ring around the group showing one day of travel -->
+      <!-- Overlays: the world's regions, a 10 km hex grid, and a ring around the group showing one day of travel -->
       <div class="layerParentGroup travelGroup">
+        <button type="button" (click)="toggleRegions()" class="toggle" [class.active]="showRegions" [attr.aria-pressed]="showRegions">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z M9 3v15 M15 6v15" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span class="iconText">World regions</span>
+        </button>
         <button type="button" (click)="toggleHexGrid()" class="toggle" [class.active]="showHexGrid" [attr.aria-pressed]="showHexGrid">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10l5 8.5-5 8.5H7L2 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
           <span class="iconText">Hex grid</span>

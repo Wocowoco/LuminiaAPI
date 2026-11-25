@@ -61,7 +61,7 @@ The Angular app picks its API base URL from `environment.production` in `Luminia
 
 ## Package / deploy
 
-The API project serves the SPA. `dotnet publish` runs `npm install` and `npm run build` in `LuminiaWebsite`, then copies `dist/**` into `wwwroot/` of the publish output, except the map tile sets `assets/map` and `assets/mapDM`, which are deployed to the server separately (see the `PublishRunWebpack` target in `LuminiaAPI.csproj`). `Program.cs` serves it with `UseStaticFiles()` and `MapFallbackToFile("index.html")`.
+The API project serves the SPA. `dotnet publish` runs `npm install` and `npm run build` in `LuminiaWebsite`, then copies `dist/**` into `wwwroot/` of the publish output, except the map tile sets `assets/map`, `assets/mapDM` and `assets/gateofslithers`, which are deployed to the server separately (see the `PublishRunWebpack` target in `LuminiaAPI.csproj`). `Program.cs` serves it with `UseStaticFiles()` and `MapFallbackToFile("index.html")`.
 
 ```powershell
 dotnet publish LuminiaAPI/LuminiaAPI.csproj -c Release -o publish

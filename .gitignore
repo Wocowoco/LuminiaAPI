@@ -400,3 +400,5 @@ FodyWeavers.xsd
 # Ignore appsettings
 appsettings.json
 appsettings.*.json
+
+scripts/region-overlay/regions-preview.png

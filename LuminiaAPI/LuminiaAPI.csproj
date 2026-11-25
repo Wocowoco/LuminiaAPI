@@ -50,7 +50,7 @@
 
     <!-- Include the newly-built files in the publish output. The map tile sets are deployed separately, so leave them out. -->
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" Exclude="$(SpaRoot)dist\assets\map\**; $(SpaRoot)dist\assets\mapDM\**" />
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" Exclude="$(SpaRoot)dist\assets\map\**; $(SpaRoot)dist\assets\mapDM\**; $(SpaRoot)dist\assets\gateofslithers\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
