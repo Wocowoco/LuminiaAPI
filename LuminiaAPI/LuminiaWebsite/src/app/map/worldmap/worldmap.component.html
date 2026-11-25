@@ -22,6 +22,30 @@
         </button>
       </div>
 
+      <!-- Travel: 10 km hex grid, and a ring around the group showing one day of travel -->
+      <div class="layerParentGroup travelGroup">
+        <button type="button" (click)="toggleHexGrid()" class="toggle" [class.active]="showHexGrid" [attr.aria-pressed]="showHexGrid">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10l5 8.5-5 8.5H7L2 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span class="iconText">Hex grid</span>
+          <span class="count">{{hexKm}} km</span>
+        </button>
+        <button type="button" (click)="toggleTravelRange()" class="toggle" [class.active]="showTravelRange" [attr.aria-pressed]="showTravelRange"
+                [disabled]="!hasGroupPosition" [title]="hasGroupPosition ? 'How far the group gets in one full day' : 'The group position is not set'">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>
+          <span class="iconText">Day's travel</span>
+          <span class="count">{{hexPace.kmPerDay}} km</span>
+        </button>
+        @if (showHexGrid || showTravelRange) {
+          <div class="paceGroup" role="group" aria-label="Travel pace">
+            @for (pace of travelPaces; track pace.name) {
+              <button type="button" class="paceButton" [class.active]="pace === hexPace" [attr.aria-pressed]="pace === hexPace"
+                      [title]="pace.kmPerDay + ' km a day'" (click)="setHexPace(pace)">{{pace.name}}</button>
+            }
+          </div>
+          <p class="paceHint">{{hexPace.name}} pace: <strong>{{hexPace.kmPerDay}} km a day</strong> ({{hexPace.hexesPerDay}} hexes of {{hexKm}} km)</p>
+        }
+      </div>
+
       <!-- Generate all layer toggles-->
       @for (layer of allLayers; track layer) {
         <div class="layerParentGroup">

@@ -42,6 +42,10 @@ import { GroupLayer } from '../maplayers/poiLayers/group.maplayer';
 import { MarkerDto } from 'src/app/services/luminia-api/dtos/markerdto.interface';
 import { MapLayerEnum } from 'src/app/services/luminia-api/enums/maplayerenum';
 import { BankLayer } from '../maplayers/storeLayers/bank.maplayer';
+import { HEX_KM, HexGridLayer, TRAVEL_PACES, TravelPace } from '../maplayers/hexgrid.layer';
+import { TravelRangeLayer } from '../maplayers/travel-range.layer';
+
+const TRAVEL_STORAGE_KEY = 'luminia.map.travel';
 
 
 @Component({
@@ -63,6 +67,14 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   private dmMode : boolean = false;
   private groupMarker : MarkerDto | undefined;
 
+  private hexGrid = new HexGridLayer();
+  public showHexGrid = false;
+  public readonly travelPaces = TRAVEL_PACES;
+  public readonly hexKm = HEX_KM;
+  public hexPace : TravelPace = TRAVEL_PACES[1];
+  private travelRange! : TravelRangeLayer;
+  public showTravelRange = false;
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any)
   {
@@ -76,6 +88,7 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   async ngAfterViewInit(): Promise<void> {
     await this.initMap();
     await this.initLayers();
+    this.updateTravelRange();
     this.moveMap();
   }
 
@@ -160,6 +173,8 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
       maxNativeZoom:6,
     }).addTo(this.map);
 
+    this.initTravelLayers();
+
     // Use L.Control.EasyButton instead of L.easyButton: leaflet-easybutton adds easyButton to the global L
     // after esbuild has snapshotted the leaflet exports, so it's missing in production builds.
     new L.Control.EasyButton({
@@ -235,6 +250,62 @@ export class WorldmapComponent implements AfterViewInit, OnInit{
   public closeDrawer()
   {
     this.sidenav!.close();
+  }
+
+  public toggleHexGrid() : void {
+    this.showHexGrid = !this.showHexGrid;
+    if (this.showHexGrid) {
+      this.hexGrid.addTo(this.map);
+    } else {
+      this.hexGrid.remove();
+    }
+    this.saveTravelSettings();
+  }
+
+  public setHexPace(pace: TravelPace) : void {
+    this.hexPace = pace;
+    this.updateTravelRange();
+    this.saveTravelSettings();
+  }
+
+  public toggleTravelRange() : void {
+    this.showTravelRange = !this.showTravelRange;
+    this.updateTravelRange();
+    this.saveTravelSettings();
+  }
+
+  public get hasGroupPosition() : boolean {
+    return this.groupMarker !== undefined;
+  }
+
+  // Follows the Group marker from the database (set on the DM page), so it moves with the party.
+  private updateTravelRange() : void {
+    const center = this.groupMarker ? L.latLng(this.groupMarker.posY, this.groupMarker.posX) : undefined;
+    this.travelRange.update(center, this.hexPace.kmPerDay, this.showTravelRange);
+  }
+
+  // The hex grid and day's travel ring are off by default. What a player turns on, and the pace,
+  // is remembered per browser; the map works the same without it.
+  private initTravelLayers() : void {
+    try {
+      const saved = JSON.parse(localStorage.getItem(TRAVEL_STORAGE_KEY) ?? 'null');
+      const pace = TRAVEL_PACES.find(p => p.name === saved?.pace);
+      if (pace) {
+        this.hexPace = pace;
+      }
+      this.showHexGrid = saved?.grid === true;
+      this.showTravelRange = saved?.range === true;
+    } catch { }
+    this.travelRange = new TravelRangeLayer(this.map);
+    if (this.showHexGrid) {
+      this.hexGrid.addTo(this.map);
+    }
+  }
+
+  private saveTravelSettings() : void {
+    try {
+      localStorage.setItem(TRAVEL_STORAGE_KEY, JSON.stringify({ grid: this.showHexGrid, range: this.showTravelRange, pace: this.hexPace.name }));
+    } catch { }
   }
 
   private setLocationsGroup()

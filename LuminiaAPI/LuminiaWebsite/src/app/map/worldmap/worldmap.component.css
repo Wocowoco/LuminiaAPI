@@ -163,6 +163,46 @@
   font-size: 13px;
 }
 
+.travelGroup{
+  display: grid;
+  gap: 4px;
+}
+  .toggle:disabled{
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+.paceGroup{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin: 4px 0 0 14px;
+  padding: 3px;
+  border-radius: 10px;
+  background-color: rgba(90, 81, 82, 0.08);
+}
+
+.paceButton{
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--lum-taupe);
+  font: 600 13px var(--lum-font-body);
+  cursor: pointer;
+}
+  .paceButton.active{
+    background-color: var(--lum-surface);
+    color: var(--lum-ink);
+    box-shadow: var(--lum-shadow-sm);
+  }
+
+.paceHint{
+  margin: 4px 0 0 14px;
+  color: var(--lum-text-muted);
+  font-size: 12px;
+}
+
 .sidepanel-button{
   z-index: 5000;
 }
